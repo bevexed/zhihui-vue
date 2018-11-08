@@ -69,7 +69,7 @@
                    multiple="" @change="upLoadImg('front')">
             <img src="../../assets/add.png" alt="" v-if="!localId.front" style="width: .3rem">
             <!--<span @click="chooseImage('front')" v-if="!localId.front">请选择照片</span>-->
-            <img :src="`${Base_url}${localId.front}`" alt="" v-show="localId.front">
+            <img :src="`${ImgBaseUrl}${localId.front}`" alt="" v-show="localId.front">
           </td>
         </tr>
         <tr>
@@ -79,7 +79,7 @@
                    multiple="" @change="upLoadImg('back')">
             <img src="../../assets/add.png" alt="" v-if="!localId.back" style="width: .3rem">
             <!--<span @click="chooseImage('back')" v-if="!localId.back">请选择照片</span>-->
-            <img :src="`${Base_url}${localId.back}`" alt="" v-show="localId.back"></td>
+            <img :src="`${ImgBaseUrl}${localId.back}`" alt="" v-show="localId.back"></td>
         </tr>
         <tr>
           <td>营业执照：</td>
@@ -88,7 +88,7 @@
                    multiple="" @change="upLoadImg('card')">
             <img src="../../assets/add.png" alt="" v-if="!localId.card" style="width: .3rem">
             <!--<span @click="chooseImage('card')" v-if="!localId.card">请选择照片</span>-->
-            <img :src="`${Base_url}${localId.card}`" alt="" v-show="localId.card">
+            <img :src="`${ImgBaseUrl}${localId.card}`" alt="" v-show="localId.card">
           </td>
         </tr>
       </table>
@@ -100,13 +100,14 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, areaList, oneCate, twoCate} from "../../api/index";
+  import {Base_url,ImgBaseUrl, areaList, oneCate, twoCate} from "../../api/index";
 
   export default {
     name: "application",
     data() {
       return {
-        Base_url : ImgBaseUrl,
+        ImgBaseUrl,
+        Base_url : Base_url,
         shop_name: '',
         name: '',
         phone: '',
@@ -150,8 +151,9 @@
         console.log(event);
         var formData = new FormData();
         formData.append("file", event.target.files[0]);
+        let url =this.Base_url + '/api/allarea/uploadimg'
         $.ajax({
-          url: this.Base_url + '/api/allarea/uploadimg',
+          url,
           type: 'POST',
           data: formData,
           cache: false,

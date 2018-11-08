@@ -3,7 +3,7 @@ import ajax from './ajax'
 // const ImgBaseUrl ='http://192.168.1.15'
 export const ImgBaseUrl = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public'
 // const Base_url = 'http://192.168.1.15'
-const Base_url = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php'
+export const Base_url = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php'
 
 //获取权限
 export const wxConfig = (url) => ajax(Base_url + '/api/allaccesstoken/tokenlist', {url})
@@ -160,14 +160,15 @@ export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_i
 
 // 关于订单
 // 预订单添加
-export const orderList = (uid, store_id, goods_id, rule, preset_time, full_reduce, realprice) => ajax(Base_url + '/api/allorder/orderlist', {
+export const orderList = (uid,preset_time, store_id, goods_id, rule, full_reduce, pretium, discount) => ajax(Base_url + '/api/allorder/orderlist', {
   uid,
+  preset_time,
   store_id,
   goods_id,
   rule,
-  preset_time,
   full_reduce,
-  realprice
+  pretium,
+  discount
 })
 // 预订单详情
 export const budgetOrderList = (uid, store_id, goods_id) => ajax(Base_url + '/api/allorder/budgetorderlist', {
@@ -179,6 +180,10 @@ export const budgetOrderList = (uid, store_id, goods_id) => ajax(Base_url + '/ap
 export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone', {uid})
 // 当前用户添加预留手机号
 export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/addmemberphone', {uid, phone})
+// 订单立即支付
+export const orderActualList = (order_id,realprice) => ajax(Base_url + '/api/allorder/orderactuallist',{order_id,realprice})
+// 至惠购物券抵扣
+export const shopOrderActualList = (order_id,full_reducemoney,coupon) => ajax(Base_url + '/api/allorder/shoporderactuallist',{order_id,full_reducemoney,coupon})
 
 //关于城市选择
 export const citySelectList = () => ajax(Base_url + '/api/allcityselect/cityselectlist')

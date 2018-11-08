@@ -14,6 +14,7 @@ import storeList from '@/page/storeList/index'
 import todaySale from '@/page/todaySale/index'
 import sale from '@/page/sale/index'
 import busySale from '@/page/busySale/index'
+import booking from '@/page/booking/index'
 import 'jquery'
 
 Vue.use(Router)
@@ -89,6 +90,11 @@ const router = new Router({
       component: busySale,
       path: '/busySale/id/:id/status/:status',
       name: 'busySale'
+    },
+    {
+      component: booking,
+      path: '/booking/store_id/:store_id/status/:status',
+      name: 'booking'
     },
     {
       path:'/',

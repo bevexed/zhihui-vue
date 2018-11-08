@@ -1,14 +1,15 @@
 <template>
-  <section class="detail_head">
-    <p class="iconfont icon-fanhui back cursor_pointer" @click=""></p>
-    <img v-if="detail.store_images" :src="`${baseImgUrl}${detail.store_images}`" alt="">
-  </section>
+  <div class="pay_top">
+    <p class="iconfont icon-fanhui comeback" @click="$router.go(-1)"></p>
+    <p>{{title}}</p>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "back"
-    }
+  export default {
+    name: "back",
+    props: ['title']
+  }
 </script>
 
 <style scoped>

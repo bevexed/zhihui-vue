@@ -5,7 +5,9 @@
      <p>小编推荐</p>
    </div>
 
-   <div class="today_ul" v-for="item in shopList" :key="item.id" @click="goTo('./detail.html',item.id,longitude_latitude,1)">
+   <div class="today_ul" v-for="item in shopList" :key="item.id"
+        @click="$router.push({name:'detail',params:{id:item.id,status:1}})"
+   >
      <div class="img">
        <img :src="`${baseImgUrl}${item.store_images}`" alt="">
      </div>

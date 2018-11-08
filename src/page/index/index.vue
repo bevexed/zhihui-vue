@@ -105,9 +105,20 @@
       },
     },
     created() {
-      this.getDiscountList()
-      this.getShopCateList()
-      this.getAllSort(1)
+
+      if (!localStorage.uid) {
+        console.log(window.location.href);
+        let p = /=(\d*)#/
+        let uid = window.location.href.match(p)[1]
+        console.log(uid);
+        localStorage.uid = uid
+      } else {
+        this.getDiscountList()
+        this.getShopCateList()
+        this.getAllSort(1)
+      }
+
+
     },
     mounted() {
     }

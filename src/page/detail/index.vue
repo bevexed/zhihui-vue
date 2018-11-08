@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <section class="detail_head">
       <p class="iconfont icon-fanhui back cursor_pointer" @click="back()"></p>
       <img v-if="detail.store_images" :src="`${baseImgUrl}${detail.store_images}`" alt="">
@@ -30,14 +29,13 @@
       <header>
         预订
         <span style="margin-right: .1rem">
-               <!--<i class="el-icon-circle-check">支持</i>-->
                <i class="el-icon-circle-check" style="color: green;font-size: .16rem"> </i> {{detail.sold_num}}人订过
             </span>
       </header>
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" :class="{'active':index === dataSelect}" v-for="(i,index) in detail.week"
-               @click="selectDate(index)">
+               @click="selectDate(index,i)">
             {{i.slice(-3)}}
             <p>{{i.slice(0,-3)}}</p>
           </div>
@@ -56,10 +54,10 @@
           <img style="height: .4rem" :src="`${baseImgUrl}${v.meal_images}`" alt="">
           <div>
             [{{v.rule === ''? '不限时' : v.rule}}] {{v.meal_name}}
-            <span>￥{{v.amount_money}}</span>
+            <span>￥{{v.amount_money}}  <b style="color: #11af02;margin-left: .1rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
           <!--<a @click="alert = true">-->
-          <a :href="`./room_booking.html`">
+          <a @click.stop="booking(v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
             预订
           </a>
 
@@ -85,26 +83,23 @@
 
       </footer>
     </section>
-    <div class="background" v-show="alert" @touchend.self="alert = false">
-      <section class="alert">
-        <header class="v_header">
-          小包
-          <span>￥92</span>
-        </header>
-        <footer>
-          <div>今天（10-12）11:30至18：00内，任选3小时</div>
-          <span>请选择开唱时间</span>
-          <div>
-            <button class="" v-for="i in 5" @click="toDetail()">15:00</button>
-          </div>
-        </footer>
-      </section>
-    </div>
+
+    <el-dialog title="请绑定手机号码" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="手机号" :label-width="formLabelWidth">
+          <el-input v-model="form.phone" autocomplete="true"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="upPhone">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-  import {ImgBaseUrl, allShopGoodList} from '../../api'
+  import {ImgBaseUrl, allShopGoodList, memberPhone, addmemberphone} from '../../api'
 
   export default {
     name: "detail",
@@ -116,6 +111,12 @@
         selected: -1,
         alert: false,
         detail: {},
+        dialogFormVisible: false,
+        formLabelWidth: '.6rem',
+        form: {
+          phone: '',
+        },
+        book: {}
       }
     },
     computed: {
@@ -129,9 +130,6 @@
       }
     },
     methods: {
-      selectDate(index) {
-        this.dataSelect = index
-      },
       toMap() {
         let that = this
         wx.openLocation({
@@ -143,8 +141,10 @@
           infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
         });
       },
-      toDetail() {
-        location.href = './room_booking.html'
+      selectDate(index, i) {
+        this.dataSelect = index
+        localStorage.preset_time = i
+        console.log(localStorage.preset_time);
       },
       back() {
         history.go(-1)
@@ -158,20 +158,14 @@
       },
       async filterTime(v, i) {
         this.selected = i
-        await this.getStoreList(this.store_id, this.longitude_latitude, this.status)
+        await this.getStoreList()
         if (this.detail.shop_goods) {
           this.detail.shop_goods = this.detail.shop_goods.filter(item => item.rule === v)
         }
 
       },
-      GetQueryString(name) {
-        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        let r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-      },
-      async getStoreList(store_id, longitude_latitude, status) {
-        let result = await allShopGoodList(store_id, longitude_latitude, status)
+      async getStoreList() {
+        let result = await allShopGoodList(this.$route.params.id, localStorage.longitude_latitude, this.$route.params.status)
         if (result.code === 0) {
           alert(result.message)
         }
@@ -180,11 +174,57 @@
           this.detail = result.data
         }
       },
-      async getOrderList(goods_id, rule, preset_time, realprice) {
-        let result = await orderList(uid, this.GetQueryString('id'), goods_id, rule, preset_time, realprice)
+      async booking(...arr) {
+        if (localStorage.preset_time === 'null') {
+          this.$message({
+            message: '请选择日期',
+            type: 'error'
+          })
+          return
+        }
+        let result = await memberPhone(localStorage.uid)
+        console.log(arr);
+        localStorage.arr = JSON.stringify(arr)
+        if (result.code === 1) {
+          this.$router.push({
+            name: 'booking',
+            params: {store_id: this.$route.params.id, status: this.$route.params.status}
+          })
+          console.log(result);
+        } else {
+          this.dialogFormVisible = true
+        }
+      },
+      async upPhone() {
+        if (!this.form.phone) {
+          this.$message({
+            message: '请输入正确的手机号码',
+            type: 'error',
+          })
+          return
+        }
+        let result = await addmemberphone(localStorage.uid, this.form.phone)
+        if (result.code === 1) {
+          this.dialogFormVisible = false
+          this.$message({
+            message: result.message,
+            type: 'success',
+          })
+        } else {
+          this.$message({
+            message: result.message,
+            type: 'error',
+          })
+        }
+
+        console.log(result);
       }
     },
     mounted() {
+      localStorage.arr = null
+      localStorage.preset_time = null
+
+
       var mySwiper = new Swiper('.swiper-container', {
         width: innerWidth,
         slidesPerView: 6,
@@ -192,7 +232,7 @@
         observer: true,//修改swiper自己或子元素时，自动初始化swiper
         observeParents: true,//修改swiper的父元素时，自动初始化swiper
       })
-      this.getStoreList(this.$route.params.id, localStorage.longitude_latitude, this.$route.params.status)
+      this.getStoreList()
     },
 
   }
@@ -201,12 +241,6 @@
 <style scoped>
   html, body {
     position: relative;
-  }
-
-  * {
-    font-family: "PingFangSC-regular", serif;
-    font-weight: normal;
-    color: #101010;
   }
 
   ul li {
@@ -331,7 +365,7 @@
   }
 
   .booking_money li {
-    padding: .11rem 0.11rem .02rem;
+    padding: .11rem 0.11rem .06rem;
     border-bottom: .01rem solid #E6E6E6;
   }
 
@@ -432,6 +466,8 @@
   }
 
   .active {
-    background: #ffa5a5 !important;
+    background: #ff481f !important;
+    border-radius: .1rem;
+    color: white !important;
   }
 </style>
