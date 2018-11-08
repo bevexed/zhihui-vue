@@ -7,7 +7,7 @@
         type="search"
         placeholder="输入商家名字、品类"
         prefix-icon="el-icon-search"
-        @focus=""
+        @focus="$router.push({path:'/shopSearch'})"
       >
       </el-input>
     </form>

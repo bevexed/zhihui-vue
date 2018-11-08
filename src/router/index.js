@@ -4,30 +4,95 @@ import index from '@/page/index/index'
 import detail from '@/page/detail/index'
 import seconderyClass from '@/page/seconderyClass/index'
 import moreRecommendList from '@/page/moreRecommendList/index'
+import shopSearch from '@/page/shopSearch/index'
+import shopSearchResult from '@/page/shopSearchResult/index'
+import application from '@/page/application/index'
+import selectAddress from '@/page/selectAddress/index'
+import allList from '@/page/allList/index'
+import twoAllList from '@/page/twoAllList/index'
+import storeList from '@/page/storeList/index'
+import todaySale from '@/page/todaySale/index'
+import sale from '@/page/sale/index'
+import busySale from '@/page/busySale/index'
 import 'jquery'
+
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
-      component:index,
-      path: '/',
-      name:'index'
+      component: index,
+      path: '/index',
+      name: 'index',
     },
     {
-      component:detail,
-      path:'/detail/id/:id/status/:status',
-      name:'detail'
+      component: detail,
+      path: '/detail/id/:id/status/:status',
+      name: 'detail'
     },
     {
-      component:seconderyClass,
-      path:'/seconderyClass/id/:id/status/:status',
-      name:'seconderyClass'
+      component: seconderyClass,
+      path: '/seconderyClass/id/:id/status/:status',
+      name: 'seconderyClass'
     },
     {
-      component:moreRecommendList,
-      path:'/moreRecommendList/id/:id/status/:status',
-      name:'moreRecommendList'
+      component: moreRecommendList,
+      path: '/moreRecommendList/id/:id/status/:status',
+      name: 'moreRecommendList'
+    },
+    {
+      component: shopSearch,
+      path: '/shopSearch',
+      name: 'shopSearch'
+    },
+    {
+      component: shopSearchResult,
+      path: '/shopSearchResult/search_key/:search_key',
+      name: 'shopSearchResult'
+    },
+    {
+      component: application,
+      path: '/application',
+      name: 'application'
+    },
+    {
+      component: selectAddress,
+      path: '/selectAddress',
+      name: 'selectAddress'
+    },
+    {
+      component: allList,
+      path: '/allList',
+      name: 'allList'
+    },
+    {
+      component: twoAllList,
+      path: '/twoAllList',
+      name: 'twoAllList'
+    },
+    {
+      component: storeList,
+      path: '/storeList/id/:id/status/:status',
+      name: 'storeList'
+    },
+    {
+      component: todaySale,
+      path: '/todaySale/id/:id/status/:status',
+      name: 'todaySale'
+    },
+    {
+      component: sale,
+      path: '/sale/id/:id/status/:status',
+      name: 'sale'
+    },
+    {
+      component: busySale,
+      path: '/busySale/id/:id/status/:status',
+      name: 'busySale'
+    },
+    {
+      path:'/',
+      redirect: '/index'
     }
   ]
 })

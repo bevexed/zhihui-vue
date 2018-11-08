@@ -5,6 +5,7 @@
     <BooKList
       :shopCateListData="shopCateListData"
       :goTo="goTo"
+      :level="level"
     />
 
     <h3 class="index_bottom_title">附近商家</h3>
@@ -36,8 +37,11 @@
       }
     },
     methods:{
-      goTo(){
-
+      goTo(item){
+        this.$router.push({name: 'storeList', params: {id: item.id, status: 0}})
+      },
+      level(){
+        this.$router.push({name:'twoAllList'})
       },
       async getAllSort(sort_status) {
         this.allLoaded = true

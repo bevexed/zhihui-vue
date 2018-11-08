@@ -5,6 +5,7 @@
     <BooKList
       :shopCateListData="shopCateListData"
       :goTo="goTo"
+      :level="level"
     />
     <dayRecom/>
     <shopRecom/>
@@ -13,7 +14,7 @@
       <div :style="`background: url(${baseImgUrl}${v.images}) 0 0 / 100% 100% no-repeat;`"
            v-for="(v,i) in discountList"
            :key="v.id"
-           @click="goToDetail(i)"
+           @click="goToSale(i,v.id)"
       >
         <div class="mask">{{v.name}}</div>
       </div>
@@ -55,15 +56,30 @@
         shopCateListData: [],
         allSortList: [],
         sort_status: [],
-        sortPage:1
+        sortPage: 1
       }
     },
     methods: {
-      sortPageAdd(data){
-        this.sortPage =  data
+      level() {
+        this.$router.push({name: 'allList'})
+      },
+      sortPageAdd(data) {
+        this.sortPage = data
       },
       goTo(item) {
         this.$router.push({name: 'seconderyClass', params: {id: item.id, status: 0}})
+      },
+      goToSale(i, id) {
+        if (i === 0) {
+          this.$router.push({name: 'todaySale', params: {id, status: 0}})
+        }
+        if (i === 1) {
+          this.$router.push({name: 'sale', params: {id, status: 0}})
+        }
+        if (i === 2) {
+          this.$router.push({name: 'busySale', params: {id, status: 0}})
+        }
+        u
       },
       async getDiscountList() {
         let result = await discountList()
@@ -94,7 +110,6 @@
       this.getAllSort(1)
     },
     mounted() {
-      localStorage.uid = this.$GetQueryString('uid')
     }
   }
 </script>

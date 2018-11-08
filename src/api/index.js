@@ -97,7 +97,7 @@ export const allSort = (sort_status, longitude_latitude, type, shopcate_id, page
 
 //分类下的店铺
 //店铺列表
-export const storeList = (shopcate_id, type, longitude_latitude, page, area_id) => ajax(Base_url + '/api/allstore/storelist', {
+export const storeList = (shopcate_id, type, longitude_latitude, page, area_id) => ajax(Base_url + '/api/allstore/storeList', {
   shopcate_id,
   type,
   longitude_latitude,

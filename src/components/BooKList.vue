@@ -12,7 +12,7 @@
               alt="">
             <p>{{item.catename}}</p>
           </div>
-          <div class="index_list_div" style="float: right" @click="`${location.assign('./allList.html')}`">
+          <div class="index_list_div" style="float: right" @click="level">
             <img src="../assets/more.png" alt="">
             <p>更多</p>
           </div>
@@ -27,7 +27,7 @@
 
   export default {
     name: "BooKList",
-    props:['shopCateListData','goTo'],
+    props:['shopCateListData','goTo','level'],
     data() {
       return {
         baseImgUrl: ImgBaseUrl,

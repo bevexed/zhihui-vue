@@ -5,18 +5,18 @@
         <img src="@/assets/logo.png"
              style="margin-left:.04rem;height: .16rem;" alt="">
       </a>
-      <a href="selectAddress.html">
+      <router-link tag="a" :to="{path:'/selectAddress'}">
         <p :class="['title',{colorRed: address === ''}]">{{address === "" ? '定位失败' : address}}
-          <img v-show="address !== ''" src="img/s.png" alt="">
+          <img v-show="address !== ''" src="@/assets/s.png" alt="">
         </p>
-      </a>
+      </router-link>
       <!--<i v-else class="iconfont icon-dingwei position_icon"></i>-->
       <form action="#" onsubmit="return false;">
         <el-input
           type="search"
           placeholder="输入商家名字、品类"
           prefix-icon="el-icon-search"
-          @focus="goToSearch()"
+          @focus="$router.push('shopSearch')"
         >
         </el-input>
       </form>
@@ -66,7 +66,7 @@
       return {
         storeImg: '',
         baseImgUrl: ImgBaseUrl,
-        address: '',
+        address: localStorage.area,
         isShop: '',
         dialogFormVisible: false,
         form:{
@@ -94,7 +94,7 @@
         this.storeImg = result.data
       },
       goToApp() {
-        location.assign('./application.html')
+        this.$router.push({path:'/application'})
       },
       async addNews(content) {
         if (content === "") {
@@ -134,6 +134,9 @@
     created() {
       this.getisShop()
     },
+    mounted(){
+
+    }
   }
 </script>
 
