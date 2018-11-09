@@ -3,7 +3,7 @@
     <div class="index_head">
       <a href="https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop">
         <img src="@/assets/logo.png"
-             style="margin-left:.04rem;height: .16rem;" alt="">
+             style="margin-left:.04rem;height: .3rem;" alt="">
       </a>
       <router-link tag="a" :to="{path:'/selectAddress'}">
         <p :class="['title',{colorRed: address === ''}]">{{address === "" ? '定位失败' : address}}

@@ -184,6 +184,9 @@ export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/add
 export const orderActualList = (order_id,realprice) => ajax(Base_url + '/api/allorder/orderactuallist',{order_id,realprice})
 // 至惠购物券抵扣
 export const shopOrderActualList = (order_id,full_reducemoney,coupon) => ajax(Base_url + '/api/allorder/shoporderactuallist',{order_id,full_reducemoney,coupon})
+// 选择支付单号和实际支付价格
+export const shopOrderPayList = (order_id) => ajax(Base_url +'/api/allorder/shoporderpaylist',{order_id})
+
 
 //关于城市选择
 export const citySelectList = () => ajax(Base_url + '/api/allcityselect/cityselectlist')
@@ -191,6 +194,9 @@ export const citySelectList = () => ajax(Base_url + '/api/allcityselect/citysele
 export const citySearchList = (area) => ajax(Base_url + '/api/allcityselect/citysearchlist', {area})
 //城市搜索
 export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allcityselect/citysearchselectlist', {search_city})
+
+// 关于支付
+export const pay = (type,price,ordernumber) => ajax(Base_url + '/api/alipay/pay',{type,price,ordernumber})
 
 
 

@@ -8,7 +8,6 @@
         placeholder="请输入城市名"
         prefix-icon="el-icon-search"
         v-model="search_key"
-        @focus=""
         @input="getCitySearchSelectList(search_key)"
       >
       </el-input>

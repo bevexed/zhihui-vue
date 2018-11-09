@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pay_top">
+    <div class="pay_top" style="background: #ffffff">
       <p class="iconfont icon-fanhui comeback"></p>
       <p>支付订单</p>
     </div>
@@ -9,14 +9,14 @@
       <div class="line">
         <div class="label">订单编号</div>
         <div class="info">
-          <div class="inner"></div>
+          <div class="inner">{{orderData.ordernumber}}</div>
         </div>
       </div>
       <div class="line">
         <div class="label">支付金额</div>
         <div class="info">
           <div class="inner">
-            <div style='color:#ff6600'><span id="orderprice">
+            <div style='color:#ff6600'>{{orderData.realprice}}<span id="orderprice">
 
             </span>
             </div>
@@ -25,27 +25,27 @@
       </div>
     </div>
 
-    <div class="pay_mid">
-      <div @click="choosePay(0)">
+    <div class="pay_mid" style="margin-top: .2rem">
+      <div @click="choosePay(3)">
         <p>
           <i class="iconfont icon-money"></i>
           <span>余额</span>
         </p>
-        <div class="circle" :class="checked==0 ? 'checked_icon' : ''"></div>
+        <div class="circle" :class="checked==3 ? 'checked_icon' : ''"></div>
       </div>
-      <div @click="choosePay(1)">
+      <div @click="choosePay(2)">
         <p>
           <i class="iconfont icon-weixin"></i>
           <span>微信</span>
         </p>
-        <div class="circle" :class="checked==1 ? 'checked_icon' : ''"></div>
+        <div class="circle" :class="checked==2 ? 'checked_icon' : ''"></div>
       </div>
-      <div class="noneBorderBottom" @click="choosePay(2)">
+      <div class="noneBorderBottom" @click="choosePay(1)">
         <p>
           <i class="iconfont icon-zhifubao"></i>
           <span>支付宝</span>
         </p>
-        <div class="circle" :class="checked==2 ? 'checked_icon' : ''"></div>
+        <div class="circle" :class="checked==1 ? 'checked_icon' : ''"></div>
       </div>
     </div>
 
@@ -54,10 +54,12 @@
 </template>
 
 <script>
+  import {shopOrderPayList,pay} from "../../api";
   export default {
     name: "pay",
     data() {
       return {
+        orderData:{},
         checked: -1,
       }
     },
@@ -65,8 +67,30 @@
       choosePay(i) {
         this.checked = i
       },
-      pay() {
-        // this
+      async pay() {
+        if (this.checked === -1){
+          this.$message({
+            message:'请选择支付方式',
+            type:'error'
+          })
+        }
+        // 支付宝支付
+        if (this.checked === 1){
+          let result = await pay(this.checked,this.orderData.realprice,this.orderData.ordernumber)
+          console.log(result);
+
+          const div = document.createElement('div');
+          div.innerHTML = result;
+          document.body.appendChild(div);
+          document.forms.alipaysubmit.submit();
+        }
+
+      },
+      async getShopOrderPayList(){
+        let result = await shopOrderPayList(this.$route.params.order_id)
+        if  (result.code === 1){
+          this.orderData = result.data
+        }
       },
       async wxPay() {
         if (result.code === 1) {
@@ -101,11 +125,17 @@
         });
 
       },
+    },
+    created(){
+      this.getShopOrderPayList()
     }
   }
 </script>
 
 <style scoped>
+  .checked_icon{
+    background: green;
+  }
   body {
     margin: 0px;
     background: #efefef;
@@ -122,10 +152,10 @@
   }
 
   .order_main .line {
-    height: 44px;
-    margin: 0 5px;
+    height: .44rem;
+    margin: 0 .16rem;
     border-bottom: 1px solid #f0f0f0;
-    line-height: 44px;
+    line-height: .44rem;
   }
 
   .order_main .line .label {

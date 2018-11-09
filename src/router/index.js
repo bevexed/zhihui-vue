@@ -115,8 +115,8 @@ router.beforeEach((to, from, next) => {
   //     location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')
   // }
 
-  if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
-    if (store.state.token) {  // 通过vuex state获取当前的token是否存在
+  if (!localStorage.uid) {  // 判断该路由是否需要登录权限
+    if (1) {  // 通过vuex state获取当前的token是否存在
       next();
     }
     else {
