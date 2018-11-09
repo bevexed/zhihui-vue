@@ -126,7 +126,7 @@
         let result = await orderActualList(order_id, rebat)
         console.log(result);
         if (result.code === 1) {
-          this.$router.push({name: 'pay', params: {rebat,order_id}})
+          this.$router.push({name: 'pay', params: {rebat, order_id}})
         }
 
       },

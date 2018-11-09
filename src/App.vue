@@ -44,6 +44,7 @@
           jsApiList: [
             'getLocation',
             'chooseWXPay',
+            'openLocation'
           ]
         });
 

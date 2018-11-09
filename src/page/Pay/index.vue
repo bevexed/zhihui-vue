@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="pay_top" style="background: #ffffff">
-      <p class="iconfont icon-fanhui comeback"></p>
+      <p class="iconfont icon-fanhui comeback" @click="this.$router.go(-1)"></p>
       <p>支付订单</p>
     </div>
 
