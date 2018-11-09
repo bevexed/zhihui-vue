@@ -110,12 +110,12 @@
       async pay() {
         let rebat = this.orderData.discountmoney // 实付金额等于总价
         let order_id = this.orderData.order_id
-        // if (this.value2 === true) {
-        //   let result = await shopOrderActualList(order_id, this.orderData.discountmoney, this.orderData.rebatemoney)
-        //   if (result.code === 1) {
-        //     rebat = result.data
-        //   }
-        // }
+        if (this.value2 === true) {
+          let result = await shopOrderActualList(order_id, this.orderData.discountmoney, this.orderData.rebatemoney)
+          if (result.code === 1) {
+            rebat = result.data
+          }
+        }
         let result = await orderActualList(order_id, rebat)
         console.log(result);
         if (result.code === 1) {
