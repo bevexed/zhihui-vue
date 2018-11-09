@@ -15,6 +15,7 @@ import todaySale from '@/page/todaySale/index'
 import sale from '@/page/sale/index'
 import busySale from '@/page/busySale/index'
 import booking from '@/page/booking/index'
+import pay from '@/page/pay/index'
 import 'jquery'
 
 Vue.use(Router)
@@ -95,6 +96,11 @@ const router = new Router({
       component: booking,
       path: '/booking/store_id/:store_id/status/:status',
       name: 'booking'
+    },
+    {
+      component: pay,
+      path: '/pay/rebat/:rebat/order_id/:order_id',
+      name: 'pay'
     },
     {
       path:'/',

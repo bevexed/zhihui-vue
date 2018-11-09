@@ -1,12 +1,11 @@
 <template>
   <div class="day_recom">
     <div class="day_recom_top">
-      <p style="color: #bd7c16;">商家推荐</p>
+      <p>商家推荐</p>
       <p>
-        <span class="fontSm" style="color: #feae0f;"
+        <span class="fontSm"
               @click="$router.push({ name: 'moreRecommendList', params: { id: 'xbtj',status:0 }})">更多推荐</span>
-        <i
-          style="color: #feae0f;" class="iconfont icon-iconfontjiantou5 fontSm"></i>
+        <i class="iconfont icon-iconfontjiantou5 fontSm"></i>
       </p>
     </div>
     <div class="day_recom_bottom">

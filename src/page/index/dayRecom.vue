@@ -1,13 +1,12 @@
 <template>
   <div class="day_recom">
     <div class="day_recom_top">
-      <p style="color: #1e319b;">小编推荐</p>
+      <p>小编推荐</p>
       <p>
-                <span class="fontSm" style="color: rgba(116,140,250,1);"
-                      @click="$router.push({ name: 'moreRecommendList', params: { id: 'xbtj',status:'undefined' }})"
-                >更多推荐
-                  <i style="color: rgba(116,140,250,1);"
-                     class="iconfont icon-iconfontjiantou5 fontSm"></i></span>
+          <span class="fontSm"
+                @click="$router.push({ name: 'moreRecommendList', params: { id: 'xbtj',status:'undefined' }})"
+          >更多推荐
+            <i class="iconfont icon-iconfontjiantou5 fontSm"></i></span>
       </p>
     </div>
     <div class="day_recom_bottom">

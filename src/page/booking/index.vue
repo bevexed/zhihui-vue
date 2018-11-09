@@ -11,10 +11,14 @@
                {{store.address}}
             </span>
       </header>
-      <footer>
-        购买数量
-        <span>1</span>
-      </footer>
+      <div style="margin-top: .2rem">
+        <img :src="ImgBaseUrl+orderData.meal_images" style="width:25%;margin-top: .2rem" alt="">
+        <footer style="width: 70%;float: right;">
+          <p>{{orderData.meal_name}}</p>
+          购买数量
+          <span>1</span>
+        </footer>
+      </div>
     </section>
 
     <section class="real_pay room_style">
@@ -59,7 +63,8 @@
     <section class="real_pay pay room_style">
       <footer class="colorRed">
         ￥{{value2 === true ? (orderData.discountmoney - orderData.rebatemoney) : (orderData.discountmoney)}}
-        <a>已减{{value2 === true ? (orderData.rebatemoney-0 + orderData.full_reducemoney) : orderData.full_reducemoney}}元</a>
+        <a>已减{{value2 === true ? (orderData.rebatemoney-0 + orderData.full_reducemoney) :
+          orderData.full_reducemoney}}元</a>
         <span @click="pay">立即支付</span>
       </footer>
     </section>
@@ -67,20 +72,21 @@
 </template>
 
 <script>
-  import {orderList, allShopGoodList,orderActualList,shopOrderActualList} from "../../api";
+  import {ImgBaseUrl, orderList, allShopGoodList, orderActualList, shopOrderActualList} from "../../api";
 
   export default {
     name: "booking",
     data() {
       return {
+        ImgBaseUrl,
         value1: true,
         value2: true,
         store: {},
         orderData: {},
       }
     },
-    watch:{
-      value2(curVal,oldVal){
+    watch: {
+      value2(curVal, oldVal) {
         console.log(curVal, oldVal);
       }
     },
@@ -101,46 +107,24 @@
           this.store = result.data
         }
       },
-      async pay(){
-        let rebat = this.orderData.discountmoney
-        if(this.value2 === true){
-          let  result = await shopOrderActualList(this.orderData.order_id,this.orderData.discountmoney,this.orderData.rebatemoney)
-          if (result.code === 1){
+      async pay() {
+        let rebat = this.orderData.discountmoney // 实付金额等于总价
+        let order_id = this.orderData.order_id
+        if (this.value2 === true) {
+          let result = await shopOrderActualList(order_id, this.orderData.discountmoney, this.orderData.rebatemoney)
+          if (result.code === 1) {
             rebat = result.data
           }
         }
-        let result = await orderActualList(this.$route.params.store_id,rebat)
+        let result = await orderActualList(this.$route.params.store_id, rebat)
         console.log(result);
-        if (result.code === 1){
-          wx.chooseWXPay({
-            timestamp: 1414723227,
-            nonceStr: 'noncestr',
-            package: 'addition=action_id%3dgaby1234%26limit_pay%3d&bank_type=WX&body=innertest&fee_type=1&input_charset=GBK&notify_url=http%3A%2F%2F120.204.206.246%2Fcgi-bin%2Fmmsupport-bin%2Fnotifypay&out_trade_no=1414723227818375338&partner=1900000109&spbill_create_ip=127.0.0.1&total_fee=1&sign=432B647FE95C7BF73BCD177CEECBEF8D',
-            signType: 'SHA1', // 注意：新版支付接口使用 MD5 加密
-            paySign: 'bd5b1933cda6e9548862944836a9b52e8c9a2b69'
-          });
+        if (result.code === 1) {
+          this.$router.push({name: 'pay', params: {rebat,order_id}})
         }
 
-      }
+      },
     },
-    async getWxConfig() {
-      let url = window.location.href
-      let result = await wxConfig(url)
-      result = JSON.parse(result.data)
-      let jssdkconfig = result
 
-      wx.config({
-        debug: false,
-        appId: jssdkconfig.appId,
-        timestamp: jssdkconfig.timestamp,
-        nonceStr: jssdkconfig.nonceStr,
-        signature: jssdkconfig.signature,
-        jsApiList: [
-          'chooseWXPay',
-        ]
-      });
-
-    },
     mounted() {
       this.getOderList()
       this.getStoreList()
