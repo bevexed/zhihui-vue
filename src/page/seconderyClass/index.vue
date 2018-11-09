@@ -22,7 +22,7 @@
       </div>
 
       <div class="index_foot_list" v-for="item in allSortList" :key="item.id"
-           @click="goTo('./detail.html',item.id,1)">
+           @click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})">
         <img :src="`${baseImgUrl}${item.store_images}`" alt="">
         <div>
           <p class="list_name">{{item.shop_name}}</p>

@@ -224,7 +224,7 @@
         console.log(url)
         let result = await wxConfig(url)
         let jssdkconfig = JSON.parse(result.data)
-        console.log(result)
+        console.log(jssdkconfig)
 
         wx.config({
           debug: false,

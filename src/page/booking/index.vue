@@ -6,7 +6,7 @@
     </header>
     <section class="room_style">
       <header>
-        <p>{{store.shop_name}}</p>
+        <p>{{orderData.shop_name}}</p>
         <span>
                {{store.address}}
             </span>
@@ -17,6 +17,13 @@
           <p>{{orderData.meal_name}}</p>
           购买数量
           <span>1</span>
+          <hr>
+          商品总价
+          <span>￥{{orderData.discountmoney}}</span>
+          <hr>
+          满减规则
+          <span>{{orderData.full_reduce}}</span>
+          <hr>
         </footer>
       </div>
     </section>

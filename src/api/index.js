@@ -196,7 +196,7 @@ export const citySearchList = (area) => ajax(Base_url + '/api/allcityselect/city
 export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allcityselect/citysearchselectlist', {search_city})
 
 // 关于支付
-export const pay = (type,price,ordernumber) => ajax(Base_url + '/api/alipay/pay',{type,price,ordernumber})
+export const pay = (price,ordernumber) => ajax(Base_url + '/api/alipay/pay',{price,ordernumber},"GET")
 
 
 

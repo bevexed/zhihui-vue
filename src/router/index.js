@@ -16,6 +16,7 @@ import sale from '@/page/sale/index'
 import busySale from '@/page/busySale/index'
 import booking from '@/page/booking/index'
 import pay from '@/page/pay/index'
+import aliPay from '@/page/aliPay/index'
 import 'jquery'
 
 Vue.use(Router)
@@ -101,6 +102,11 @@ const router = new Router({
       component: pay,
       path: '/pay/rebat/:rebat/order_id/:order_id',
       name: 'pay'
+    },
+    {
+      component: aliPay,
+      path: '/aliPay/realprice/:realprice/ordernumber/:ordernumber',
+      name: 'aliPay'
     },
     {
       path:'/',
