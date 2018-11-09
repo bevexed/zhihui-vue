@@ -68,6 +68,8 @@
         baseImgUrl:ImgBaseUrl,
         shopCateListData:'',
         allSortList:[],
+        sort_status: [],
+        sortPage: 1,
         allLoaded: true,
         loading: false,//判断是否加载数据
         loading_more: true,//控制是否发送ajax请求

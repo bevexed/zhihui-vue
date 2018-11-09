@@ -5,9 +5,24 @@
       <p>支付订单</p>
     </div>
 
-    <div class="pay_top">
-      <p class="comeback jine">金额</p>
-      <p class="pay_price">￥128.00</p>
+    <div class="order_main">
+      <div class="line">
+        <div class="label">订单编号</div>
+        <div class="info">
+          <div class="inner"></div>
+        </div>
+      </div>
+      <div class="line">
+        <div class="label">支付金额</div>
+        <div class="info">
+          <div class="inner">
+            <div style='color:#ff6600'><span id="orderprice">
+
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="pay_mid">
@@ -50,7 +65,7 @@
       choosePay(i) {
         this.checked = i
       },
-      pay(){
+      pay() {
         // this
       },
       async wxPay() {
@@ -91,5 +106,148 @@
 </script>
 
 <style scoped>
+  body {
+    margin: 0px;
+    background: #efefef;
+    font-family: '微软雅黑';
+    -moz-appearance: none;
+  }
 
+  .order_main {
+    height: auto;
+    border-bottom: 1px solid #f0f0f0;
+    border-top: 1px solid #f0f0f0;
+    background: #fff;
+    margin-top: 10px;
+  }
+
+  .order_main .line {
+    height: 44px;
+    margin: 0 5px;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 44px;
+  }
+
+  .order_main .line .label {
+    float: left;
+    width: 80px;
+  }
+
+  .order_main .line .info {
+    float: right;
+    width: 100%;
+    margin-left: -85px;
+    text-align: right;
+    overflow: hidden;
+    height: 44px;
+  }
+
+  .order_main .line .info .inner {
+    color: #666;
+    margin-left: 85px;
+  }
+
+  .order_main .line .nav {
+    height: 22px;
+    width: 40px;
+    background: #ccc;
+    margin: 10px 0px;
+    float: right;
+    border-radius: 40px;
+  }
+
+  .order_main .line .on {
+    background: #4ad966;
+  }
+
+  .order_main .line .nav nav {
+    height: 20px;
+    width: 20px;
+    background: #fff;
+    margin: 1px;
+    border-radius: 20px;
+  }
+
+  .order_main .line .nav .on {
+    margin-left: 19px;
+  }
+
+  .order_main .line_pay {
+    margin: 0 5px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .order_main .line_pay .button {
+    height: 46px;
+    padding: 10px 0;
+  }
+
+  .order_main .line_pay .btn_icon {
+    float: left;
+    width: 46px;
+    height: 46px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .order_main .line_pay .btn_icon i {
+    font-size: 34px;
+    color: #fff;
+  }
+
+  .order_main .line_pay .btn_info {
+    float: left;
+    padding-left: 10px;
+    line-height: 22px;
+  }
+
+  .order_main .line_pay .btn_info span {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .order_main .line_pay .btn_right {
+    float: right;
+    height: 46px;
+    line-height: 46px;
+    display: list-item;
+    list-style: none;
+  }
+
+  .order_main .line_pay .btn_right i {
+    font-size: 22px;
+    color: #999;
+  }
+
+  .order_sub1 .btn_icon {
+    background: #31cd00;
+  }
+
+  .order_sub1 .btn_icon i {
+    font-size: 32px !important;
+  }
+
+  .order_sub21 .btn_icon {
+    background: #31cd00;
+  }
+
+  .order_sub21 .btn_icon i {
+    font-size: 32px !important;
+  }
+
+  .order_sub2 .btn_icon {
+    background: #00A0E9;
+  }
+
+  .order_sub3 .btn_icon {
+    background: #e2cb04;
+  }
+
+  .order_sub10 .btn_icon {
+    background: #31cd00;
+  }
+
+  .order_sub12 .btn_icon {
+    background: #008800
+  }
 </style>
