@@ -184,8 +184,6 @@
         this.getDiscountList()
         this.getShopCateList()
         this.getAllSort(1)
-
-
     },
     mounted() {
     }

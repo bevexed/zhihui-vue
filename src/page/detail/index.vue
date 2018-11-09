@@ -99,7 +99,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, allShopGoodList, memberPhone, addmemberphone} from '../../api'
+  import {ImgBaseUrl, allShopGoodList, memberPhone, addmemberphone,wxConfig} from '../../api'
 
   export default {
     name: "detail",
@@ -218,8 +218,47 @@
         }
 
         console.log(result);
-      }
+      },
+      async getWxConfig() {
+        let url = window.location.href
+        console.log(url)
+        let result = await wxConfig(url)
+        let jssdkconfig = JSON.parse(result.data)
+        console.log(result)
+
+        wx.config({
+          debug: false,
+          appId: jssdkconfig.appId,
+          timestamp: jssdkconfig.timestamp,
+          nonceStr: jssdkconfig.nonceStr,
+          signature: jssdkconfig.signature,
+          jsApiList: [
+            'openLocation',
+            'getLocation',
+          ]
+        });
+        wx.ready(function () {
+          wx.checkJsApi({
+            jsApiList: [
+              'getNetworkType',
+              'previewImage',
+              'getLocation'
+            ],
+            success: function (res) {
+              console.log(JSON.stringify(res));
+            }
+          });
+        })
+
+        wx.error(function (res) {
+          console.log(`err:${res}`)
+          // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        });
+        // https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop&p=location&latitude=30.25961&longitude=120.13026
+
+      },
     },
+
     mounted() {
       localStorage.arr = null
       localStorage.preset_time = null
@@ -233,6 +272,7 @@
         observeParents: true,//修改swiper的父元素时，自动初始化swiper
       })
       this.getStoreList()
+      this.getWxConfig()
     },
 
   }
