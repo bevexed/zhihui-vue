@@ -7,7 +7,6 @@
           type="search"
           placeholder="请输入商家名、品类"
           prefix-icon="el-icon-search"
-          autofocus="true"
           v-model="search_key"
           @focus="$router.push({name:'shopSearch'})"
         >
