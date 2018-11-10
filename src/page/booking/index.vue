@@ -105,7 +105,7 @@
     data() {
       return {
         ImgBaseUrl,
-        value1: true,
+        value1: true, //控制按钮
         value2: false,
         store: {},
         orderData: {},
@@ -161,12 +161,16 @@
       },
       async pay() {
         let rebat = this.payResult.real // 实付金额
-        let order_id = this.orderData.order_id
+        let order_id = this.orderData.order_id //订单ID
         if (this.value2 === true) {
           let result = await shopOrderActualList(order_id, rebat, this.payResult.used)
           if (result.code === 1) {
             rebat = result.data
           }else{
+            this.$message({
+              message:result.message,
+              type:'error'
+            })
             return
           }
         }
