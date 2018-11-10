@@ -11,21 +11,36 @@
                {{store.address}}
             </span>
       </header>
-      <div style="margin-top: .2rem">
-        <img :src="ImgBaseUrl+orderData.meal_images" style="width:25%;margin-top: .2rem" alt="">
+      <div style="margin-top: .2rem;">
+        <img :src="ImgBaseUrl+orderData.meal_images" style="max-height: 1.4rem;max-width:.9rem;margin-top: .2rem" alt="">
         <footer style="width: 70%;float: right;">
           <p>{{orderData.meal_name}}</p>
           购买数量
           <span>1</span>
           <hr>
-          商品总价
-          <span>￥{{orderData.discountmoney}}</span>
-          <hr>
-          满减规则
-          <span>{{orderData.full_reduce}}</span>
+          商品原价
+          <span>￥{{orderData.pretium}}</span>
           <hr>
         </footer>
+        <div style="clear: both"></div>
       </div>
+    </section>
+
+    <section class="room_style" style="margin-top: .2rem;">
+      <footer>
+        商品折扣
+        <span>{{orderData.discount - 0}}折</span>
+        <hr>
+        折后价
+        <span>￥{{orderData.discountmoney}}</span>
+        <hr>
+        满减规则
+        <span>{{orderData.full_reduce}}</span>
+        <hr>
+        满减后金额
+        <span>￥{{orderData.full_reducemoney}}</span>
+        <hr>
+      </footer>
     </section>
 
     <section class="real_pay room_style">
@@ -67,7 +82,12 @@
       </footer>
     </section>
 
-    <section class="real_pay pay room_style">
+    <!--占位-->
+    <section style="height:1rem;visibility: hidden">
+
+    </section>
+    <!--占位-->
+    <section class="real_pay pay room_style" style="position: fixed;bottom: 0;">
       <footer class="colorRed">
         ￥{{value2 === true ? (orderData.discountmoney - orderData.rebatemoney) : (orderData.discountmoney)}}
         <a>已减{{value2 === true ? (orderData.rebatemoney-0 + orderData.full_reducemoney) :
@@ -91,6 +111,9 @@
         store: {},
         orderData: {},
       }
+    },
+    computed:{
+
     },
     watch: {
       value2(curVal, oldVal) {
@@ -141,6 +164,9 @@
 </script>
 
 <style scoped>
+  hr{
+    border: 0;
+  }
   .room {
     background: #F0F0F0;
   }
