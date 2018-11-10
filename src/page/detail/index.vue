@@ -267,9 +267,7 @@
 
         wx.error(function (res) {
           console.log(`err:${JSON.stringify(res)}`)
-          // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
         });
-        // https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop&p=location&latitude=30.25961&longitude=120.13026
 
       },
     },
@@ -277,27 +275,6 @@
     mounted() {
       localStorage.arr = null
       localStorage.preset_time = null
-
-      function isAndroid() {
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-        if (isAndroid) {
-          alert("android");
-        } else if (isiOS) {
-          alert("ios");
-        } else {
-        }
-        var ua = window.navigator.userAgent.toLowerCase();
-        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-          alert("微信");
-        } else {
-          alert("非微信");
-        }
-      }
-
-      isAndroid()
-
 
       var mySwiper = new Swiper('.swiper-container', {
         width: innerWidth,

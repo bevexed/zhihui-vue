@@ -54,12 +54,13 @@
 </template>
 
 <script>
-  import {shopOrderPayList,pay} from "../../api";
+  import {shopOrderPayList, pay,wxConfig} from "../../api";
+
   export default {
     name: "pay",
     data() {
       return {
-        orderData:{},
+        orderData: {},
         checked: -1,
       }
     },
@@ -68,14 +69,14 @@
         this.checked = i
       },
       async pay() {
-        if (this.checked === -1){
+        if (this.checked === -1) {
           this.$message({
-            message:'请选择支付方式',
-            type:'error'
+            message: '请选择支付方式',
+            type: 'error'
           })
         }
         // 支付宝支付
-        if (this.checked === 1){
+        if (this.checked === 1) {
           window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
           // this.$router.push({name:'aliPay',params:{realprice:this.orderData.realprice,ordernumber:this.orderData.ordernumber}})
           // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/alipay/pay?price=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
@@ -87,11 +88,35 @@
           // document.body.appendChild(div);
           // document.forms.alipaysubmit.submit();
         }
+        if (this.checked === 2) {
+          this.getWxConfig()
+          $.ajax({
+            type: 'get',
+            url:'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',
+            success:function (res) {
+              if (res){
+                console.log(res);
+                return
+              }
+              wx.chooseWXPay({
+                timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                nonceStr: '', // 支付签名随机串，不长于 32 位
+                package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+                signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                paySign: '', // 支付签名
+                success: function (res) {
+                  // 支付成功后的回调函数
+                }
+              });
+            }
+            })
+
+        }
 
       },
-      async getShopOrderPayList(){
+      async getShopOrderPayList() {
         let result = await shopOrderPayList(this.$route.params.order_id)
-        if  (result.code === 1){
+        if (result.code === 1) {
           this.orderData = result.data
         }
       },
@@ -111,7 +136,17 @@
 
       },
       async getWxConfig() {
-        let url = window.location.href
+        let url
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+          url = window.location.href.split('#')[0]
+        } else if (isiOS) {
+          url = 'https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=8923#/index'
+        } else {
+        }
+
         let result = await wxConfig(url)
         result = JSON.parse(result.data)
         let jssdkconfig = result
@@ -126,19 +161,36 @@
             'chooseWXPay',
           ]
         });
+        wx.ready(function () {
+          wx.checkJsApi({
+            jsApiList: [
+             'chooseWXPay'
+            ],
+            success: function (res) {
+              console.log(JSON.stringify(res));
+            },
+            error: function (res) {
+              console.log(JSON.stringify(res));
+            }
+          });
+        })
 
+        wx.error(function (res) {
+          console.log(`err:${JSON.stringify(res)}`)
+        });
       },
     },
-    created(){
+    created() {
       this.getShopOrderPayList()
     }
   }
 </script>
 
 <style scoped>
-  .checked_icon{
+  .checked_icon {
     background: green;
   }
+
   body {
     margin: 0px;
     background: #efefef;

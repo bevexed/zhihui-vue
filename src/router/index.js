@@ -116,12 +116,8 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // 路由拦截
-  // if(localStorage.uid === 'null' || !localStorage.uid || localStorage.uid ===undefined){
-  //     location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')
-  // }
-
   if (!localStorage.uid) {  // 判断该路由是否需要登录权限
+    window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')
     if (1) {  // 通过vuex state获取当前的token是否存在
       next();
     }

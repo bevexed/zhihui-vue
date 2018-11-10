@@ -39,7 +39,7 @@
         <div>
           <p class="list_name">{{item.shop_name}}</p>
           <p class="list_content">[{{item.address}}]</p>
-          <p class="list_price">{{item.discount}}折起 </p>
+          <p class="list_price">{{item.discount/10}}折起 </p>
 
         </div>
         <div class="align_self">

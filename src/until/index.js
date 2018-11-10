@@ -20,6 +20,24 @@ Vue.prototype.$getRequest = function () {
   return theRequest;
 }
 
+Vue.prototype.$isAndroid = function () {
+  var u = navigator.userAgent;
+  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+  if (isAndroid) {
+    alert("android");
+  } else if (isiOS) {
+    alert("ios");
+  } else {
+  }
+  var ua = window.navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+    alert("微信");
+  } else {
+    alert("非微信");
+  }
+}
+
 Vue.prototype.$removeSameItem = function (arr) {
   return Array.from(new Set(arr))
 }
