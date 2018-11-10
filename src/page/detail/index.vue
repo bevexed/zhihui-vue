@@ -100,7 +100,7 @@
 
 <script>
   import {ImgBaseUrl, allShopGoodList, memberPhone, addmemberphone, wxConfig} from '../../api'
-
+  import wx from 'weixin-js-sdk';
   export default {
     name: "detail",
     data() {
@@ -219,57 +219,6 @@
 
         console.log(result);
       },
-      async getWxConfig() {
-        let url
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-        if (isAndroid) {
-          url = window.location.href.split('#')[0]
-        } else if (isiOS) {
-          url = 'https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=8923#/index'
-        } else {
-        }
-        // let url = window.location.href.split('#')[0]
-
-        console.log(url)
-        let result = await wxConfig(url)
-        let jssdkconfig = JSON.parse(result.data)
-        console.log(jssdkconfig)
-
-        wx.config({
-          debug: false,
-          appId: jssdkconfig.appId,
-          timestamp: jssdkconfig.timestamp,
-          nonceStr: jssdkconfig.nonceStr,
-          signature: jssdkconfig.signature,
-          jsApiList: [
-            'openLocation',
-            'getLocation',
-          ]
-        });
-        wx.ready(function () {
-          wx.checkJsApi({
-            jsApiList: [
-              'getNetworkType',
-              'previewImage',
-              'getLocation',
-              'openLocation'
-            ],
-            success: function (res) {
-              console.log(JSON.stringify(res));
-            },
-            error: function (res) {
-              console.log(JSON.stringify(res));
-            }
-          });
-        })
-
-        wx.error(function (res) {
-          console.log(`err:${JSON.stringify(res)}`)
-        });
-
-      },
     },
 
     mounted() {
@@ -284,7 +233,7 @@
         observeParents: true,//修改swiper的父元素时，自动初始化swiper
       })
       this.getStoreList()
-      this.getWxConfig()
+      this.$getWxConfig()
     },
 
   }

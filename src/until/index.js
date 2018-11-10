@@ -1,4 +1,6 @@
 import Vue from "vue";
+import wx from 'weixin-js-sdk';
+import {wxConfig} from "../api";
 
 Vue.prototype.$GetQueryString = function (name) {
   let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -37,6 +39,31 @@ Vue.prototype.$isAndroid = function () {
     alert("非微信");
   }
 }
+
+Vue.prototype.$getWxConfig = async function() {
+  let url = window.location.href.split('#')[0]
+  let that = this
+  let result = await wxConfig(url)
+  result = JSON.parse(result.data)
+  let jssdkconfig = result
+
+  wx.config({
+    debug: true,
+    appId: jssdkconfig.appId,
+    timestamp: jssdkconfig.timestamp,
+    nonceStr: jssdkconfig.nonceStr,
+    signature: jssdkconfig.signature,
+    jsApiList: [
+      'getLocation',
+      'chooseWXPay',
+      'openLocation'
+    ]
+  });
+  wx.error(function (res) {
+    console.log(`err:${res}`)
+  });
+
+},
 
 Vue.prototype.$removeSameItem = function (arr) {
   return Array.from(new Set(arr))

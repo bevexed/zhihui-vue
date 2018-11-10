@@ -6,7 +6,7 @@
 
 <script>
   import {wxConfig, districts,citySearchList} from './api'
-
+  import wx from 'weixin-js-sdk';
   export default {
     name: 'App',
     data() {
@@ -29,14 +29,14 @@
         }, 1000)
       },
       async getWxConfig() {
-        let url = window.location.href
+        let url = window.location.href.split('#')[0]
         let that = this
         let result = await wxConfig(url)
         result = JSON.parse(result.data)
         let jssdkconfig = result
 
         wx.config({
-          debug: false,
+          debug: true,
           appId: jssdkconfig.appId,
           timestamp: jssdkconfig.timestamp,
           nonceStr: jssdkconfig.nonceStr,

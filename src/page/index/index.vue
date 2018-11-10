@@ -175,15 +175,16 @@
       },
     },
     created() {
-        console.log(window.location.href);
-        let p = /=(\d*)#/
-        let uid = window.location.href.match(p)[1]
-        console.log(uid);
-        localStorage.uid = uid
+      console.log(window.location.href);
+      let p = /=(\d*)#/
+      let uid = window.location.href.match(p)[1]
+      console.log(uid);
+      localStorage.uid = uid
 
-        this.getDiscountList()
-        this.getShopCateList()
-        this.getAllSort(1)
+      this.getDiscountList()
+      this.getShopCateList()
+      this.getAllSort(1)
+      console.log(navigator);
     },
     mounted() {
     }

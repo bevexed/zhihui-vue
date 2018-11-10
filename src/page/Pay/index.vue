@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="pay_top" style="background: #ffffff">
-      <p class="iconfont icon-fanhui comeback" @click="this.$router.go(-1)"></p>
+      <p class="iconfont icon-fanhui comeback" @click="$router.go(-1)"></p>
       <p>支付订单</p>
     </div>
 
@@ -40,7 +40,7 @@
         </p>
         <div class="circle" :class="checked==2 ? 'checked_icon' : ''"></div>
       </div>
-      <div class="noneBorderBottom" @click="choosePay(1)">
+      <div class="noneBorderBottom" @click="choosePay(1)" v-show="isSmall === 'false'">
         <p>
           <i class="iconfont icon-zhifubao"></i>
           <span>支付宝</span>
@@ -54,7 +54,8 @@
 </template>
 
 <script>
-  import {shopOrderPayList, pay,wxConfig} from "../../api";
+  import {shopOrderPayList, pay, wxConfig} from "../../api";
+  import wx from 'weixin-js-sdk';
 
   export default {
     name: "pay",
@@ -62,6 +63,7 @@
       return {
         orderData: {},
         checked: -1,
+        isSmall:localStorage.isSmall
       }
     },
     methods: {
@@ -78,38 +80,52 @@
         // 支付宝支付
         if (this.checked === 1) {
           window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
-          // this.$router.push({name:'aliPay',params:{realprice:this.orderData.realprice,ordernumber:this.orderData.ordernumber}})
-          // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/alipay/pay?price=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
-          // let result = await pay(this.orderData.realprice,this.orderData.ordernumber)
-          // console.log(result);
-
-          // const div = document.createElement('div');
-          // div.innerHTML = result;
-          // document.body.appendChild(div);
-          // document.forms.alipaysubmit.submit();
         }
         if (this.checked === 2) {
-          this.getWxConfig()
           $.ajax({
-            type: 'get',
-            url:'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',
-            success:function (res) {
-              if (res){
-                console.log(res);
-                return
+            type: 'POST',
+            url: 'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',
+            data: {uid: localStorage.uid},
+            success: function (res) {
+
+              if (res) {
+                let result
+                console.log(JSON.parse(res));
+                result = JSON.parse(res)
+                console.log(result.timeStamp);
+                wx.chooseWXPay({
+                  appId: result.appId,
+                  timestamp: result.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                  nonceStr: result.nonceStr, // 支付签名随机串，不长于 32 位
+                  package: result.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+                  signType: result.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                  paySign: result.paySign, // 支付签名
+                  success: function (res) {
+                    // 支付成功后的回调函数
+                    if (res.errMsg === "chooseWXPay:ok") {
+                      //支付成功
+                      this.$message({
+                        message: '支付成功',
+                        type: 'success'
+                      })
+                    } else {
+                      this.$message({
+                        message: "支付失败",
+                        type: 'error'
+                      })
+                    }
+                  },
+                  cancel: function (res) {
+                    //支付取消
+                    this.$message({
+                      message: "您已取消支付"
+                    })
+                  }
+                });
               }
-              wx.chooseWXPay({
-                timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                nonceStr: '', // 支付签名随机串，不长于 32 位
-                package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
-                signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                paySign: '', // 支付签名
-                success: function (res) {
-                  // 支付成功后的回调函数
-                }
-              });
+
             }
-            })
+          })
 
         }
 
@@ -120,68 +136,10 @@
           this.orderData = result.data
         }
       },
-      async wxPay() {
-        if (result.code === 1) {
-          wx.chooseWXPay({
-            timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-            nonceStr: '', // 支付签名随机串，不长于 32 位
-            package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
-            signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-            paySign: '', // 支付签名
-            success: function (res) {
-              // 支付成功后的回调函数
-            }
-          });
-        }
-
-      },
-      async getWxConfig() {
-        let url
-        var u = navigator.userAgent;
-        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-        if (isAndroid) {
-          url = window.location.href.split('#')[0]
-        } else if (isiOS) {
-          url = 'https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=8923#/index'
-        } else {
-        }
-
-        let result = await wxConfig(url)
-        result = JSON.parse(result.data)
-        let jssdkconfig = result
-
-        wx.config({
-          debug: false,
-          appId: jssdkconfig.appId,
-          timestamp: jssdkconfig.timestamp,
-          nonceStr: jssdkconfig.nonceStr,
-          signature: jssdkconfig.signature,
-          jsApiList: [
-            'chooseWXPay',
-          ]
-        });
-        wx.ready(function () {
-          wx.checkJsApi({
-            jsApiList: [
-             'chooseWXPay'
-            ],
-            success: function (res) {
-              console.log(JSON.stringify(res));
-            },
-            error: function (res) {
-              console.log(JSON.stringify(res));
-            }
-          });
-        })
-
-        wx.error(function (res) {
-          console.log(`err:${JSON.stringify(res)}`)
-        });
-      },
     },
     created() {
       this.getShopOrderPayList()
+      this.$getWxConfig()
     }
   }
 </script>

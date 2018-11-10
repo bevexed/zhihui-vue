@@ -12,9 +12,10 @@
             </span>
       </header>
       <div style="margin-top: .2rem;">
-        <img :src="ImgBaseUrl+orderData.meal_images" style="max-height: 1.4rem;max-width:.9rem;margin-top: .2rem" alt="">
+        <img :src="ImgBaseUrl+orderData.meal_images" style="max-height: 1.4rem;max-width:.9rem;margin-top: .2rem"
+             alt="">
         <footer style="width: 70%;float: right;">
-          <p>{{orderData.meal_name}}</p>
+          <p><b style="font-size: .2rem">{{orderData.meal_name}}</b></p>
           购买数量
           <span>1</span>
           <hr>
@@ -47,7 +48,7 @@
       <footer>
         <div>
           现有至惠购物卷
-          <span>￥{{orderData.rebatemoney}}</span>
+          <span>￥{{payResult.leave}}</span>
         </div>
         <div>
           使用至惠购物卷
@@ -61,7 +62,7 @@
         </div>
         <div style="margin-top: 10px">
           实际支付
-          <span class="colorRed">￥{{value2 === true ? (orderData.discountmoney - orderData.rebatemoney) : (orderData.discountmoney)}}</span>
+          <span class="colorRed">￥{{payResult.real}}</span>
         </div>
       </footer>
     </section>
@@ -89,9 +90,7 @@
     <!--占位-->
     <section class="real_pay pay room_style" style="position: fixed;bottom: 0;">
       <footer class="colorRed">
-        ￥{{value2 === true ? (orderData.discountmoney - orderData.rebatemoney) : (orderData.discountmoney)}}
-        <a>已减{{value2 === true ? (orderData.rebatemoney-0 + orderData.full_reducemoney) :
-          orderData.full_reducemoney}}元</a>
+        ￥{{payResult.real}}
         <span @click="pay">立即支付</span>
       </footer>
     </section>
@@ -107,13 +106,36 @@
       return {
         ImgBaseUrl,
         value1: true,
-        value2: true,
+        value2: false,
         store: {},
         orderData: {},
       }
     },
-    computed:{
+    computed: {
+      payResult() {
+        let real // 实际支付金额(即折后价)
+        let all = this.orderData.discountmoney // 总金额
+        let reduce = this.orderData.rebatemoney // 总折扣卷
+        let leave // 剩余的抵扣卷数量
+        let used // 用掉的抵扣卷数量
+        if (this.value2 === true) { // 用卷
+          if (all >= reduce) {
+            real = all - reduce
+            leave = 0
+          } else {
+            real = 0
+            leave = reduce - all
+          }
+        } else {  // 不用卷
+          real = all
+          leave = reduce
+        }
+        used = reduce - leave
+        return {real, leave, used}
+      },
+      realReduce() {
 
+      }
     },
     watch: {
       value2(curVal, oldVal) {
@@ -138,12 +160,14 @@
         }
       },
       async pay() {
-        let rebat = this.orderData.discountmoney // 实付金额等于总价
+        let rebat = this.payResult.real // 实付金额
         let order_id = this.orderData.order_id
         if (this.value2 === true) {
-          let result = await shopOrderActualList(order_id, this.orderData.discountmoney, this.orderData.rebatemoney)
+          let result = await shopOrderActualList(order_id, rebat, this.payResult.used)
           if (result.code === 1) {
             rebat = result.data
+          }else{
+            return
           }
         }
         let result = await orderActualList(order_id, rebat)
@@ -164,9 +188,10 @@
 </script>
 
 <style scoped>
-  hr{
+  hr {
     border: 0;
   }
+
   .room {
     background: #F0F0F0;
   }

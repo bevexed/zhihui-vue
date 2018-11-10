@@ -15,7 +15,7 @@
           <p class="colorWrap">{{item.address}}</p>
         </div>
         <div class="bus_down" style="padding-bottom: .1rem;">
-          <p class="colorRed">{{item.discount}}折</p>
+          <p class="colorRed">{{item.discount/10}}折</p>
           <p>已售{{item.sold_num}}</p>
           <p style="color: #7e7e7e;">{{item.distance}}km</p>
         </div>
