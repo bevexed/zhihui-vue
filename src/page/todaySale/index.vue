@@ -8,7 +8,7 @@
          @click="$router.push({ name: 'detail', params: { id: item.store_id,status:1 }})"
     >
       <div class="img">
-        <img :src="`${baseImgUrl}${item.store_images}`" alt="">
+        <img :src="`${baseImgUrl}${item.meal_images}`" alt="">
       </div>
 
       <div class="content">
@@ -16,9 +16,9 @@
           <p>{{item.shop_name}}</p>
         </div>
         <p class="nowrap fontTen colorWrap"><span v-show="item.meal_name">[{{item.meal_name}}] </span> {{item.name}}
-          <span
-            style="margin-left:.1rem;max-width: 1.4rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">
-            {{item.address}}</span>
+          <!--<span-->
+            <!--style="margin-left:.1rem;max-width: 1.4rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">-->
+            <!--{{item.address}}</span>-->
         </p>
         <div class="bus_down">
           <p class="colorRed">￥{{item.amount_money}}起</p>

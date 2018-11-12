@@ -100,7 +100,7 @@ const router = new Router({
     },
     {
       component: pay,
-      path: '/pay/rebat/:rebat/order_id/:order_id',
+      path: '/pay/order_id/:order_id',
       name: 'pay'
     },
     {

@@ -84,7 +84,7 @@ html {
     border-radius: .5rem;
     border: none;
     background: #eeeeee;
-    min-width: 1rem;
+    min-width: 2.1rem;
 }
 
 .index_head .el-input input::placeholder {

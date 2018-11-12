@@ -160,7 +160,7 @@ export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_i
 
 // 关于订单
 // 预订单添加
-export const orderList = (uid,preset_time, store_id, goods_id, rule, full_reduce, pretium, discount) => ajax(Base_url + '/api/allorder/orderlist', {
+export const orderList = (uid, preset_time, store_id, goods_id, rule, full_reduce, pretium, discount) => ajax(Base_url + '/api/allorder/orderlist', {
   uid,
   preset_time,
   store_id,
@@ -170,22 +170,27 @@ export const orderList = (uid,preset_time, store_id, goods_id, rule, full_reduce
   pretium,
   discount
 })
-// 预订单详情
-export const budgetOrderList = (uid, store_id, goods_id) => ajax(Base_url + '/api/allorder/budgetorderlist', {
-  uid,
-  store_id,
-  goods_id
-})
 // 当前用户是否存在手机号
 export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone', {uid})
 // 当前用户添加预留手机号
 export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/addmemberphone', {uid, phone})
 // 订单立即支付
-export const orderActualList = (order_id,realprice) => ajax(Base_url + '/api/allorder/orderactuallist',{order_id,realprice})
-// 至惠购物券抵扣
-export const shopOrderActualList = (order_id,full_reducemoney,coupon) => ajax(Base_url + '/api/allorder/shoporderactuallist',{order_id,full_reducemoney,coupon})
+export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
+  uid,
+  preset_time,
+  full_reducemoney,
+  coupon,
+  amount_after_discount,
+  amount_after_fullreduce,
+  store_id, // 分水岭
+  goods_id,
+  rule,
+  full_reduce,
+  pretium,
+  discount
+})
 // 选择支付单号和实际支付价格
-export const shopOrderPayList = (order_id) => ajax(Base_url +'/api/allorder/shoporderpaylist',{order_id})
+export const shopOrderPayList = (order_id) => ajax(Base_url + '/api/allorder/shoporderpaylist', {order_id})
 
 
 //关于城市选择
@@ -196,7 +201,7 @@ export const citySearchList = (area) => ajax(Base_url + '/api/allcityselect/city
 export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allcityselect/citysearchselectlist', {search_city})
 
 // 关于支付
-export const pay = (price,ordernumber) => ajax(Base_url + '/api/alipay/pay',{price,ordernumber},"GET")
+export const pay = (price, ordernumber) => ajax(Base_url + '/api/alipay/pay', {price, ordernumber}, "GET")
 
 
 

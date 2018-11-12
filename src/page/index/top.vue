@@ -6,7 +6,7 @@
              style="margin-left:.04rem;height: .3rem;" alt="">
       </a>
       <router-link tag="a" :to="{path:'/selectAddress'}">
-        <p :class="['title',{colorRed: address === ''}]">{{address === "" ? '定位失败' : address}}
+        <p style="font-weight:bold;font-size: .14rem;min-width: .7rem" :class="['title',{colorRed: address === ''}]">{{address === "" ? '定位失败' : address}}
           <img v-show="address !== ''" src="@/assets/s.png" alt="">
         </p>
       </router-link>
@@ -147,5 +147,13 @@
     background: rgba(0, 0, 0, .4);
     position: absolute;
     z-index: 9998;
+  }
+  .index_head .el-input input {
+    line-height: .3rem;
+    height: .3rem;
+    border-radius: .5rem;
+    border: none;
+    background: #eeeeee;
+    min-width: 2.1rem;
   }
 </style>

@@ -1,13 +1,18 @@
 <template>
   <div @touchmove="loadingMore()" @wheel="loadingMore()">
+
     <top/>
+
     <banner/>
+
     <BooKList
       :shopCateListData="shopCateListData"
       :goTo="goTo"
       :level="level"
     />
+
     <dayRecom/>
+
     <shopRecom/>
 
     <div class="index_mid">
@@ -21,6 +26,7 @@
     </div>
 
     <h3 class="index_bottom_title">附近商家</h3>
+
     <div class="index_bottom">
       <div class="index_foot">
         <p @click="getAllSort(1)" :class="{'active':sort_status === 1}">
@@ -74,12 +80,12 @@
   export default {
     name: "index",
     components: {
-      top,
-      banner,
-      BooKList,
-      dayRecom,
-      shopRecom,
-      ShopSort,
+      top, // 头部搜索
+      banner, //
+      BooKList, // 一级分类
+      dayRecom, // 小编推荐
+      shopRecom, // 商家推荐
+      ShopSort, //  商品分类
       allLoaded: true,
       loading: false,//判断是否加载数据
       loading_more: true,//控制是否发送ajax请求

@@ -98,7 +98,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, orderList, allShopGoodList, orderActualList, shopOrderActualList} from "../../api";
+  import {ImgBaseUrl, orderList, allShopGoodList, shopOrderActualList} from "../../api";
 
   export default {
     name: "booking",
@@ -113,8 +113,8 @@
     },
     computed: {
       payResult() {
-        let real // 实际支付金额(即折后价)
-        let all = this.orderData.discountmoney // 总金额
+        let real // 实际支付金额
+        let all = this.orderData.discountmoney // 总金额(即折后价)
         let reduce = this.orderData.rebatemoney // 总折扣卷
         let leave // 剩余的抵扣卷数量
         let used // 用掉的抵扣卷数量
@@ -149,44 +149,25 @@
           this.orderData = result.data
         }
       },
-      async getStoreList() {
-        let result = await allShopGoodList(this.$route.params.store_id, localStorage.longitude_latitude, this.$route.params.status)
-        if (result.code === 0) {
-          alert(result.message)
-        }
-        if (result.code === 1) {
-          console.log(result.data)
-          this.store = result.data
-        }
-      },
       async pay() {
         let rebat = this.payResult.real // 实付金额
-        let order_id = this.orderData.order_id //订单ID
-        if (this.value2 === true) {
-          let result = await shopOrderActualList(order_id, rebat, this.payResult.used)
-          if (result.code === 1) {
-            rebat = result.data
-          }else{
-            this.$message({
-              message:result.message,
-              type:'error'
-            })
-            return
-          }
-        }
-        let result = await orderActualList(order_id, rebat)
-        console.log(result);
+        let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr))
         if (result.code === 1) {
-          this.$router.push({name: 'pay', params: {rebat, order_id}})
+          console.log(result);
+          let order_id = result.data.order_id
+          this.$router.push({name: 'pay',params:{order_id}})
+        } else {
+          this.$message({
+            message: result.message,
+            type: 'error'
+          })
+          return
         }
-
       },
     },
 
     mounted() {
       this.getOderList()
-      this.getStoreList()
-
     }
   }
 </script>
