@@ -86,16 +86,11 @@
         this.allLoaded = true
         this.sort_status = sort_status
         this.sortPage = 1
-        let result = await allSort(sort_status, localStorage.longitude_latitude,2,this.$route.params.id, 1,localStorage.area_id)
+        let result = await allSort(sort_status, localStorage.longitude_latitude,1,this.$route.params.id, 1,localStorage.area_id)
         if (result.code === 1) {
           console.log(result)
           this.allSortList = result.data.data
         }
-      },
-      async getShopCateList() {
-        let result = await twoShopCateList(this.$route.params.id)
-        this.shopCateListData = result.data
-        console.log(result)
       },
       async loadingMore() {
         if (this.allLoaded === false) {
@@ -109,7 +104,7 @@
           let result
           if (this.loading_more) {
             this.loading_more = false //禁止浏览器发送ajax请求
-            result = await allSort(this.sort_status, localStorage.longitude_latitude, 2,this.$route.params.id ,this.sortPage,localStorage.area_id)
+            result = await allSort(this.sort_status, localStorage.longitude_latitude, 1,this.$route.params.id ,this.sortPage,localStorage.area_id)
             if (result.code === 1) {//判断接受是否成功
               this.loading = false
               console.log(this.allSortList.length, result.data.total)
@@ -129,6 +124,11 @@
             this.loading = false
           }
         }
+      },
+      async getShopCateList() {
+        let result = await twoShopCateList(this.$route.params.id)
+        this.shopCateListData = result.data
+        console.log(result)
       },
     },
     created(){

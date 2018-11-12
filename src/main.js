@@ -18,9 +18,6 @@ wx.miniProgram.getEnv(function (res) {
 })
 import './until'
 
-let vConsole = new VConsole();
-console.log('Hello world');
-
 import router from './router'
 
 Vue.config.productionTip = false

@@ -63,7 +63,7 @@
       return {
         orderData: {},
         checked: -1,
-        isSmall:localStorage.isSmall
+        isSmall: localStorage.isSmall
       }
     },
     methods: {
@@ -71,6 +71,7 @@
         this.checked = i
       },
       async pay() {
+        let that = this
         if (this.checked === -1) {
           this.$message({
             message: '请选择支付方式',
@@ -85,7 +86,12 @@
           $.ajax({
             type: 'POST',
             url: 'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',
-            data: {uid: localStorage.uid},
+            data: {
+              uid: localStorage.uid,
+              ordernumber: that.orderData.ordernumber,
+              // realprice: that.orderData.realprice
+              realprice: 0.01
+            },
             success: function (res) {
 
               if (res) {

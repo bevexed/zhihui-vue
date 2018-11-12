@@ -97,12 +97,13 @@
   section.address {
     padding: 2%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
   }
 
   section.address div {
     margin-top: .1rem;
+    margin-left: .1rem;
     width: 30%;
     text-align: center;
     background: #ffffff;

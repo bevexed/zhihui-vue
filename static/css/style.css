@@ -63,6 +63,8 @@ html {
 }
 
 .title {
+  color: #000000;
+  text-underline: none;
   font-size: .12rem;
   display: flex;
   align-items: center;
@@ -209,19 +211,6 @@ html {
   position: relative;
 }
 
-.mask {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: rgba(101, 101, 101, .6);
-  color: #fff;
-  text-align: center;
-  line-height: .7rem;
-  border-radius: .05rem;
-}
-
 /*.index_mid>div:nth-child(1){*/
 /*background: url("http://img.juimg.com/tuku/yulantu/110124/292-1101241A32471.jpg") 0 0 / 100% 100% no-repeat;*/
 /*}*/
@@ -300,8 +289,8 @@ html {
 
 .list_price {
   display: inline-block;
-  background: #f1d17b;
-  color: #c83f28;
+  border: .01rem solid #f11800;
+  color: #c80000;
   font-size: .1rem;
   text-align: center;
   border-radius: .02rem;
