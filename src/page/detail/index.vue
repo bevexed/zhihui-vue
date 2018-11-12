@@ -54,7 +54,7 @@
           <img style="height: .4rem" :src="`${baseImgUrl}${v.meal_images}`" alt="">
           <div>
             [{{v.rule === ''? '不限时' : v.rule}}] {{v.meal_name}}
-            <span>￥{{v.amount_money}}  <b style="color: #11af02;margin-left: .1rem">满{{v.full}}减{{v.reduce}}</b></span>
+            <span>￥{{v.amount_money}}  <b style="color: #af0d00;margin-left: .1rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
           <!--<a @click="alert = true">-->
           <a @click.stop="booking(v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
@@ -382,6 +382,7 @@
   .booking_money span {
     display: block;
     color: #f03232;
+    font-weight: bolder;
   }
 
   .booking_money a {
