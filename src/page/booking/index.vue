@@ -114,7 +114,7 @@
     computed: {
       payResult() {
         let real // 实际支付金额
-        let all = this.orderData.discountmoney // 总金额(即折后价)
+        let all = this.orderData.full_reducemoney // 总金额(即折后价之后的满减价格)
         let reduce = this.orderData.rebatemoney // 总折扣卷
         let leave // 剩余的抵扣卷数量
         let used // 用掉的抵扣卷数量

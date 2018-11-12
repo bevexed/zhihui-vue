@@ -2,14 +2,14 @@
   <div @touchmove="loadingMore()" @wheel="loadingMore()">
     <div class="pay_top">
       <p class="iconfont icon-fanhui comeback" @click="back()"></p>
-      <p>{{$route.params.status === 0? '商家推荐':'小编推荐' }}</p>
+      <p>{{$route.params.status == '0'? '商家推荐':'小编推荐' }}</p>
     </div>
 
-    <div class="today_ul" v-for="item in shopList" :key="$route.params.status === 0?item.store_id : item.id"
-         @click="$router.push({name:'detail',params:{id:$route.params.status === 0?item.store_id : item.id,status:1}})"
+    <div class="today_ul" v-for="item in shopList" :key="$route.params.status == '0'?item.store_id : item.id"
+         @click="$router.push({name:'detail',params:{id:$route.params.status == '0'?item.store_id : item.id,status:1}})"
     >
       <div class="img">
-        <img :src="`${baseImgUrl}${item.store_images}`" alt="">
+        <img :src="`${baseImgUrl}${$route.params.status == '0'?item.meal_images:item.store_images}`" alt="">
       </div>
       <div class="content">
         <div class="bus_top">
@@ -17,9 +17,10 @@
             <span style="font-size:.12rem;float: right;margin-right: .08rem">已售数量{{item.sold_num}}</span>
           </p>
         </div>
-        <p class="nowrap fontTen colorWrap">[￥{{item.amount_money}}]</p>
+        <p style="width: 100%" class="nowrap fontTen colorWrap">[{{item.address}}] <span
+          style="float: right;margin-right: 0.08rem;" v-if="item.amount_money">￥{{item.amount_money}}</span></p>
         <div class="bus_down">
-          <p class="colorRed">{{item.discount}}折起</p>
+          <p class="colorRed">{{item.discount/1}}折起</p>
           <p>{{item.distance}}km</p>
         </div>
       </div>

@@ -14,14 +14,15 @@
           <div class="swiper-slide" v-for="item in shopGoodList" :key="item.store_id"
                @click="$router.push({ name: 'detail', params: { id: item.store_id, status : 0 }})"
           >
-            <img class="slide_img" :src="`${baseImgUrl}${item.store_images}`" alt="">
+            <img class="slide_img" :src="`${baseImgUrl}${item.meal_images}`" alt="">
             <div class="slide_div">
-              <p>{{item.shop_name}}</p>
-              <p>{{item.meal_name}}</p>
+              <p>{{item.shop_name}} <span style="float: right">已售{{item.sold_num}}</span></p>
+              <p>{{item.meal_name}} <span style="float: right">{{item.distance}}km</span></p>
               <p>
-                <span class="dollar colorRed">￥</span><span class="colorRed">{{item.amount_money * ( 1 -item.discount/100)}}</span>
-                <span class="through_span">原价{{item.amount_money}}</span>
+                <span class="dollar colorRed">￥</span><span class="colorRed">{{item.amount_money/1}}</span>
+                <span class="">满{{item.full/1}}减{{item.reduce/1}}</span>
               </p>
+              <!--<p>{{item.address}}</p>-->
             </div>
           </div>
         </div>

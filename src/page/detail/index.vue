@@ -468,7 +468,7 @@
 
   .active {
     background: #ff481f !important;
-    border-radius: .1rem;
+    border-radius: .04rem;
     color: white !important;
   }
 </style>
