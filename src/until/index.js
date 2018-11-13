@@ -40,7 +40,7 @@ Vue.prototype.$isAndroid = function () {
   }
 }
 
-Vue.prototype.$getWxConfig = async function() {
+Vue.prototype.$getWxConfig = async function () {
   let url = window.location.href.split('#')[0]
   let that = this
   let result = await wxConfig(url)
@@ -56,7 +56,9 @@ Vue.prototype.$getWxConfig = async function() {
     jsApiList: [
       'getLocation',
       'chooseWXPay',
-      'openLocation'
+      'openLocation',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage'
     ]
   });
   wx.error(function (res) {
@@ -65,6 +67,6 @@ Vue.prototype.$getWxConfig = async function() {
 
 },
 
-Vue.prototype.$removeSameItem = function (arr) {
-  return Array.from(new Set(arr))
-}
+  Vue.prototype.$removeSameItem = function (arr) {
+    return Array.from(new Set(arr))
+  }

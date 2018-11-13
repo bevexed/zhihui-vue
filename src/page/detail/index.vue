@@ -132,6 +132,29 @@
       }
     },
     methods: {
+      share() {
+        this.$getWxConfig()
+        let that = this
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: that.detail.shop_name, // 分享标题
+            desc: that.detail.address, // 分享描述
+            link: window.location.href, // 分享链接
+            imgUrl: that.detail.store_images, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+             this.$message({
+               message:"分享成功",
+               type:'success'
+             })
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            }
+          })
+        })
+      },
       toMap() {
         let that = this
         wx.openLocation({
@@ -152,7 +175,7 @@
         history.go(-1)
       },
       showDetail(i) {
-          this.show3 = i
+        this.show3 = i
       },
       async filterTime(v, i) {
         this.selected = i
@@ -232,7 +255,7 @@
         observeParents: true,//修改swiper的父元素时，自动初始化swiper
       })
       this.getStoreList()
-      this.$getWxConfig()
+      this.share()
     },
 
   }
