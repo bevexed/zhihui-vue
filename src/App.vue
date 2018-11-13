@@ -15,9 +15,17 @@
     },
     methods: {
       async uidExist(){
+        function a(name) {
+          let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+          let r = window.location.search.substr(1).match(reg);
+          if (r != null) return unescape(r[2]);
+          return null;
+        }
+        let mid = a('mid')
+
         let result = await existUid(localStorage.uid)
         if (result.code === 0){
-          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')
+          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
         }
       },
       async getDistrict() {
@@ -65,7 +73,7 @@
           message:"暂不支持除微信以外的平台打卡此页面",
           type:'error'
         })
-        setTimeout(()=>{window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')},1000)
+        setTimeout(()=>{window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')},1000)
       }
 
       if (localStorage.uid) {
