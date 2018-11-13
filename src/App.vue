@@ -62,6 +62,7 @@
         setTimeout(()=>{window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')},3000)
       }
 
+
       if (localStorage.longitude_latitude) {
       } else {
         this.getWxConfig()

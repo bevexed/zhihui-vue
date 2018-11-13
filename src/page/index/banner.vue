@@ -1,30 +1,53 @@
 <template>
   <div class="banner_list" style="border-bottom: .1rem solid rgb(242, 242, 242);">
-    <div class="swiper-container" id="banner">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="item in banner"
-             :key="item.id"
-        >
-          <div class="banner">
-            <a :href="`${item.banner_url}&id=${item.shop_id}`">
-              <img :src="`${baseImgUrl}${item.images}`" alt="">
-            </a>
-          </div>
+    <swiper :options="swiperOption" ref="mySwiper">
+      <!-- slides -->
+      <swiper-slide v-for="item in banner"
+                    :key="item.id">
+        <div class="banner">
+          <a :href="`${item.banner_url}&id=${item.shop_id}`">
+            <img :src="`${baseImgUrl}${item.images}`" alt="">
+          </a>
         </div>
-
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
+      </swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+      <!--<div class="swiper-button-prev" slot="button-prev"></div>-->
+      <!--<div class="swiper-button-next" slot="button-next"></div>-->
+      <!--<div class="swiper-scrollbar"   slot="scrollbar"></div>-->
+    </swiper>
   </div>
 </template>
 
 <script>
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
+  import 'swiper/dist/css/swiper.css'
   import {ImgBaseUrl, bannerList} from "../../api/index";
 
   export default {
     name: "banner",
+    components: {
+      swiper,
+      swiperSlide
+    },
+    computed: {
+      swiper() {
+        return this.$refs.mySwiper.swiper
+      }
+    },
     data() {
       return {
+        swiperOption: {
+          autoplay: {
+            delay: 3000,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable :true,
+          },
+          width: innerWidth,
+          observer: true,//修改swiper自己或子元素时，自动初始化swiper
+          observeParents: true,//修改swiper的父元素时，自动初始化swiper
+        },
         banner: [],
         baseImgUrl: ImgBaseUrl,
       }
@@ -40,33 +63,9 @@
       this.getBanner()
     },
     mounted() {
-      let t = null
-      let banner = new Swiper('#banner', {
-        init:false,
-        autoplay: {
-          delay: 3000,
-        },
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-        },
-        on: {
-          // slideChange: function () {
-          //   if (banner.isEnd){
-          //     setTimeout(t = ()=>{
-          //       banner.slideTo(0, 0, false)
-          //     },3000)
-          //   }
-          //   console.log(banner.slides.length);
-          // },
-        },
-        width: innerWidth,
-        observer: true,//修改swiper自己或子元素时，自动初始化swiper
-        observeParents: true,//修改swiper的父元素时，自动初始化swiper
-      })
-      this.$nextTick(() => {
-        banner.init()
-      })
+      // current swiper instance
+      // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
+      console.log('this is current swiper instance object', this.swiper)
     }
   }
 </script>
