@@ -1,12 +1,13 @@
 <template>
   <div>
     <div class="index_head">
-      <a href="https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop">
+      <a href="https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop">
         <img src="@/assets/logo.png"
              style="margin-left:.04rem;height: .3rem;" alt="">
       </a>
       <router-link tag="a" :to="{path:'/selectAddress'}">
-        <p style="font-weight:bold;font-size: .14rem;min-width: .7rem" :class="['title',{colorRed: address === ''}]">{{address === "" ? '定位失败' : address}}
+        <p style="font-weight:bold;font-size: .14rem;min-width: .7rem" :class="['title',{colorRed: address === ''}]">
+          {{address === "" ? '定位失败' : address}}
           <img v-show="address !== ''" src="@/assets/s.png" alt="">
         </p>
       </router-link>
@@ -59,7 +60,8 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, isaShop, storeImg ,newsAdd } from "../../api/index";
+  import {ImgBaseUrl, isaShop, newsAdd, storeImgs} from "../../api/index";
+
   export default {
     name: "top",
     data() {
@@ -69,8 +71,8 @@
         address: localStorage.area,
         isShop: '',
         dialogFormVisible: false,
-        form:{
-          name:''
+        form: {
+          name: ''
         },
 
       }
@@ -89,12 +91,12 @@
         this.dialogFormVisible = true
       },
       async getStoreListImg() {
-        let result = await storeImg(uid, longitude_latitude)
+        let result = await storeImgs(localStorage.uid, localStorage.longitude_latitude)
         console.log(result)
         this.storeImg = result.data
       },
       goToApp() {
-        this.$router.push({path:'/application'})
+        this.$router.push({path: '/application'})
       },
       async addNews(content) {
         if (content === "") {
@@ -119,22 +121,16 @@
         console.log(result)
       },
       async getisShop() {
-        let uid = localStorage.uid
-        let result = await isaShop(uid)
+        let result = await isaShop(localStorage.uid)
         console.log(result)
         this.isShop = result.code
-      },
-      async getStoreListImg() {
-        let result = await storeImg(uid, longitude_latitude)
-        console.log(result)
-        this.storeImg = result.data
       },
 
     },
     created() {
       this.getisShop()
     },
-    mounted(){
+    mounted() {
 
     }
   }
@@ -147,7 +143,9 @@
     background: rgba(0, 0, 0, .4);
     position: absolute;
     z-index: 9998;
+    top: 0;
   }
+
   .index_head .el-input input {
     line-height: .3rem;
     height: .3rem;

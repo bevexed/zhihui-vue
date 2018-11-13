@@ -117,10 +117,11 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (!localStorage.uid) {  // 判断uid是否存在
+
     if (from.fullPath === '/') {  // 首次进入页面
       next()
     } else { // 已经进入页面
-      window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')
+      window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
     }
   } else {
     next();

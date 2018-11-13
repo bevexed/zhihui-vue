@@ -80,7 +80,8 @@
         }
         // 支付宝支付
         if (this.checked === 1) {
-          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
+          // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
         }
         if (this.checked === 2) {
           $.ajax({

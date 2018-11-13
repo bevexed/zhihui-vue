@@ -9,6 +9,8 @@ export const Base_url = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public/in
 export const wxConfig = (url) => ajax(Base_url + '/api/allaccesstoken/tokenlist', {url})
 //获取当前地址
 export const districts = (longitude_latitude) => ajax(Base_url + '/api/allaccesstoken/longlat', {longitude_latitude})
+// uid 是否存在
+export const existUid = (uid) => ajax(Base_url + '/api/allaccesstoken/existuid',{uid})
 
 
 //所有轮播
@@ -39,7 +41,7 @@ export const informationDiscountList = (longitude_latitude, page, area_id) => aj
 
 //商家二维码
 //商家二维码
-export const storeImg = (uid, longitude_latitude) => ajax(Base_url + '/api/allstoreimg/storeimglist', {
+export const storeImgs = (uid, longitude_latitude) => ajax(Base_url + '/api/allstoreimg/storeimglist', {
   uid,
   longitude_latitude
 }, "GET")

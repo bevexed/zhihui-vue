@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="detail_head">
-      <p class="iconfont icon-fanhui back cursor_pointer" @click="back()"></p>
+      <p class="iconfont icon-fanhui back cursor_pointer" @click="$router.go(-1)"></p>
       <img v-if="detail.store_images" :src="`${baseImgUrl}${detail.store_images}`" alt="">
     </section>
 
@@ -56,7 +56,6 @@
             [{{v.rule === ''? '不限时' : v.rule}}] {{v.meal_name}}
             <span>￥{{v.amount_money}}  <b style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
-          <!--<a @click="alert = true">-->
           <span class="button"
                 @click.stop="booking(v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
             预订
@@ -133,21 +132,22 @@
     },
     methods: {
       share() {
+        let url = `${window.location.href.split('#')[0]}&mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`
         this.$getWxConfig()
         let that = this
         wx.ready(function () {
           wx.onMenuShareAppMessage({
             title: that.detail.shop_name, // 分享标题
-            desc: that.detail.address, // 分享描述
-            link: window.location.href, // 分享链接
-            imgUrl: that.detail.store_images, // 分享图标
+            desc: '至惠商联，让消费者成为第一赢家', // 分享描述
+            link: url, // 分享链接
+            imgUrl: `${that.baseImgUrl}${that.detail.store_images}`, // 分享图标
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
-             this.$message({
-               message:"分享成功",
-               type:'success'
-             })
+              that.$message({
+                message: "分享成功",
+                type: 'success'
+              })
             },
             cancel: function () {
               // 用户取消分享后执行的回调函数
@@ -168,11 +168,8 @@
       },
       selectDate(index, i) {
         this.dataSelect = index
+        this.show3 = 0
         localStorage.preset_time = i
-        console.log(localStorage.preset_time);
-      },
-      back() {
-        history.go(-1)
       },
       showDetail(i) {
         this.show3 = i
@@ -182,7 +179,6 @@
         await this.getStoreList()
         if (this.detail.shop_goods) {
           this.detail.shop_goods = this.detail.shop_goods.filter(item => item.rule === v)
-          console.log(this.detail.shop_goods);
         }
 
       },
@@ -257,6 +253,26 @@
       this.getStoreList()
       this.share()
     },
+    beforeRouteEnter(to, from, next) {
+      function a(name) {
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+      }
+
+      let mid = a('mid')
+      if (localStorage.uid) { // 先判断uid是否存在
+        next() // 存在说明以前注册过
+      } else { //不存在
+        if (mid) {  // 一定是被分享进来的
+            window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
+        }else{
+          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
+        }
+      }
+
+    }
 
   }
 </script>

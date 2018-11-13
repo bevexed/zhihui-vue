@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import {wxConfig, districts, citySearchList} from './api'
+  import {districts, citySearchList,existUid} from './api'
   import wx from 'weixin-js-sdk';
 
   export default {
@@ -14,6 +14,12 @@
       return {}
     },
     methods: {
+      async uidExist(){
+        let result = await existUid(localStorage.uid)
+        if (result.code === 0){
+          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')
+        }
+      },
       async getDistrict() {
         let result = await districts(localStorage.longitude_latitude)
         localStorage.area = result.result.ad_info.district
@@ -59,21 +65,23 @@
           message:"暂不支持除微信以外的平台打卡此页面",
           type:'error'
         })
-        setTimeout(()=>{window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')},3000)
+        setTimeout(()=>{window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')},1000)
       }
 
+      if (localStorage.uid) {
+        this.uidExist()
+      }
 
       if (localStorage.longitude_latitude) {
       } else {
         this.getWxConfig()
       }
-
-    }
+    },
   }
 </script>
 
 <style>
   #app {
-
+    -webkit-tap-highlight-color:transparent;
   }
 </style>
