@@ -6,7 +6,7 @@
     </section>
 
     <section class="address">
-      <header>
+      <header v-if="detail">
         {{detail.shop_name}}
       </header>
       <footer>
@@ -26,7 +26,7 @@
     </section>
 
     <section class="booking">
-      <header>
+      <header v-if="detail.sold_num">
         预订
         <span style="margin-right: .1rem">
                <i class="el-icon-circle-check" style="color: green;font-size: .16rem"> </i> {{detail.sold_num}}人订过
@@ -57,9 +57,10 @@
             <span>￥{{v.amount_money}}  <b style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
           <!--<a @click="alert = true">-->
-          <a @click.stop="booking(v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
+          <span class="button"
+                @click.stop="booking(v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
             预订
-          </a>
+          </span>
 
           <el-collapse-transition>
             <section v-show="show3 === i" style="border-top: .01rem solid #e6e6e6">
@@ -101,6 +102,7 @@
 <script>
   import {ImgBaseUrl, allShopGoodList, memberPhone, addmemberphone, wxConfig} from '../../api'
   import wx from 'weixin-js-sdk';
+
   export default {
     name: "detail",
     data() {
@@ -161,6 +163,7 @@
         await this.getStoreList()
         if (this.detail.shop_goods) {
           this.detail.shop_goods = this.detail.shop_goods.filter(item => item.rule === v)
+          console.log(this.detail.shop_goods);
         }
 
       },
@@ -386,7 +389,7 @@
     font-size: .18rem;
   }
 
-  .booking_money a {
+  .booking_money .button {
     float: right;
     display: inline-block;
     width: .57rem;
@@ -396,6 +399,8 @@
     background: #FFFFFF;
     text-decoration: none;
     border-radius: .04rem;
+    font-size: .14rem;
+    color: #000000;
   }
 
   .bus_information {

@@ -196,7 +196,7 @@ export const shopOrderPayList = (order_id) => ajax(Base_url + '/api/allorder/sho
 //关于城市选择
 export const citySelectList = () => ajax(Base_url + '/api/allcityselect/cityselectlist')
 //城市列表
-export const citySearchList = (area) => ajax(Base_url + '/api/allcityselect/citysearchlist', {area})
+export const citySearchList = (area,city) => ajax(Base_url + '/api/allcityselect/citysearchlist', {area,city})
 //城市搜索
 export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allcityselect/citysearchselectlist', {search_city})
 

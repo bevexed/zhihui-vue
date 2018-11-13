@@ -5,8 +5,9 @@
 </template>
 
 <script>
-  import {wxConfig, districts,citySearchList} from './api'
+  import {wxConfig, districts, citySearchList} from './api'
   import wx from 'weixin-js-sdk';
+
   export default {
     name: 'App',
     data() {
@@ -15,13 +16,12 @@
     methods: {
       async getDistrict() {
         let result = await districts(localStorage.longitude_latitude)
-        this.address = result.result.ad_info.district
-        localStorage.area = this.address
+        localStorage.area = result.result.ad_info.district
+        localStorage.city = result.result.ad_info.city
         this.getCitySearchList()
-        console.log(result.result.ad_info.district)
       },
       async getCitySearchList() {
-        let result = await citySearchList(localStorage.area)
+        let result = await citySearchList(localStorage.area,localStorage.city)
         console.log(result);
         localStorage.area_id = result.data.id
         setTimeout(() => {
@@ -29,25 +29,8 @@
         }, 1000)
       },
       async getWxConfig() {
-        let url = window.location.href.split('#')[0]
         let that = this
-        let result = await wxConfig(url)
-        result = JSON.parse(result.data)
-        let jssdkconfig = result
-
-        wx.config({
-          debug: true,
-          appId: jssdkconfig.appId,
-          timestamp: jssdkconfig.timestamp,
-          nonceStr: jssdkconfig.nonceStr,
-          signature: jssdkconfig.signature,
-          jsApiList: [
-            'getLocation',
-            'chooseWXPay',
-            'openLocation'
-          ]
-        });
-
+        this.$getWxConfig()
         wx.ready(function () {
           wx.getLocation({
             type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -69,16 +52,9 @@
     },
     mounted() {
 
-      // localStorage.uid = 100
       if (localStorage.longitude_latitude) {
-        // localStorage.longitude_latitude = '116.423816,40.00696'
-        // localStorage.area = '公主岭市'
-        // localStorage.area_id = '26332'
       } else {
         this.getWxConfig()
-        // history.go(0)
-
-
       }
 
     }
@@ -87,8 +63,6 @@
 
 <style>
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+
   }
 </style>
