@@ -152,11 +152,7 @@
         history.go(-1)
       },
       showDetail(i) {
-        if (this.show3 === i) {
-          this.show3 = -1
-        } else {
           this.show3 = i
-        }
       },
       async filterTime(v, i) {
         this.selected = i
