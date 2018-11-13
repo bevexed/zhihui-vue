@@ -100,14 +100,14 @@
 </template>
 
 <script>
-  import {Base_url,ImgBaseUrl, areaList, oneCate, twoCate} from "../../api/index";
+  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate} from "../../api/index";
 
   export default {
     name: "application",
     data() {
       return {
         ImgBaseUrl,
-        Base_url : Base_url,
+        Base_url: Base_url,
         shop_name: '',
         name: '',
         phone: '',
@@ -151,7 +151,7 @@
         console.log(event);
         var formData = new FormData();
         formData.append("file", event.target.files[0]);
-        let url =this.Base_url + '/api/allarea/uploadimg'
+        let url = this.Base_url + '/api/allarea/uploadimg'
         $.ajax({
           url,
           type: 'POST',
@@ -287,6 +287,17 @@
           })
           return
         }
+        let uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
+        console.log(!uPattern.test(shop_name));
+        if (!uPattern.test(shop_name)) {
+          this.$message({
+            message: "商铺名字为4到16位,且不能包含特殊字符",
+            type: 'error',
+            duration: 1000
+          })
+          return
+        }
+
         if (!name) {
           this.$message({
             message: "请填写姓名",
@@ -295,6 +306,7 @@
           })
           return
         }
+
         if (!phone) {
           this.$message({
             message: "请填写手机号",
@@ -303,6 +315,16 @@
           })
           return
         }
+        let phoneReg = /^1[0-9]{10}$/
+        if (!phoneReg.test(phone)) {
+          this.$message({
+            message: "请检查手机号码是否填写正确",
+            type: 'error',
+            duration: 1000
+          })
+          return
+        }
+
         if (!id_card) {
           this.$message({
             message: "请填写身份证号码",
