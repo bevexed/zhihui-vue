@@ -1,80 +1,124 @@
 <template>
   <div class="list-container">
     <dl class="list" id="J-feedback-list">
-      <dd class="dd-padding">
+      <dd class="dd-padding" v-for="(value,index) in commentList">
         <div class="feedbackCard">
 
           <div class="user-wrapper">
             <div class="user-pic">
               <div class="imgbox" style="background: none;">
-                <img src="//p1.meituan.net/122.74/mmc/e663563d638f3f2c56274e28ac949a143761.png" style="height: 100%;">
+                <!--<img :src="`${ImgBaseUrl}${value.avatar}`" style="height: 100%;">-->
+                <img :src="value.avatar" style="height: 100%;border-radius: 50%">
               </div>
             </div>
             <div class="user-info-text">
               <div class="userInfo">
-                <span class="username">lRW726618042</span>
+                <span class="username">{{value.nickname}}</span>
               </div>
               <div class="score">
                 <span class="stars">
-                  <i class="text-icon icon-star"></i>
-                  <i class="text-icon icon-star"></i>
-                  <i class="text-icon icon-star"></i>
-                  <i class="text-icon icon-star"></i>
-                  <i class="text-icon icon-star"></i>
+                  <i class="text-icon icon-star" v-for="i in value.cost_effective"></i>
                 </span>
-                <span class="time">2018-11-10</span>
+                <span class="time">{{value.c_time}}</span>
               </div>
             </div>
           </div>
           <div class="comment">
             <div class="toggleContent">
               <p>
-                来杭州第一次吃的自助餐，很惊喜，居然有烤的大鸡翅膀还有牛排，生蚝和大虾很新鲜，肉类也很棒棒，强烈推荐生蚝，新鲜又好吃，还有冰淇淋球！！！冰淇凌球！！！冰淇凌球！
-                <i class="text-icon icon-ell"></i>
-                <span class="feedbackmore">
-                ！！重要的事情说三遍！！！白色的香草牛奶味，巨好吃巨好吃巨好吃，emmm……我一个人也就吃了四五碗吧，大桶的底子都被我掏干净了(⁎⁍̴̛ᴗ⁍̴̛⁎)牛排也好吃～黑椒酱很棒棒，还有那个梅子肉还是啥的，甜甜的也好吃～还会再来的哈哈哈哈，对了，咖啡味道很浓很良心 #生鱼片# #巧克力冰淇淋# #牛排# #羊肉卷# #咖啡#
-                </span>
+                {{value.content}}
               </p>
             </div>
           </div>
           <div class="pics">
             <span class="pic-container imgbox" style="background: none;">
-              <img src="//p0.meituan.net/60.0/shaitu/8fc4d00d28e91efb41b30cf128f899631304546.jpg" style="width: 100%;">
-            </span>
-            <span class="pic-container imgbox" style="background: none;">
-              <img src="//p0.meituan.net/60.0/shaitu/60f333b51400a0e072846df10692d0be2188537.jpg" style="height: 100%;">
-            </span>
-            <span class="pic-container imgbox" style="background: none;">
-              <img src="//p0.meituan.net/60.0/shaitu/2ac6288d3f66749be64d1340fa7f4ff32074505.jpg" style="height: 100%;">
-            </span>
-            <span class="pic-container imgbox" style="background: none;">
-              <img src="//p0.meituan.net/60.0/shaitu/c6911e4f62eb894dbc198aac780bb40f2245428.jpg" style="width: 100%;">
-            </span>
-            <span class="pic-container imgbox" style="background: none;">
-              <img src="//p0.meituan.net/60.0/shaitu/bba9b31b64b086bd60c5c293e0170eb72308239.jpg" style="width: 100%;">
+              <img :src="value.picture" style="width: 100%;">
             </span>
           </div>
           <div>
-            <a href="//i.meituan.com/poi/98800120" style="color:#666;font-size: .16rem">高温派对·海鲜烤肉火锅自助</a>
+            <!--<a href="//i.meituan.com/poi/98800120" style="color:#666;font-size: .16rem">高温派对·海鲜烤肉火锅自助</a>-->
           </div>
-          <div class="block-reply">
+          <div class="block-reply" v-if="value.reply_time">
             <div class="block-reply-head">商家回复：
-              <span class="reply-time">2018-11-12</span>
+              <span class="reply-time">{{value.reply_time}}</span>
             </div>
-            <p>亲爱的顾客您好，首先感谢您选择我们餐厅用餐，再次感谢您的评价，期待您的再次光临，祝您生活愉快.</p>
+            <p>{{value.reply_content}}</p>
           </div>
         </div>
       </dd>
     </dl>
-    <div class="loading hide">
-      <div class="loading-spin"></div>
+    <div>
+      <div style="width: 100%;text-align: center;padding: .2rem 0" @click="loadingMore()"
+           v-if="commentList.length !== 0">
+        <span v-if="allLoaded">上拉或点击加载更多</span>
+        <span v-else>没有更多了</span>
+      </div>
+      <div style="width: 100%;text-align: center;padding: .2rem 0" v-if="commentList.length === 0">
+        没有更多了
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import {commentList, ImgBaseUrl} from '../../api'
+
   export default {
-    name: "evaluation"
+    name: "evaluation",
+    data() {
+      return {
+        ImgBaseUrl,
+        commentList: [],
+        page: 1,
+        allLoaded: true,
+        loading: false,//判断是否加载数据
+        loading_more: true,//控制是否发送ajax请求
+      }
+    },
+    methods: {
+      async getCommentList() {
+        let result = await commentList(23, 2, 1)
+        if (result.code === 1) {
+          this.commentList = result.info.list
+        }
+      },
+      async loadingMore() {
+        if (this.allLoaded === false) {
+          return
+        }
+        if ($(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
+          this.allLoaded = false
+          this.loading = true;
+          this.page++;
+          let result
+          if (this.loading_more) {
+            this.loading_more = false //禁止浏览器发送ajax请求let result
+            result = await commentList(23, 2, this.page)
+            if (result.code === 1) {//判断接受是否成功
+              this.loading = false
+              if (this.page === result.info.total_page) {
+                console.log('没有更多数据')
+                return
+              } else {
+                this.loading_more = true
+                this.shopList = [...this.commentList, ...result.info.list];
+              }
+            } else {
+              setTimeout(() => {
+                this.loading = false
+                this.loading_more = true
+              }, 1000)
+            }
+          } else {
+            this.loading = false
+          }
+        }
+      },
+    },
+    created() {
+      this.getCommentList()
+    }
+
   }
 </script>
 
@@ -87,20 +131,24 @@
     position: relative;
     border-radius: .06rem;
   }
+
   .block-reply-head {
     border-bottom: 1px solid #E0DDD7;
     font-size: .14rem;
     padding-bottom: .1rem;
   }
+
   .block-reply .reply-time {
     float: right;
     color: #999;
   }
+
   .block-reply p {
     margin-top: .1rem;
     font-size: .16rem;
     color: #ED852C;
   }
+
   p, h6 {
     line-height: 1.41;
     text-align: justify;
@@ -108,6 +156,7 @@
     word-break: break-all;
     font-size: .16rem;
   }
+
   .imgbox img {
     max-height: .5rem;
   }
@@ -192,6 +241,7 @@
   }
 
   .feedbackCard .time {
+    float: right;
     color: #999;
   }
 

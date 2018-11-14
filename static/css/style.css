@@ -4,9 +4,9 @@
   font-family: Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   letter-spacing: .02em;
   -webkit-tap-highlight-color:transparent;
-  -webkit-transform-style: preserve-3d;
+  /*-webkit-transform-style: preserve-3d;*/
   -webkit-backface-visibility: hidden;
-  -webkit-perspective: 1000;
+  /*-webkit-perspective: 1000;*/
 }
 
 a {

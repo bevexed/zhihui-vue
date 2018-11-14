@@ -10,7 +10,7 @@ export const wxConfig = (url) => ajax(Base_url + '/api/allaccesstoken/tokenlist'
 //获取当前地址
 export const districts = (longitude_latitude) => ajax(Base_url + '/api/allaccesstoken/longlat', {longitude_latitude})
 // uid 是否存在
-export const existUid = (uid) => ajax(Base_url + '/api/allaccesstoken/existuid',{uid})
+export const existUid = (uid) => ajax(Base_url + '/api/allaccesstoken/existuid', {uid})
 
 
 //所有轮播
@@ -198,12 +198,27 @@ export const shopOrderPayList = (order_id) => ajax(Base_url + '/api/allorder/sho
 //关于城市选择
 export const citySelectList = () => ajax(Base_url + '/api/allcityselect/cityselectlist')
 //城市列表
-export const citySearchList = (area,city) => ajax(Base_url + '/api/allcityselect/citysearchlist', {area,city})
+export const citySearchList = (area, city) => ajax(Base_url + '/api/allcityselect/citysearchlist', {area, city})
 //城市搜索
 export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allcityselect/citysearchselectlist', {search_city})
 
 // 关于支付
 export const pay = (price, ordernumber) => ajax(Base_url + '/api/alipay/pay', {price, ordernumber}, "GET")
 
-
-
+// 评论列表接口
+export const commentList = (shop_id, type, page) => ajax(Base_url + '/api/Allshopcomment/commentList', {
+  shop_id, //  必传     		商品ID
+  type, //   必传			类型（1：预览；2：更多）
+  page // page				否（详情时传）	页数
+})
+// 提交评论
+export const addComment = (shop_id, content, file, uid, cost_effective, environment, service, order_id) => ajax(Base_url + '/api/Allshopcomment/addComment', {
+  shop_id,        		//必传     		商品ID
+  content,		     	//必传			评论内容
+  file,				     //否				上传图片不限制名称，数量限制最大为5
+  uid,				      //	必传			页数
+  cost_effective,  	//		必传			性价比
+  environment,		//	必传			环境
+  service,		   	//	必传			服务
+  order_id,			  //	必传			订单ID
+})

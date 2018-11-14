@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-
+{{orderData.realprice - 0 !== 0}}{{typeof isSmall}}
     <div class="pay_mid" style="margin-top: .2rem">
       <div @click="choosePay(3)">
         <p>
@@ -33,14 +33,14 @@
         </p>
         <div class="circle" :class="checked==3 ? 'checked_icon' : ''"></div>
       </div>
-      <div @click="choosePay(2)" v-if="orderData.realprice - 0 != 0">
+      <div @click="choosePay(2)" v-show="orderData.realprice - 0 != 0">
         <p>
           <i class="iconfont icon-weixin"></i>
           <span>微信</span>
         </p>
         <div class="circle" :class="checked==2 ? 'checked_icon' : ''"></div>
       </div>
-      <div class="noneBorderBottom" @click="choosePay(1)" v-if="orderData.realprice - 0 != 0" v-show="isSmall == 'false'">
+      <div class="noneBorderBottom" @click="choosePay(1)" v-show="!isSmall && orderData.realprice - 0 != 0">
         <p>
           <i class="iconfont icon-zhifubao"></i>
           <span>支付宝</span>
@@ -63,7 +63,7 @@
       return {
         orderData: {},
         checked: -1,
-        isSmall: localStorage.isSmall
+        isSmall: JSON.parse(localStorage.isSmall)
       }
     },
     methods: {
