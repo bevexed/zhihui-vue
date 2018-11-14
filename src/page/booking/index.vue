@@ -168,6 +168,13 @@
 
     mounted() {
       this.getOderList()
+    },
+    beforeRouteEnter(to, from, next) {
+      if (from.name === 'detail') {
+        next()
+      } else {
+        window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+      }
     }
   }
 </script>

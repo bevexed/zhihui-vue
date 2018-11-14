@@ -24,7 +24,6 @@
         </div>
       </div>
     </div>
-{{orderData.realprice - 0 !== 0}}{{typeof isSmall}}
     <div class="pay_mid" style="margin-top: .2rem">
       <div @click="choosePay(3)">
         <p>
@@ -147,6 +146,13 @@
     created() {
       this.getShopOrderPayList()
       this.$getWxConfig()
+    },
+    beforeRouteEnter(to, from, next) {
+      if (from.name === 'booking') {
+        next()
+      } else {
+        window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+      }
     }
   }
 </script>

@@ -78,7 +78,7 @@
     methods: {
       getImg() {
         if (this.img != null){
-          this.message({
+          this.$message({
             message:'仅支持上传一张图片',
             type:'error'
           })
@@ -91,14 +91,14 @@
       },
 
       async custAddComment(shop_id, content, file, cost_effective, environment, service, order_id) {
-        let animateimg = $("#f").val(); //获取上传的图片名 带//
-        let imgarr = animateimg.split('\\'); //分割
-        let myimg = imgarr[imgarr.length - 1]; //去掉 // 获取图片名
-        let houzui = myimg.lastIndexOf('.'); //获取 . 出现的位置
-        let ext = myimg.substring(houzui, myimg.length).toUpperCase();  //切割 . 获取文件后缀
+        let animateImg = $("#f").val(); //获取上传的图片名 带//
+        let imgArr = animateImg.split('\\'); //分割
+        let myImg = imgArr[imgarr.length - 1]; //去掉 // 获取图片名
+        let houZui = myImg.lastIndexOf('.'); //获取 . 出现的位置
+        let ext = myImg.substring(houZui, myImg.length).toUpperCase();  //切割 . 获取文件后缀
         let img_file = $('#f').get(0).files[0]; //获取上传的文件
         let fileSize = img_file.size;           //获取上传的文件大小
-        let maxSize = 1048576;              //最大1MB
+        let maxSize = 1048576/2;              //最大500k
         if (ext != '.PNG' && ext != '.GIF' && ext != '.JPG' && ext != '.JPEG' && ext != '.BMP') {
           this.message({
             message: '文件类型错误,请上传图片类型',
