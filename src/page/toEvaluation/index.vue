@@ -89,7 +89,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: .57rem;
+    margin-top: .32rem;
     left: 18px;
     top: 336px;
     width: 105px;
