@@ -77,6 +77,13 @@
     },
     methods: {
       getImg() {
+        if (this.img != null){
+          this.message({
+            message:'仅支持上传一张图片',
+            type:'error'
+          })
+          return
+        }
         let url;
         url = window.URL.createObjectURL(document.getElementById('f').files.item(0));
         console.log(url);
