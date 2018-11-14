@@ -40,7 +40,7 @@
         </p>
         <div class="circle" :class="checked==2 ? 'checked_icon' : ''"></div>
       </div>
-      <div class="noneBorderBottom" @click="choosePay(1)" v-show="isSmall === 'false'">
+      <div class="noneBorderBottom" @click="choosePay(1)" v-show="isSmall == 'false'">
         <p>
           <i class="iconfont icon-zhifubao"></i>
           <span>支付宝</span>
