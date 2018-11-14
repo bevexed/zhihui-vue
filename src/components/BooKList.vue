@@ -31,6 +31,7 @@
     data() {
       return {
         baseImgUrl: ImgBaseUrl,
+        toJSON:''
       }
     },
     computed: {

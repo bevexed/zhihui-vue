@@ -11,7 +11,9 @@
   export default {
     name: 'App',
     data() {
-      return {}
+      return {
+        toJSON:''
+      }
     },
     methods: {
       async uidExist(){

@@ -5,9 +5,9 @@
       <swiper-slide v-for="item in banner"
                     :key="item.id">
         <div class="banner">
-          <a :href="`${item.banner_url}&id=${item.shop_id}`">
+          <router-link :to="{ name: 'detail', params: { id: item.shop_id, status : 0 }}">
             <img :src="`${baseImgUrl}${item.images}`" alt="">
-          </a>
+          </router-link>
         </div>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -36,6 +36,7 @@
     },
     data() {
       return {
+        toJSON:'',
         swiperOption: {
           autoplay: {
             delay: 3000,

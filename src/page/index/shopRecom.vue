@@ -40,6 +40,7 @@
       return {
         baseImgUrl: ImgBaseUrl,
         shopGoodList: [],
+        toJSON:''
       }
     },
     methods: {

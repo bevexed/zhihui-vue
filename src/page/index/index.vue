@@ -86,9 +86,6 @@
       dayRecom, // 小编推荐
       shopRecom, // 商家推荐
       ShopSort, //  商品分类
-      allLoaded: true,
-      loading: false,//判断是否加载数据
-      loading_more: true,//控制是否发送ajax请求
     },
     data() {
       return {
@@ -101,6 +98,7 @@
         allLoaded: true,
         loading: false,//判断是否加载数据
         loading_more: true,//控制是否发送ajax请求
+        toJSON:''
       }
     },
     methods: {
