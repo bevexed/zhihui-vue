@@ -4,7 +4,7 @@
       <p class="iconfont icon-fanhui comeback" @click="$router.go(-1)"></p>
       <p>评价</p>
       <span class="button" style="align-self: center;background: #F45252;font-size: .12rem"
-            @click="custAddComment(shop_id, content, file, cost_effective, environment, service, order_id)">去发布</span>
+            @click="custAddComment(content, file, cost_effective, environment, service)">去发布</span>
     </div>
 
     <div class="pf">
@@ -90,38 +90,55 @@
         this.img = url;
       },
 
-      async custAddComment(shop_id, content, file, cost_effective, environment, service, order_id) {
-        let animateImg = $("#f").val(); //获取上传的图片名 带//
-        let imgArr = animateImg.split('\\'); //分割
-        let myImg = imgArr[imgarr.length - 1]; //去掉 // 获取图片名
-        let houZui = myImg.lastIndexOf('.'); //获取 . 出现的位置
-        let ext = myImg.substring(houZui, myImg.length).toUpperCase();  //切割 . 获取文件后缀
-        let img_file = $('#f').get(0).files[0]; //获取上传的文件
-        let fileSize = img_file.size;           //获取上传的文件大小
-        let maxSize = 1048576/2;              //最大500k
-        if (ext != '.PNG' && ext != '.GIF' && ext != '.JPG' && ext != '.JPEG' && ext != '.BMP') {
-          this.message({
-            message: '文件类型错误,请上传图片类型',
-            type: 'error'
-          })
-          return false;
-        } else if (parseInt(fileSize) >= parseInt(maxSize)) {
-          this.message({
-            message: '上传的文件不能超过500K',
-            type: 'error'
-          })
-          return false;
-        } else {
-          // let data = new FormData($('#form1')[0]);
-          this.file = img_file
-          console.log(img_file);
+      async custAddComment(content, file, cost_effective, environment, service) {
+        if ($("#f").val()) {
+          let animateImg = $("#f").val(); //获取上传的图片名 带//
+          let imgArr = animateImg.split('\\'); //分割
+          let myImg = imgArr[imgArr.length - 1]; //去掉 // 获取图片名
+          let houZui = myImg.lastIndexOf('.'); //获取 . 出现的位置
+          let ext = myImg.substring(houZui, myImg.length).toUpperCase();  //切割 . 获取文件后缀
+          let img_file = $('#f').get(0).files[0]; //获取上传的文件
+          let fileSize = img_file.size;           //获取上传的文件大小
+          let maxSize = 1048576/2;              //最大500k
+          if (ext != '.PNG' && ext != '.GIF' && ext != '.JPG' && ext != '.JPEG' && ext != '.BMP') {
+            this.message({
+              message: '文件类型错误,请上传图片类型',
+              type: 'error'
+            })
+            return false;
+          } else if (parseInt(fileSize) >= parseInt(maxSize)) {
+            this.message({
+              message: '上传的文件不能超过500K',
+              type: 'error'
+            })
+            return false;
+          } else {
+            // let data = new FormData($('#form1')[0]);
+            this.file = img_file
+            console.log(img_file);
+          }
         }
-        let result = await addComment(shop_id, content, file, localStorage.uid, cost_effective, environment, service, order_id)
+
+        if (!content){
+          this.$message({
+            message:'请填写评论',
+            type:'error'
+          })
+          return
+        }
+        if(!cost_effective || !environment || !service){
+          this.$message({
+            message:"请为服务打分",
+            type:'error'
+          })
+        }
+        let result = await addComment(this.$route.params.store_id, content, file, localStorage.uid, cost_effective, environment, service, this.$route.params.order_id)
         if (result.code === 1) {
           this.$message({
             message: result.message,
             type: 'success'
           })
+          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
         } else {
           this.$message({
             message: result.message,

@@ -31,6 +31,20 @@
     },
     mounted() {
       this.goTo()
+    },
+    beforeRouteEnter(to, from, next) {
+      if (from.name === null) {  // 从外部直接进来
+        next(vm => {
+          localStorage.uid = vm.$getRequest().uid
+        })
+      } else {
+        if (from.name === 'booking') {
+          next()
+          this.$getWxConfig()
+        } else {
+          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+        }
+      }
     }
 
   }

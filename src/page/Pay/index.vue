@@ -149,7 +149,7 @@
       this.getShopOrderPayList()
     },
     beforeRouteEnter(to, from, next) {
-      if (from.name === null) {
+      if (from.name === null) { // 从外部直接进来
         next(vm => {
           localStorage.uid = vm.$getRequest().uid
           vm.$getWxConfig()

@@ -118,7 +118,7 @@ const router = new Router({
     },
     {
       component: evaluation,
-      path: '/evaluation/store_id/:store_id/order_id/:order_id',
+      path: '/evaluation/store_id/:store_id',
       name: 'evaluation'
     },
     {

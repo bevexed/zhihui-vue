@@ -1,5 +1,6 @@
 <template>
   <div class="list-container">
+    <h2 align="center" style="margin-top: .2rem">用户评论</h2>
     <dl class="list" id="J-feedback-list">
       <dd class="dd-padding" v-for="(value,index) in commentList">
         <div class="feedbackCard">
@@ -47,16 +48,9 @@
         </div>
       </dd>
     </dl>
-    <div>
-      <div style="width: 100%;text-align: center;padding: .2rem 0" @click="loadingMore()"
-           v-if="commentList.length !== 0">
-        <span v-if="allLoaded">上拉或点击加载更多</span>
-        <span v-else>没有更多了</span>
-      </div>
-      <div style="width: 100%;text-align: center;padding: .2rem 0" v-if="commentList.length === 0">
-        没有更多了
-      </div>
-    </div>
+
+    <div v-if="commentList.length === 1" style="text-align: center;margin-top: .1rem">暂无</div>
+    <div v-else style="text-align: center;margin-top: .1rem" @click="$router.push({name:'evaluation',params:{store_id:$route.params.id}})">查看更多</div>
   </div>
 </template>
 
@@ -77,41 +71,9 @@
     },
     methods: {
       async getCommentList() {
-        let result = await commentList(this.$route.params.store_id, 2, 1)
+        let result = await commentList(this.$route.params.id, 1)
         if (result.code === 1) {
           this.commentList = result.info.list
-        }
-      },
-      async loadingMore() {
-        if (this.allLoaded === false) {
-          return
-        }
-        if ($(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
-          this.allLoaded = false
-          this.loading = true;
-          this.page++;
-          let result
-          if (this.loading_more) {
-            this.loading_more = false //禁止浏览器发送ajax请求let result
-            result = await commentList(this.$route.params.store_id, 2, this.page)
-            if (result.code === 1) {//判断接受是否成功
-              this.loading = false
-              if (this.page === result.info.total_page) {
-                console.log('没有更多数据')
-                return
-              } else {
-                this.loading_more = true
-                this.shopList = [...this.commentList, ...result.info.list];
-              }
-            } else {
-              setTimeout(() => {
-                this.loading = false
-                this.loading_more = true
-              }, 1000)
-            }
-          } else {
-            this.loading = false
-          }
         }
       },
     },

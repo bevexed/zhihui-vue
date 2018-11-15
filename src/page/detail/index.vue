@@ -84,6 +84,8 @@
       </footer>
     </section>
 
+    <eva/>
+
     <el-dialog title="请绑定手机号码" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="手机号" :label-width="formLabelWidth">
@@ -101,9 +103,13 @@
 <script>
   import {ImgBaseUrl, allShopGoodList, memberPhone, addmemberphone, wxConfig} from '../../api'
   import wx from 'weixin-js-sdk';
+  import eva from './eva'
 
   export default {
     name: "detail",
+    components: {
+      eva
+    },
     data() {
       return {
         dataSelect: -1,
@@ -266,8 +272,8 @@
         next() // 存在说明以前注册过
       } else { //不存在
         if (mid) {  // 一定是被分享进来的
-            window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
-        }else{
+          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
+        } else {
           window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
         }
       }
