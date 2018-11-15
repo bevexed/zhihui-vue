@@ -48,7 +48,6 @@
     mounted() {
       let ua = navigator.userAgent.toLowerCase();
       if (ua.match(/MicroMessenger/i) == "micromessenger") {
-        alert(1)
       } else {
         window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/alipay/pay?price=${this.$route.params.realprice}&ordernumber=${this.$route.params.ordernumber}`)
       }

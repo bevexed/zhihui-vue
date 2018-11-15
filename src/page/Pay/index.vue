@@ -80,7 +80,7 @@
         // 支付宝支付
         if (this.checked === 1) {
           // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
-          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
         }
         if (this.checked === 2) {
           $.ajax({
@@ -110,12 +110,14 @@
                     // 支付成功后的回调函数
                     if (res.errMsg === "chooseWXPay:ok") {
                       //支付成功
-                      this.$message({
+                      that.$message({
                         message: '支付成功',
                         type: 'success'
                       })
+                      console.log(res);
+                      that.$router.push({name:'paySuccess'})
                     } else {
-                      this.$message({
+                      that.$message({
                         message: "支付失败",
                         type: 'error'
                       })
@@ -123,7 +125,7 @@
                   },
                   cancel: function (res) {
                     //支付取消
-                    this.$message({
+                    that.$message({
                       message: "您已取消支付"
                     })
                   }
@@ -145,13 +147,20 @@
     },
     created() {
       this.getShopOrderPayList()
-      this.$getWxConfig()
     },
     beforeRouteEnter(to, from, next) {
-      if (from.name === 'booking') {
-        next()
+      if (from.name === null) {
+        next(vm => {
+          localStorage.uid = vm.$getRequest().uid
+          vm.$getWxConfig()
+        })
       } else {
-        window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+        if (from.name === 'booking') {
+          next()
+          this.$getWxConfig()
+        } else {
+          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+        }
       }
     }
   }
