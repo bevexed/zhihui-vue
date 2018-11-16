@@ -151,6 +151,7 @@
         console.log(event);
         var formData = new FormData();
         formData.append("file", event.target.files[0]);
+        console.log(event.target.files[0]);
         let url = this.Base_url + '/api/allarea/uploadimg'
         $.ajax({
           url,

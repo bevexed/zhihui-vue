@@ -32,8 +32,8 @@
             </div>
           </div>
           <div class="pics">
-            <span class="pic-container imgbox" style="background: none;">
-              <img :src="value.picture" style="width: 100%;">
+            <span class="pic-container imgbox" style="background: none;" v-for="v in imgs[index]">
+              <img :src="`${ImgBaseUrl}${v}`" style="width: 100%;">
             </span>
           </div>
           <div>
@@ -43,7 +43,7 @@
             <div class="block-reply-head">商家回复：
               <span class="reply-time">{{value.reply_time}}</span>
             </div>
-            <p>{{value.reply_content}}</p>
+            <p v-html="value.reply_content"></p>
           </div>
         </div>
       </dd>
@@ -61,6 +61,7 @@
     name: "evaluation",
     data() {
       return {
+        imgs:[],
         ImgBaseUrl,
         commentList: [],
         page: 1,
@@ -74,6 +75,10 @@
         let result = await commentList(this.$route.params.id, 1)
         if (result.code === 1) {
           this.commentList = result.info.list
+          let pic = result.info.list.map(item => item.picture) // 过滤出pic
+          console.log(`pic:${pic}`);
+          this.imgs = pic.map(item => item.split(','))
+          console.log(`imgs:${this.imgs}`);
         }
       },
     },
@@ -266,6 +271,7 @@
     overflow: hidden;
     text-align: center;
     vertical-align: top;
+    margin-left: .05rem
   }
 
 

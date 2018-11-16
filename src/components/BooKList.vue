@@ -2,8 +2,9 @@
   <div class="index_list">
     <div class="swiper-container" id="shopCatelist">
       <div class="swiper-wrapper">
+        <!--<div class="swiper-slide" v-for="i in cate">-->
         <div class="swiper-slide" v-for="i in cate">
-          <div class="index_list_div" v-for="item in i"
+          <div class="index_list_div" v-for="item in shopCateListData"
                :key="item.id"
                @click="goTo(item)"
           >

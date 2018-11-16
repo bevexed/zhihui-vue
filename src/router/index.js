@@ -20,6 +20,7 @@ import aliPay from '@/page/aliPay/index'
 import evaluation from '@/page/evaluation/index'
 import toEvaluation from '@/page/toEvaluation/index'
 import paySuccess from '@/page/paySuccess/index'
+import scan from '@/page/scan/index'
 import 'jquery'
 
 Vue.use(Router)
@@ -73,7 +74,7 @@ const router = new Router({
     },
     {
       component: twoAllList,
-      path: '/twoAllList',
+      path: '/twoAllList/id/:id',
       name: 'twoAllList'
     },
     {
@@ -125,6 +126,11 @@ const router = new Router({
       component: toEvaluation,
       path: '/toevaluation/order_id/:order_id/store_id/:store_id',
       name: 'toevaluation'
+    },
+    {
+      component: scan,
+      path: '/scan',
+      name: 'scan'
     },
     {
       path: '/',

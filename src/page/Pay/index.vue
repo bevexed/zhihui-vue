@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import {shopOrderPayList, pay, wxConfig} from "../../api";
+  import {shopOrderPayList, pay, balancepay} from "../../api";
   import wx from 'weixin-js-sdk';
 
   export default {
@@ -82,6 +82,7 @@
           // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
           window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
         }
+        // weixin
         if (this.checked === 2) {
           $.ajax({
             type: 'POST',
@@ -135,6 +136,23 @@
             }
           })
 
+        }
+        // 平台
+        if (this.checked === 3) {
+          let result = await balancepay(localStorage.uid,that.orderData.ordernumber,that.orderData.realprice)
+          console.log(result);
+          if (result.code === 1){
+            this.$message({
+              message:result.message,
+              type:'success'
+            })
+            this.$router.push({name:'paySuccess'})
+          } else {
+            this.$message({
+              message:result.message,
+              type:'error'
+            })
+          }
         }
 
       },
