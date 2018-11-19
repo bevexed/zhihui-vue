@@ -79,8 +79,8 @@
         }
         // 支付宝支付
         if (this.checked === 1) {
-          // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
-          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
+          // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
         }
         // weixin
         if (this.checked === 2) {
@@ -90,8 +90,8 @@
             data: {
               uid: localStorage.uid,
               ordernumber: that.orderData.ordernumber,
-              // realprice: that.orderData.realprice
-              realprice: 0.01
+              realprice: that.orderData.realprice
+              // realprice: 0.01
             },
             success: function (res) {
 
