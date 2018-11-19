@@ -114,8 +114,8 @@
     computed: {
       payResult() {
         let real // 实际支付金额
-        let all = this.orderData.full_reducemoney // 总金额(即折后价之后的满减价格)
-        let reduce = this.orderData.rebatemoney // 总折扣卷
+        let all = this.orderData.full_reducemoney * 1000 // 总金额(即折后价之后的满减价格)
+        let reduce = this.orderData.rebatemoney * 1000 // 总折扣卷
         let leave // 剩余的抵扣卷数量
         let used // 用掉的抵扣卷数量
         if (this.value2 === true) { // 用卷
@@ -131,7 +131,7 @@
           leave = reduce
         }
         used = reduce - leave
-        return {real, leave, used}
+        return {real: real / 1000, leave: leave / 1000, used: used / 1000}
       },
       realReduce() {
 
@@ -155,7 +155,7 @@
         if (result.code === 1) {
           console.log(result);
           let order_id = result.data.order_id
-          this.$router.push({name: 'pay',params:{order_id}})
+          this.$router.push({name: 'pay', params: {order_id}})
         } else {
           this.$message({
             message: result.message,

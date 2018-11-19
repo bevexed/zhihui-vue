@@ -12,10 +12,10 @@
         <div class="bus_top">
           <p style="margin-top: .1rem">{{item.shop_name}}</p>
           <div style="height: .1rem;"></div>
-          <p class="colorWrap">{{item.address}}</p>
+          <p class="colorWrap nowrap">{{item.address}}</p>
         </div>
-        <div class="bus_down" style="padding-bottom: .1rem;">
-          <p class="colorRed">{{item.discount/10}}折</p>
+        <div class="bus_down" style="padding-bottom: .05rem;">
+          <p class="colorRed">{{item.discount/1}}折</p>
           <p>已售{{item.sold_num}}</p>
           <p style="color: #7e7e7e;">{{item.distance}}km</p>
         </div>
@@ -99,5 +99,10 @@
 </script>
 
 <style scoped>
-
+  .bus_down > p {
+    width: 30%;
+  }
+  .bus_down > p:last-child{
+    font-size: .12rem;
+  }
 </style>

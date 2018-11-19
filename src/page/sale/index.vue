@@ -12,7 +12,7 @@
           <p class="colorWrap">{{item.distribution}}</p>
         </div>
         <div class="bus_down">
-          <p class="colorRed">{{item.discount/10}}折</p>
+          <p class="colorRed">{{item.discount/1}}折</p>
           <p>已售{{item.sold_num}}</p>
           <p class="dollar">{{item.distance}}km</p>
         </div>
