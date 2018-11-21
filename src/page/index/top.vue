@@ -31,6 +31,13 @@
           style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999"
           :src="`data:image/png;base64,${storeImg}`" alt="">
       </div>
+      <!--商家付款二维码-->
+      <div class="store_img"
+           v-if="getCode"
+           @click="getCode = ''"
+           @wheel.prevent @tochmove.prevent>
+        <Qriosly   style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999"/>
+      </div>
 
       <el-dropdown trigger="click" @command="handleCommand">
             <span class="el-dropdown-link">
@@ -38,6 +45,8 @@
              </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="getStoreListImg" v-if="isShop === 1">商家二维码</el-dropdown-item>
+          <div style="height: .01rem;background: #1a1a1a;width: 100%;" v-if="isShop === 1"></div>
+          <el-dropdown-item command="getCode" v-if="isShop === 1">商家收款二维码</el-dropdown-item>
           <div style="height: .01rem;background: #1a1a1a;width: 100%;" v-if="isShop === 1"></div>
           <el-dropdown-item command="open3">发布需求</el-dropdown-item>
           <div style="height: .01rem;background: #1a1a1a;width: 100%;" v-if="isShop === 0"></div>
@@ -61,9 +70,12 @@
 
 <script>
   import {ImgBaseUrl, isaShop, newsAdd, storeImgs} from "../../api/index";
-
+  import Qriosly from "../../components/Qriosly"
   export default {
     name: "top",
+    components:{
+      Qriosly
+    },
     data() {
       return {
         storeImg: '',
@@ -74,14 +86,16 @@
         form: {
           name: ''
         },
-        toJSON:''
-
+        toJSON: '',
+        getCode: ''
       }
     },
     methods: {
       handleCommand(command) {
         if (command === 'getStoreListImg') {
           this.getStoreListImg()
+        } else if (command === 'getCode') {
+          this.getCode = true
         } else if (command === 'open3') {
           this.open3()
         } else {
