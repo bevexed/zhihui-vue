@@ -139,7 +139,7 @@
         }
         // 平台
         if (this.checked === 3) {
-          let result = await balancepay(localStorage.uid,that.orderData.ordernumber,that.orderData.realprice)
+          let result = await balancepay(localStorage.uid,that.orderData.ordernumber)
           console.log(result);
           if (result.code === 1){
             this.$message({

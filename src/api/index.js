@@ -204,7 +204,7 @@ export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allci
 
 // 关于支付
 export const pay = (price, ordernumber) => ajax(Base_url + '/api/alipay/pay', {price, ordernumber}, "GET")
-export const balancepay = (uid,ordernumber,realprice) => ajax('https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/balancepay/pay',{uid,ordernumber,realprice})
+export const balancepay = (uid,ordernumber,pay_type = 'balance') => ajax('https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/notify/updateOrder',{uid,ordernumber,pay_type})
 
 // 评论列表接口
 export const commentList = (shop_id, type, page) => ajax(Base_url + '/api/Allshopcomment/commentList', {
