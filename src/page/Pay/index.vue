@@ -84,7 +84,7 @@
         }
         // weixin
         if (this.checked === 2) {
-          if (localStorage.isSmall) { //如果在小程序里
+          if (JSON.parse(localStorage.isSmall)) { //如果在小程序里
             $.ajax({
               type: 'POST',
               url: 'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',

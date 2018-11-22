@@ -19,6 +19,8 @@
           最新发布</p>
         <p @click="getAllSort(4)" :class="{'active':sort_status === 4}">
           价格排序</p>
+        <p @click="getAllSort(5)" :class="{'active':sort_status === 5}">
+          好评排序</p>
       </div>
 
       <div class="index_foot_list" v-for="item in allSortList" :key="item.id"

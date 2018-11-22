@@ -16,6 +16,8 @@
           最新发布</p>
         <p @click="getAllSort(4)" :class="{'active':sort_status === 4}">
           价格排序</p>
+        <p @click="getAllSort(5)" :class="{'active':sort_status === 5}">
+          好评排序</p>
       </div>
 
       <div class="index_foot_list" v-for="item in allSortList" :key="item.id"
@@ -24,13 +26,13 @@
         <div>
           <p class="list_name">{{item.shop_name}}</p>
           <p class="list_content">[{{item.address}}]</p>
-          <p class="list_price">{{item.discount}}折起 </p>
+          <p class="list_price">{{item.discount/1}}折起 </p>
 
         </div>
         <div class="align_self">
           <p class="fontSm">{{item.distance}}km</p>
           <span class="colorRed" v-show="sort_status === 4">￥{{item.amount_money}}</span>
-          <p style="color: #756b5e;font-size: .12rem">已售 {{item.sold_num}}</p>
+          <p style="color: #756b5e;font-size: .12rem">已售 {{item.sold_num/1}}</p>
         </div>
       </div>
       <div>

@@ -178,7 +178,7 @@ export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone',
 // 当前用户添加预留手机号
 export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/addmemberphone', {uid, phone})
 // 订单立即支付
-export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
+export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount,shopgoods_num) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
   uid,
   preset_time,
   full_reducemoney,
@@ -190,7 +190,8 @@ export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, 
   rule,
   full_reduce,
   pretium,
-  discount
+  discount,
+  shopgoods_num
 })
 // 选择支付单号和实际支付价格
 export const shopOrderPayList = (order_id) => ajax(Base_url + '/api/allorder/shoporderpaylist', {order_id})

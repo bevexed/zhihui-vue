@@ -157,7 +157,7 @@
       },
       async pay() {
         let rebat = this.payResult.real // 实付金额
-        let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr))
+        let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr),this.num1)
         if (result.code === 1) {
           console.log(result);
           let order_id = result.data.order_id
