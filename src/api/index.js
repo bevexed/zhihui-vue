@@ -162,7 +162,7 @@ export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_i
 
 // 关于订单
 // 预订单添加
-export const orderList = (uid, preset_time, store_id, goods_id, rule, full_reduce, pretium, discount) => ajax(Base_url + '/api/allorder/orderlist', {
+export const orderList = (uid, preset_time, store_id, goods_id, rule, full_reduce, pretium, discount,shopgoods_num) => ajax(Base_url + '/api/allorder/orderlist', {
   uid,
   preset_time,
   store_id,
@@ -170,7 +170,8 @@ export const orderList = (uid, preset_time, store_id, goods_id, rule, full_reduc
   rule,
   full_reduce,
   pretium,
-  discount
+  discount,
+  shopgoods_num
 })
 // 当前用户是否存在手机号
 export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone', {uid})

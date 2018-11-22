@@ -36,7 +36,7 @@
            v-if="getCode"
            @click="getCode = ''"
            @wheel.prevent @tochmove.prevent>
-        <Qriosly   style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999"/>
+        <Qriosly   style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999;height: 3rem;background: white"/>
       </div>
 
       <el-dropdown trigger="click" @command="handleCommand">

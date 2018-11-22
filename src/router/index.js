@@ -129,7 +129,7 @@ const router = new Router({
     },
     {
       component: scan,
-      path: '/scan',
+      path: '/scan/sjid/:sjid',
       name: 'scan'
     },
     {

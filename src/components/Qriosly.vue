@@ -8,7 +8,7 @@
     props: {},
     data() {
       return {
-        initQCode: '你自己定义的值'
+        initQCode: `https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html#/scan/sjid/${localStorage.uid}`
       }
     }
   }

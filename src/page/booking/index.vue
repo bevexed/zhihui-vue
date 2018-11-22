@@ -15,12 +15,14 @@
         <img :src="ImgBaseUrl+orderData.meal_images" style="max-height: 1.4rem;max-width:.9rem;margin-top: .2rem"
              alt="">
         <footer style="width: 70%;float: right;">
-          <p><b style="font-size: .2rem">{{orderData.meal_name}}</b></p>
-          购买数量
-          <span>1</span>
+          <p><b style="font-size: .2rem">套餐名称：{{orderData.meal_name}}</b></p>
+          购买数量<el-input-number style="float: right " size="mini" v-model="num1" @change="handleChange" :min="1" label="购买数量"></el-input-number>
           <hr>
-          商品原价
-          <span>￥{{orderData.pretium}}</span>
+          <div style="margin-top: .2rem">
+            商品原价
+            <span>￥{{orderData.pretium}}</span>
+          </div>
+
           <hr>
         </footer>
         <div style="clear: both"></div>
@@ -109,6 +111,7 @@
         value2: false,
         store: {},
         orderData: {},
+        num1: 1
       }
     },
     computed: {
@@ -143,8 +146,11 @@
       }
     },
     methods: {
+      handleChange(value) {
+        this.getOderList()
+      },
       async getOderList() {
-        let result = await orderList(localStorage.uid, localStorage.preset_time, ...JSON.parse(localStorage.arr))
+        let result = await orderList(localStorage.uid, localStorage.preset_time, ...JSON.parse(localStorage.arr),this.num1)
         if (result.code === 1) {
           this.orderData = result.data
         }

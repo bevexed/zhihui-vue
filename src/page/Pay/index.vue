@@ -84,73 +84,121 @@
         }
         // weixin
         if (this.checked === 2) {
-          $.ajax({
-            type: 'POST',
-            url: 'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',
-            data: {
-              uid: localStorage.uid,
-              ordernumber: that.orderData.ordernumber,
-              realprice: that.orderData.realprice
-              // realprice: 0.01
-            },
-            success: function (res) {
+          if (localStorage.isSmall) { //如果在小程序里
+            $.ajax({
+              type: 'POST',
+              url: 'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',
+              data: {
+                uid: localStorage.uid,
+                ordernumber: that.orderData.ordernumber,
+                realprice: that.orderData.realprice
+                // realprice: 0.01
+              },
+              success: function (res) {
+                // let package = new Array();
+                // package = wechat.package.split("=");
+                if (res) {
+                  let result
+                  console.log(JSON.parse(res));
+                  result = JSON.parse(res)
+                  console.log(result.timeStamp);
+                  let test = window.location.href;
+                  let mweb_url = 'https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry' +
+                    '&p=pay' +
+                    '&mid=' + localStorage.uid +
+                    '&do=order' +
+                    '&m=vslai_shop' +
+                    '&orderid=' + that.orderData.ordernumber +
+                    '&openid=' + "{$openid}" +
+                    '&ischannelpay=0';
+                  let parameter = 'appId=' + result.appId
+                    + '&timeStamp=' + result.timeStamp
+                    + '&nonceStr=' + result.nonceStr
+                    + '&package=' + result.package
+                    + '&signType=' + result.signType
+                    + '&paySign=' + result.paySign
+                    + '&url=' + encodeURIComponent(test)
+                    + '&mweb_url=' + encodeURIComponent(mweb_url);
+                  let url = '/pages/pay/index?' + parameter;
+                  wx.miniProgram.navigateTo({url});
+                  wx.miniProgram.postMessage({data: 'foo'});
+                  wx.miniProgram.postMessage({data: {foo: 'bar'}});
+                  wx.miniProgram.getEnv(function (res) {
+                    console.log(res.miniprogram)
+                  });
+                }
+              }
+            })
+          } else {
+            $.ajax({
+              type: 'POST',
+              url: 'https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/wxpay/pay',
+              data: {
+                uid: localStorage.uid,
+                ordernumber: that.orderData.ordernumber,
+                realprice: that.orderData.realprice
+                // realprice: 0.01
+              },
+              success: function (res) {
 
-              if (res) {
-                let result
-                console.log(JSON.parse(res));
-                result = JSON.parse(res)
-                console.log(result.timeStamp);
-                wx.chooseWXPay({
-                  appId: result.appId,
-                  timestamp: result.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                  nonceStr: result.nonceStr, // 支付签名随机串，不长于 32 位
-                  package: result.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
-                  signType: result.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                  paySign: result.paySign, // 支付签名
-                  success: function (res) {
-                    // 支付成功后的回调函数
-                    if (res.errMsg === "chooseWXPay:ok") {
-                      //支付成功
+                if (res) {
+                  let result
+                  console.log(JSON.parse(res));
+                  result = JSON.parse(res)
+                  console.log(result.timeStamp);
+                  wx.chooseWXPay({
+                    appId: result.appId,
+                    timestamp: result.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                    nonceStr: result.nonceStr, // 支付签名随机串，不长于 32 位
+                    package: result.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+                    signType: result.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                    paySign: result.paySign, // 支付签名
+                    success: function (res) {
+                      // 支付成功后的回调函数
+                      if (res.errMsg === "chooseWXPay:ok") {
+                        //支付成功
+                        that.$message({
+                          message: '支付成功',
+                          type: 'success'
+                        })
+                        console.log(res);
+                        that.$router.push({name: 'paySuccess'})
+                      } else {
+                        that.$message({
+                          message: "支付失败",
+                          type: 'error'
+                        })
+                      }
+                    },
+                    cancel: function (res) {
+                      //支付取消
                       that.$message({
-                        message: '支付成功',
-                        type: 'success'
-                      })
-                      console.log(res);
-                      that.$router.push({name:'paySuccess'})
-                    } else {
-                      that.$message({
-                        message: "支付失败",
-                        type: 'error'
+                        message: "您已取消支付"
                       })
                     }
-                  },
-                  cancel: function (res) {
-                    //支付取消
-                    that.$message({
-                      message: "您已取消支付"
-                    })
-                  }
-                });
-              }
+                  });
+                }
 
-            }
-          })
+              }
+            })
+          }
+
 
         }
         // 平台
         if (this.checked === 3) {
-          let result = await balancepay(localStorage.uid,that.orderData.ordernumber)
+          let result = await balancepay(localStorage.uid, that.orderData.ordernumber)
           console.log(result);
-          if (result.code === 1){
+          if (result.code === 1) {
             this.$message({
-              message:result.message,
-              type:'success'
+              message: result.message,
+              type: 'success'
             })
-            this.$router.push({name:'paySuccess'})
+            this.$router.push({name: 'paySuccess'})
           } else {
             this.$message({
-              message:result.message,
-              type:'error'
+              message: result.message,
+              type: 'error'
             })
           }
         }
