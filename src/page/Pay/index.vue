@@ -79,7 +79,7 @@
         }
         // 支付宝支付
         if (this.checked === 1) {
-          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
           // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
         }
         // weixin
@@ -145,9 +145,11 @@
                   let result
                   console.log(JSON.parse(res));
                   result = JSON.parse(res)
-                  console.log(result.timeStamp);
+                  console.log(result);
+                  alert(result.appId)
                   wx.chooseWXPay({
-                    appId: result.appId,
+                    // appId: result.appId,
+                    appId: 'wx6ae88e9a0dcb59b1',
                     timestamp: result.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
                     nonceStr: result.nonceStr, // 支付签名随机串，不长于 32 位
                     package: result.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
@@ -213,6 +215,7 @@
     },
     created() {
       this.getShopOrderPayList()
+      this.$getWxConfig()
     },
     beforeRouteEnter(to, from, next) {
       if (from.name === null) { // 从外部直接进来

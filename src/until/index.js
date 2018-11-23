@@ -42,14 +42,14 @@ Vue.prototype.$isAndroid = function () {
 
 Vue.prototype.$getWxConfig = async function () {
   let url = window.location.href.split('#')[0]
-  let that = this
   let result = await wxConfig(url)
   result = JSON.parse(result.data)
   let jssdkconfig = result
 
   wx.config({
     debug: true,
-    appId: jssdkconfig.appId,
+    // appId: jssdkconfig.appId,
+    appId: 'wx6ae88e9a0dcb59b1',
     timestamp: jssdkconfig.timestamp,
     nonceStr: jssdkconfig.nonceStr,
     signature: jssdkconfig.signature,

@@ -5,7 +5,7 @@
     </div>
     <div>
       <span>消费金额：</span>
-      <el-input v-model="money" placeholder="请输入金额"></el-input>
+      <el-input v-model="money" value="number" placeholder="请输入金额"></el-input>
     </div>
 
     <!--<div>-->
