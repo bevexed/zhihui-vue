@@ -9,6 +9,9 @@
     <section class="table">
       <table>
         <tr>
+          <td colspan="2"><a href="">请点击此次下载协议，并将写好的协议上传拍照</a></td>
+        </tr>
+        <tr>
           <td><label for="shop_name">商店名称：</label></td>
           <td><input type="text" id="shop_name" v-model="shop_name" placeholder="请输入店铺名称"></td>
         </tr>
@@ -91,6 +94,16 @@
             <img :src="`${ImgBaseUrl}${localId.card}`" alt="" v-show="localId.card">
           </td>
         </tr>
+        <tr>
+          <td>协议：</td>
+          <td>
+            <input class="weui-uploader__input" type="file" name="file" accept="image/*"
+                   multiple="" @change="upLoadImg('xieyi')">
+            <img src="../../assets/add.png" alt="" v-if="!localId.xieyi" style="width: .3rem">
+            <!--<span @click="chooseImage('card')" v-if="!localId.card">请选择照片</span>-->
+            <img :src="`${ImgBaseUrl}${localId.xieyi}`" alt="" v-show="localId.card">
+          </td>
+        </tr>
       </table>
     </section>
     <footer>
@@ -100,7 +113,7 @@
 </template>
 
 <script>
-  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate} from "../../api/index";
+  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate,storeAdd } from "../../api/index";
 
   export default {
     name: "application",
@@ -127,6 +140,7 @@
           front: '',
           back: '',
           card: '',
+          xieyi:''
         },
         oneCate: '',
         sOneCate: '',
@@ -280,6 +294,7 @@
         let id_card_positive_photo = this.localId.back
         let id_card_negative_photo = this.localId.front
         let business_license = this.localId.card
+        let xieyi = this.xieyi
         let {shop_name, phone, name, id_card} = this
 
         if (!shop_name) {
@@ -336,7 +351,7 @@
           })
           return
         }
-        if (!uid, !province_id, !city_id, !area_id, !street_id, !community_id, !phone, !name, !address, !id_card, !id_card_positive_photo, !id_card_negative_photo , !business_license) {
+        if (!uid, !province_id, !city_id, !area_id, !street_id, !community_id, !phone, !name, !address, !id_card, !id_card_positive_photo, !id_card_negative_photo , !business_license,!xieyi) {
           this.$message({
             message: "请上传照片",
             type: 'error',
@@ -344,7 +359,7 @@
           })
           return
         }
-        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license)
+        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license,xieyi)
         if (result.code === 1) {
           this.$message({
             message: result.message,
@@ -362,6 +377,9 @@
 </script>
 
 <style scoped>
+  *{
+    -webkit-backface-visibility: unset;
+  }
   header .pay_top {
     margin: 0;
   }

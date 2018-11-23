@@ -15,7 +15,7 @@
       <form action="#" onsubmit="return false;">
         <el-input
           type="search"
-          placeholder="输入商家名字、品类"
+          placeholder="输入套餐名称"
           prefix-icon="el-icon-search"
           @focus="$router.push('shopSearch')"
         >
@@ -36,7 +36,8 @@
            v-if="getCode"
            @click="getCode = ''"
            @wheel.prevent @tochmove.prevent>
-        <Qriosly   style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999;height: 3rem;background: white"/>
+        <Qriosly
+          style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999;height: 3rem;background: white"/>
       </div>
 
       <el-dropdown trigger="click" @command="handleCommand">
@@ -71,9 +72,10 @@
 <script>
   import {ImgBaseUrl, isaShop, newsAdd, storeImgs} from "../../api/index";
   import Qriosly from "../../components/Qriosly"
+
   export default {
     name: "top",
-    components:{
+    components: {
       Qriosly
     },
     data() {
@@ -136,9 +138,15 @@
         console.log(result)
       },
       async getisShop() {
-        let result = await isaShop(localStorage.uid)
-        console.log(result)
-        this.isShop = result.code
+        if (localStorage.uid) {
+          let result = await isaShop(localStorage.uid)
+          console.log(result)
+          if (result) { // 有结果说明有uid
+            this.isShop = result.code
+          }
+        } else { // 没有uid 回到首页
+          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+        }
       },
 
     },

@@ -162,7 +162,7 @@ export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_i
 
 // 关于订单
 // 预订单添加
-export const orderList = (uid, preset_time, store_id, goods_id, rule, full_reduce, pretium, discount,shopgoods_num) => ajax(Base_url + '/api/allorder/orderlist', {
+export const orderList = (uid, preset_time, store_id, goods_id, rule, full_reduce, pretium, discount, shopgoods_num) => ajax(Base_url + '/api/allorder/orderlist', {
   uid,
   preset_time,
   store_id,
@@ -178,7 +178,7 @@ export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone',
 // 当前用户添加预留手机号
 export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/addmemberphone', {uid, phone})
 // 订单立即支付
-export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount,shopgoods_num) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
+export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount, shopgoods_num) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
   uid,
   preset_time,
   full_reducemoney,
@@ -195,6 +195,15 @@ export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, 
 })
 // 选择支付单号和实际支付价格
 export const shopOrderPayList = (order_id) => ajax(Base_url + '/api/allorder/shoporderpaylist', {order_id})
+// 用户扫商家二维码获取相关信息
+export const orderInfo = (s_id, u_id) => ajax(Base_url + '/api/allorder/orderInfo', {s_id, u_id})
+// 扫码订单立即支付
+export const addOrder = (uid, store_id, full_reducemoney, coupon) => ajax(Base_url + '/api/allorder/addOrder', {
+  uid,				      //必传		用户id
+  store_id,			    //必传		店铺id
+  full_reducemoney, //必传		实际支付金额
+  coupon,			      //必传		购物券抵扣金额
+})
 
 
 //关于城市选择
@@ -206,7 +215,11 @@ export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allci
 
 // 关于支付
 export const pay = (price, ordernumber) => ajax(Base_url + '/api/alipay/pay', {price, ordernumber}, "GET")
-export const balancepay = (uid,ordernumber,pay_type = 'balance') => ajax('https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/notify/updateOrder',{uid,ordernumber,pay_type})
+export const balancepay = (uid, ordernumber, pay_type = 'balance') => ajax('https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/notify/updateOrder', {
+  uid,
+  ordernumber,
+  pay_type
+})
 
 // 评论列表接口
 export const commentList = (shop_id, type, page) => ajax(Base_url + '/api/Allshopcomment/commentList', {

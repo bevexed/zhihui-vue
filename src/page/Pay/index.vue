@@ -119,7 +119,7 @@
                     + '&paySign=' + result.paySign
                     + '&url=' + encodeURIComponent(test)
                     + '&mweb_url=' + encodeURIComponent(mweb_url);
-                  let url = '/pages/pay/index?' + parameter;
+                  let url = '/pages/pay2/index?' + parameter;
                   wx.miniProgram.navigateTo({url});
                   wx.miniProgram.postMessage({data: 'foo'});
                   wx.miniProgram.postMessage({data: {foo: 'bar'}});
@@ -221,7 +221,7 @@
           vm.$getWxConfig()
         })
       } else {
-        if (from.name === 'booking') {
+        if (from.name === 'booking' || from.name === 'scan') {
           next()
           this.$getWxConfig()
         } else {

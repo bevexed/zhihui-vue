@@ -1,6 +1,10 @@
 <template>
   <div @touchmove="loadingMore()" @wheel="loadingMore()">
-
+    <nav class="tab">
+      <span><a href="https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop">至惠商城</a></span>
+      <span><a
+        :href="`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${uid}#/index`">至惠商联</a></span>
+    </nav>
     <top/>
 
     <banner/>
@@ -91,6 +95,7 @@
     },
     data() {
       return {
+        uid:'',
         discountList: [],
         shopCateListData: [],
         allSortList: [],
@@ -100,7 +105,7 @@
         allLoaded: true,
         loading: false,//判断是否加载数据
         loading_more: true,//控制是否发送ajax请求
-        toJSON:''
+        toJSON: ''
       }
     },
     methods: {
@@ -186,7 +191,7 @@
       let uid = window.location.href.match(p)[1]
       console.log(uid);
       localStorage.uid = uid
-
+      this.uid = uid
       this.getDiscountList()
       this.getShopCateList()
       this.getAllSort(1)
@@ -198,7 +203,36 @@
 </script>
 
 <style scoped>
-  div{
+  .tab{
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 4px solid #e3e3e3;
+  }
+
+  .tab span {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+    height: .4rem;
+    line-height: .4rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+  nav.tab span:last-child{
+    background: #f15353;
+    color: #FFFFFF !important;
+  }
+
+  nav.tab a{
+    color: #0f0f0f;
+  }
+
+  nav.tab span:last-child a{
+    color: #FFFFFF !important;
+  }
+
+
+  div {
     background: #ffffff;
   }
 

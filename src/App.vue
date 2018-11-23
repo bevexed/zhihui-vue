@@ -24,7 +24,6 @@
           return null;
         }
         let mid = a('mid')
-
         let result = await existUid(localStorage.uid)
         if (result.code === 0){
           window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
@@ -80,6 +79,8 @@
 
       if (localStorage.uid) {
         this.uidExist()
+      } else {
+        window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
       }
 
       if (localStorage.longitude_latitude) {

@@ -5,7 +5,7 @@
         <el-input
           style="width: 2.5rem;"
           type="search"
-          placeholder="请输入商家名、品类"
+          placeholder="请输入套餐名称"
           prefix-icon="el-icon-search"
           v-model="search_key"
           @focus="$router.push({name:'shopSearch'})"
