@@ -236,6 +236,8 @@
         let result = await twoCate(p_id)
         if (result.code === 1) {
           if (result.data === null) {
+            this.twoCate = null
+            this.sTwoCate = null
             return
           }
           console.log(result.data)
