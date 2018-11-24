@@ -16,7 +16,9 @@
              alt="">
         <footer style="width: 70%;float: right;">
           <p><b style="font-size: .2rem">套餐名称：{{orderData.meal_name}}</b></p>
-          购买数量<el-input-number style="float: right " size="mini" v-model="num1" @change="handleChange" :min="1" label="购买数量"></el-input-number>
+          购买数量
+          <el-input-number style="float: right " size="mini" v-model="num1" @change="handleChange" :min="1"
+                           label="购买数量"></el-input-number>
           <hr>
           <div style="margin-top: .2rem">
             商品原价
@@ -78,10 +80,11 @@
 
     <section class="real_pay phone room_style">
       <footer>
+        订单备注
         <el-input
           type="textarea"
           :rows="2"
-          placeholder="请输入内容"
+          placeholder="请输入订单备注"
           v-model="remark">
         </el-input>
       </footer>
@@ -123,7 +126,7 @@
         store: {},
         orderData: {},
         num1: 1,
-        remark:''
+        remark: ''
       }
     },
     computed: {
@@ -162,14 +165,14 @@
         this.getOderList()
       },
       async getOderList() {
-        let result = await orderList(localStorage.uid, localStorage.preset_time, ...JSON.parse(localStorage.arr),this.num1)
+        let result = await orderList(localStorage.uid, localStorage.preset_time, ...JSON.parse(localStorage.arr), this.num1)
         if (result.code === 1) {
           this.orderData = result.data
         }
       },
       async pay() {
         let rebat = this.payResult.real // 实付金额
-        let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr),this.num1,this.remark)
+        let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr), this.num1, this.remark)
         if (result.code === 1) {
           console.log(result);
           let order_id = result.data.order_id
