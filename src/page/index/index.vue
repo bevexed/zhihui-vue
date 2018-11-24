@@ -56,7 +56,7 @@
         </div>
         <div class="align_self">
           <p class="fontSm">{{item.distance}}km</p>
-          <span class="colorRed" v-show="sort_status === 4">￥{{item.amount_money}}</span>
+          <span class="colorRed" v-show="item.amount_money">￥{{item.amount_money}}</span>
           <p style="color: #756b5e;font-size: .12rem">已售 {{item.sold_num}}</p>
         </div>
       </div>
@@ -99,7 +99,7 @@
         discountList: [],
         shopCateListData: [],
         allSortList: [],
-        sort_status: [],
+        sort_status: 1,
         sortPage: 1,
         baseImgUrl: ImgBaseUrl,
         allLoaded: true,
@@ -192,12 +192,11 @@
       console.log(uid);
       localStorage.uid = uid
       this.uid = uid
+    },
+    mounted() {
       this.getDiscountList()
       this.getShopCateList()
       this.getAllSort(1)
-      console.log(navigator);
-    },
-    mounted() {
     }
   }
 </script>

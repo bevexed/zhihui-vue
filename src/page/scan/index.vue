@@ -99,6 +99,7 @@
     },
     created() {
       this.getOrderInfo()
+      this.$getWxConfig()
     },
     mounted() {
 

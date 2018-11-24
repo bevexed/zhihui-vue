@@ -47,9 +47,8 @@ Vue.prototype.$getWxConfig = async function () {
   let jssdkconfig = result
 
   wx.config({
-    debug: true,
-    // appId: jssdkconfig.appId,
-    appId: 'wx6ae88e9a0dcb59b1',
+    debug: false,
+    appId: jssdkconfig.appId,
     timestamp: jssdkconfig.timestamp,
     nonceStr: jssdkconfig.nonceStr,
     signature: jssdkconfig.signature,

@@ -91,41 +91,26 @@
               data: {
                 uid: localStorage.uid,
                 ordernumber: that.orderData.ordernumber,
-                realprice: that.orderData.realprice
+                realprice: that.orderData.realprice,
+                type:2
                 // realprice: 0.01
               },
               success: function (res) {
-                // let package = new Array();
-                // package = wechat.package.split("=");
                 if (res) {
                   let result
                   console.log(JSON.parse(res));
                   result = JSON.parse(res)
                   console.log(result.timeStamp);
-                  let test = window.location.href;
-                  let mweb_url = 'https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry' +
-                    '&p=pay' +
-                    '&mid=' + localStorage.uid +
-                    '&do=order' +
-                    '&m=vslai_shop' +
-                    '&orderid=' + that.orderData.ordernumber +
-                    '&openid=' + "{$openid}" +
-                    '&ischannelpay=0';
+                  let test =  window.location.href.split('#')[0];
                   let parameter = 'appId=' + result.appId
                     + '&timeStamp=' + result.timeStamp
                     + '&nonceStr=' + result.nonceStr
-                    + '&package=' + result.package
+                    + '&package=' + result.package.split("=")[1]
                     + '&signType=' + result.signType
                     + '&paySign=' + result.paySign
                     + '&url=' + encodeURIComponent(test)
-                    + '&mweb_url=' + encodeURIComponent(mweb_url);
                   let url = '/pages/pay2/index?' + parameter;
                   wx.miniProgram.navigateTo({url});
-                  wx.miniProgram.postMessage({data: 'foo'});
-                  wx.miniProgram.postMessage({data: {foo: 'bar'}});
-                  wx.miniProgram.getEnv(function (res) {
-                    console.log(res.miniprogram)
-                  });
                 }
               }
             })
@@ -136,7 +121,8 @@
               data: {
                 uid: localStorage.uid,
                 ordernumber: that.orderData.ordernumber,
-                realprice: that.orderData.realprice
+                realprice: that.orderData.realprice,
+                type:1
                 // realprice: 0.01
               },
               success: function (res) {
@@ -148,8 +134,8 @@
                   console.log(result);
                   alert(result.appId)
                   wx.chooseWXPay({
-                    // appId: result.appId,
-                    appId: 'wx6ae88e9a0dcb59b1',
+                    appId: result.appId,
+                    // appId: 'wx6ae88e9a0dcb59b1',
                     timestamp: result.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
                     nonceStr: result.nonceStr, // 支付签名随机串，不长于 32 位
                     package: result.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）

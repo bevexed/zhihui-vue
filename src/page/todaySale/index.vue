@@ -15,10 +15,12 @@
         <div class="bus_top">
           <p>{{item.shop_name}}</p>
         </div>
-        <p class="nowrap fontTen colorWrap"><span v-show="item.meal_name">[{{item.meal_name}}] </span> {{item.name}}
+        <p class="nowrap fontTen colorWrap" style="display: flex;justify-content: space-between">
+          <span v-show="item.meal_name">[{{item.meal_name}}] </span>
+          <cite style="margin-right: .1rem;">已售数量：{{item.sold_num}}</cite>
           <!--<span-->
-            <!--style="margin-left:.1rem;max-width: 1.4rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">-->
-            <!--{{item.address}}</span>-->
+          <!--style="margin-left:.1rem;max-width: 1.4rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap">-->
+          <!--{{item.address}}</span>-->
         </p>
         <div class="bus_down">
           <p class="colorRed">￥{{item.amount_money}}起</p>
@@ -34,7 +36,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl ,todayDiscountList } from "../../api";
+  import {ImgBaseUrl, todayDiscountList} from "../../api";
   import Back from '../../components/Back'
 
   export default {
