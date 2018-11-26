@@ -23,7 +23,7 @@
           <!--{{item.address}}</span>-->
         </p>
         <div class="bus_down">
-          <p class="colorRed">￥{{item.amount_money}}起</p>
+          <p class="colorRed">{{item.discount}}折后￥{{item.discount_amount}}起</p>
           <p class="dollar" style="text-align:right;flex-grow: 1">{{item.distance}}km &nbsp;</p>
         </div>
       </div>

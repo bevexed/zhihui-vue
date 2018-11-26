@@ -90,6 +90,15 @@
             message:"请输入金额",
             type:'error'
           })
+          return
+        }
+        let  p =  /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+        if (!p.test(this.money)){
+          this.$message({
+            message:"请检查输入的金额是否正确",
+            type:'error'
+          })
+          return
         }
         let result = await addOrder(localStorage.uid, this.store_id, this.real.realMoney, this.rebatemoney - this.real.left)
         if (result.code === 1) {

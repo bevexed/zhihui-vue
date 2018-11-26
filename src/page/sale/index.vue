@@ -9,7 +9,7 @@
         <div class="bus_top">
           <p style="margin-top: .1rem">{{item.shop_name}}</p>
           <div style="height: .1rem;"></div>
-          <p class="colorWrap">{{item.distribution}}</p>
+          <p class="colorWrap list_content">{{item.address}}</p>
         </div>
         <div class="bus_down">
           <p class="colorRed">{{item.discount/1}}折</p>
