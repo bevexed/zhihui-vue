@@ -17,8 +17,8 @@
             <span style="font-size:.12rem;float: right;margin-right: .08rem">已售数量{{item.sold_num}}</span>
           </p>
         </div>
-        <p style="width: 100%" class="nowrap fontTen colorWrap">[{{item.meal_name}}] <span
-          style="float: right;margin-right: 0.08rem;" v-if="item.amount_money">￥{{item.amount_money}}</span></p>
+        <p style="width: 100%" class="nowrap fontTen colorWrap">[{{$route.params.status != '0' ? item.address : item.meal_name}}]
+          <span style="float: right;margin-right: 0.08rem;" v-if="item.amount_money">￥{{item.amount_money}}</span></p>
         <div class="bus_down">
           <p class="colorRed">{{item.discount/1}}折起</p>
           <p>{{item.distance}}km</p>

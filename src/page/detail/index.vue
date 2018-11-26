@@ -51,10 +51,11 @@
     <section class="booking_money">
       <ul>
         <li v-for="(v,i) in detail.shop_goods" :key="v.id" @click="showDetail(i)">
-          <img style="height: .4rem" :src="`${baseImgUrl}${v.meal_images}`" alt="">
+          <img style="height: .6rem" :src="`${baseImgUrl}${v.meal_images}`" alt="">
           <div>
-            [{{v.rule === ''? '不限时' : v.rule}}] {{v.meal_name}}
-            <span>￥{{v.amount_money}}  <b style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
+            <p>套餐名称：{{v.meal_name}}</p>
+            [{{v.rule === ''? '不限时' : v.rule}}] <a v-if="v.discount_amount">原价：￥{{v.amount_money}}</a>
+            <span v-if="v.discount_amount">折后价￥{{v.discount_amount}} <a v-if="!v.discount_amount">原价：￥{{v.amount_money}}</a>  <b style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
           <span class="button"
                 @click.stop="booking(v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
