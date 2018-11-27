@@ -5,7 +5,7 @@
       <swiper-slide v-for="item in banner"
                     :key="item.id">
         <div class="banner">
-          <router-link :to="{ name: 'detail', params: { id: item.shop_id, status : 0 }}">
+          <router-link :to="{ name: 'detail', params: { id: item.shop_id, status : 1 }}">
             <img :src="`${baseImgUrl}${item.images}`" alt="">
           </router-link>
         </div>
