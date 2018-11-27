@@ -57,11 +57,13 @@ export const newsAdd = (uid, content) => ajax(Base_url + '/api/allnews/newsadd',
 //热搜
 export const hotSearchList = () => ajax(Base_url + '/api/allsearch/hotsearchlist')
 //套餐搜索
-export const shopGoodsSearchList = (search_key, longitude_latitude, uid, area_id) => ajax(Base_url + '/api/allsearch/shopgoodssearchlist', {
+export const shopGoodsSearchList = (search_key, longitude_latitude, uid, area_id,sort_status,page) => ajax(Base_url + '/api/allsearch/shopgoodssearchlist', {
   search_key,
   longitude_latitude,
   uid,
-  area_id
+  area_id,
+  sort_status,
+  page
 })
 //搜索历史
 export const historySearchList = (uid) => ajax(Base_url + '/api/allsearch/historysearchlist', {uid})
