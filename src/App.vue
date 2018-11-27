@@ -5,27 +5,28 @@
 </template>
 
 <script>
-  import {districts, citySearchList,existUid} from './api'
+  import {districts, citySearchList, existUid} from './api'
   import wx from 'weixin-js-sdk';
 
   export default {
     name: 'App',
     data() {
       return {
-        toJSON:''
+        toJSON: ''
       }
     },
     methods: {
-      async uidExist(){
+      async uidExist() {
         function a(name) {
           let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
           let r = window.location.search.substr(1).match(reg);
           if (r != null) return unescape(r[2]);
           return null;
         }
+
         let mid = a('mid')
         let result = await existUid(localStorage.uid)
-        if (result.code === 0){
+        if (result.code === 0) {
           window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
         }
       },
@@ -36,7 +37,7 @@
         this.getCitySearchList()
       },
       async getCitySearchList() {
-        let result = await citySearchList(localStorage.area,localStorage.city)
+        let result = await citySearchList(localStorage.area, localStorage.city)
         console.log(result);
         localStorage.area_id = result.data.id
         setTimeout(() => {
@@ -52,9 +53,9 @@
             success: function (res) {
               console.log(JSON.stringify(res))
               // console.log(localStorage.jsdk)
-              var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-              var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-              localStorage.longitude_latitude = latitude + ',' + longitude
+              let latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+              let longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+              localStorage.longitude_latitude = longitude + ',' + latitude
               that.getDistrict()
             }
           });
@@ -71,10 +72,12 @@
       if (ua.match(/MicroMessenger/i) == 'micromessenger') {
       } else {
         this.$message({
-          message:"暂不支持除微信以外的平台打卡此页面",
-          type:'error'
+          message: "暂不支持除微信以外的平台打卡此页面",
+          type: 'error'
         })
-        setTimeout(()=>{window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')},1000)
+        setTimeout(() => {
+          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+        }, 1000)
       }
 
       if (localStorage.uid) {
@@ -93,6 +96,6 @@
 
 <style>
   #app {
-    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color: transparent;
   }
 </style>
