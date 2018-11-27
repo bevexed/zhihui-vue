@@ -18,7 +18,7 @@
           好评排序</p>
       </div>
       <div class="index_foot_list" v-for="item in allSortList" :key="item.id"
-           @click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})">
+           @click="$router.push({ name: 'detail', params: { id: item.store_id,status:1 }})">
         <img :src="`${baseImgUrl}${item.meal_images}`" alt="">
         <div>
           <p class="list_name">{{item.shop_name}}</p>
@@ -33,24 +33,24 @@
         </div>
       </div>
       <!--<div class="index_foot_list" v-for="item in allSortList" :key="item.id"-->
-           <!--@click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})"-->
+      <!--@click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})"-->
       <!--&gt;-->
-        <!--<img :src="`${baseImgUrl}${item.store_images}`" alt="">-->
-        <!--<div>-->
-          <!--<p class="list_name">{{item.shop_name}}</p>-->
-          <!--<p class="list_content">[{{item.address}}]</p>-->
-          <!--<p class="list_price">{{item.discount/1}}折起</p>-->
-        <!--</div>-->
-        <!--<div class="align_self">-->
-          <!--<p class="fontSm">{{item.distance}}km</p>-->
-          <!--<span class="colorRed" v-show="item.amount_money">￥{{item.amount_money}}</span>-->
-          <!--<p>已售{{item.sold_num}}</p>-->
-        <!--</div>-->
+      <!--<img :src="`${baseImgUrl}${item.store_images}`" alt="">-->
+      <!--<div>-->
+      <!--<p class="list_name">{{item.shop_name}}</p>-->
+      <!--<p class="list_content">[{{item.address}}]</p>-->
+      <!--<p class="list_price">{{item.discount/1}}折起</p>-->
+      <!--</div>-->
+      <!--<div class="align_self">-->
+      <!--<p class="fontSm">{{item.distance}}km</p>-->
+      <!--<span class="colorRed" v-show="item.amount_money">￥{{item.amount_money}}</span>-->
+      <!--<p>已售{{item.sold_num}}</p>-->
+      <!--</div>-->
       <!--</div>-->
       <div v-if="!allSortList" style="text-align: center">没有相关项目请重新搜索</div>
       <div style="width: 100%;text-align: center">
-      <span v-if="allLoaded">上拉加载更多</span>
-      <span v-else>没有更多了</span>
+        <span v-if="allLoaded">上拉加载更多</span>
+        <span v-else>没有更多了</span>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
 
 <script>
   import back from '../../components/Back'
-  import {ImgBaseUrl, shopGoodsSearchList,allSort} from "../../api";
+  import {ImgBaseUrl, shopGoodsSearchList, allSort} from "../../api";
 
   export default {
     name: "shopSearchResult",
@@ -79,13 +79,23 @@
     },
     methods: {
       async getShopGoodsSearchList(sort_status) {
+        this.sortPage = 1
+        this.allLoaded = true
         this.sort_status = sort_status
         let search_key = this.$route.params.search_key
         let uid = localStorage.uid
-        let result = await shopGoodsSearchList(search_key, localStorage.longitude_latitude, uid, localStorage.area_id,sort_status,1)
+        let result = await shopGoodsSearchList(search_key, localStorage.longitude_latitude, uid, localStorage.area_id, sort_status, 1)
         if (result.code === 1) {
           console.log(result)
           this.allSortList = result.data.data
+        }
+        if (result.code === 0) {
+          this.allSortList = ""
+          this.allLoaded = false
+          this.$message({
+            type: 'error',
+            message: result.message
+          })
         }
         // if (result.code === 1) {
         //   if (result.data !== null) {
@@ -123,7 +133,7 @@
           let result
           if (this.loading_more) {
             this.loading_more = false //禁止浏览器发送ajax请求
-            result = await shopGoodsSearchList(search_key, localStorage.longitude_latitude, uid, localStorage.area_id,sort_status,this.sortPage)
+            result = await shopGoodsSearchList(this.$route.params.search_key, localStorage.longitude_latitude, localStorage.uid, localStorage.area_id, this.sort_status, this.sortPage)
             if (result.code === 1) {//判断接受是否成功
               this.loading = false
               console.log(this.allSortList.length, result.data.total)
