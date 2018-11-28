@@ -26,13 +26,13 @@
         <div>
           <p class="list_name">{{item.shop_name}}</p>
           <p class="list_content">[{{item.address}}]</p>
-          <p class="list_price">{{item.discount/1}}折起 </p>
+          <p class="list_price" v-if="item.discount/1 !== 10">{{item.discount/1}}折起 </p>
 
         </div>
         <div class="align_self">
           <p class="fontSm">{{item.distance}}km</p>
-          <span class="colorRed" v-show="sort_status === 4">￥{{item.amount_money}}</span>
-          <p style="color: #756b5e;font-size: .12rem">已售 {{item.sold_num/1}}</p>
+          <span class="colorRed" v-show="item.amount_money">￥{{item.amount_money}}</span>
+          <p style="color: #756b5e;font-size: .12rem">已售 {{item.sold_num}}</p>
         </div>
       </div>
       <div>
