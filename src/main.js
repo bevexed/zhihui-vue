@@ -19,6 +19,7 @@ wx.miniProgram.getEnv(function (res) {
   //false代表在公众号里
   localStorage.isSmall = res.miniprogram
 })
+
 import './until'
 
 import router from './router'

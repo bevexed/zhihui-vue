@@ -66,7 +66,7 @@
           <el-collapse-transition>
             <section v-show="show3 === i" style="border-top: .01rem solid #e6e6e6">
               <p style="float:right;font-weight: lighter;font-size: .12rem;color: #409eff">商品详情</p>
-              <p v-html="v.details"></p>
+              <p v-html="v.details" class="ahahaha"></p>
             </section>
           </el-collapse-transition>
         </li>
@@ -180,6 +180,11 @@
         localStorage.preset_time = i
       },
       showDetail(i) {
+        alert(i)
+        if (i === this.show3){
+          this.show3 =  -1
+          return
+        }
         this.show3 = i
       },
       async filterTime(v, i) {
@@ -412,6 +417,7 @@
   }
 
   .booking_money li {
+    position: relative;
     padding: .11rem 0.11rem .06rem;
     border-bottom: .01rem solid #E6E6E6;
   }
@@ -428,13 +434,13 @@
   .booking_money span {
     display: block;
     color: red;
-    font-weight: bolder;
-    font-size: .18rem;
+    font-weight: bold;
   }
 
   .booking_money .button {
-    float: right;
-    display: inline-block;
+    position: absolute;
+    top: 0.1rem;
+    right: .1rem;
     width: .57rem;
     height: .24rem;
     line-height: .24rem;
@@ -520,5 +526,10 @@
     background: #ff481f !important;
     border-radius: .04rem;
     color: white !important;
+  }
+
+  .ahahaha img{
+    width: 100% !important;
+    max-width: 100% !important;
   }
 </style>

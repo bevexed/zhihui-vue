@@ -1,9 +1,8 @@
 <template>
   <div @touchmove="loadingMore()" @wheel="loadingMore()">
     <nav class="tab">
-      <span><a href="https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop">至惠商城</a></span>
-      <span><a
-        :href="`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${uid}#/index`">至惠商联</a></span>
+      <span><a @click="navBar(1)" class="button">至惠商城</a></span>
+      <span><a class="button">至惠商联</a></span>
     </nav>
     <top/>
 
@@ -75,6 +74,7 @@
 </template>
 
 <script>
+  import wx from 'weixin-js-sdk';
   import {ImgBaseUrl, discountList, shopCatelist, allSort} from '../../api'
   import top from './top'
   import banner from './banner'
@@ -109,6 +109,38 @@
       }
     },
     methods: {
+      share() {
+        let url = `${window.location.href.split('#')[0]}&mid=${localStorage.uid}#/index`
+        this.$getWxConfig()
+        let that = this
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: '至惠商联', // 分享标题
+            desc: '扫码付款立返消费券', // 分享描述
+            link: url, // 分享链接
+            imgUrl: '@/assets/logo.png', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+              that.$message({
+                message: "分享成功",
+                type: 'success'
+              })
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            }
+          })
+        })
+      },
+      navBar(index){
+        if (index === 1){
+          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+        }
+        if (index === 0){
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${this.uid}#/index`)
+        }
+      },
       level() {
         this.$router.push({name: 'allList'})
       },
@@ -197,11 +229,15 @@
       this.getDiscountList()
       this.getShopCateList()
       this.getAllSort(1)
+      this.share()
     }
   }
 </script>
 
 <style scoped>
+  a:active{
+    text-underline: none;
+  }
   .tab{
     width: 100%;
     box-sizing: border-box;
@@ -218,15 +254,24 @@
     border-radius: 5px;
   }
   nav.tab span:last-child{
-    background: #f15353;
+
     color: #FFFFFF !important;
   }
 
   nav.tab a{
+    border-radius: 10px !important;
     color: #0f0f0f;
   }
 
+  nav.tab span:first-child a{
+    width: 1rem;
+    background: #7a7573 !important;
+    color: #FFFFFF !important;
+  }
+
   nav.tab span:last-child a{
+    width: 1rem;
+    background: #f15353 !important;
     color: #FFFFFF !important;
   }
 

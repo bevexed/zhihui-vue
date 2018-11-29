@@ -50,7 +50,9 @@
     </dl>
 
     <div v-if="commentList.length === 1" style="text-align: center;margin-top: .1rem">暂无</div>
-    <div v-else style="text-align: center;margin-top: .1rem" @click="$router.push({name:'evaluation',params:{store_id:$route.params.id}})">查看更多</div>
+    <div v-else style="text-align: center;margin-top: .1rem"
+         @click="$router.push({name:'evaluation',params:{store_id:$route.params.id}})">查看更多
+    </div>
   </div>
 </template>
 
@@ -61,7 +63,7 @@
     name: "evaluation",
     data() {
       return {
-        imgs:[],
+        imgs: [],
         ImgBaseUrl,
         commentList: [],
         page: 1,

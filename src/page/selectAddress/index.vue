@@ -51,7 +51,7 @@
         history.go(-1)
       },
       changeAddress(lat_lng, area_id, area) {
-        localStorage.longitude_latitude = lat_lng
+        // localStorage.longitude_latitude = lat_lng
         localStorage.area_id = area_id
         localStorage.area = area
         this.$router.push({path: '/index'})

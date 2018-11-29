@@ -34,7 +34,8 @@
     <section class="room_style" style="margin-top: .2rem;">
       <footer>
         商品折扣
-        <span>{{orderData.discount - 0}}折</span>
+        <span v-if="orderData.discount - 0 != 10">{{orderData.discount - 0}}折</span>
+        <span v-else>暂无折扣</span>
         <hr>
         折后价
         <span>￥{{orderData.discountmoney}}</span>
@@ -60,7 +61,7 @@
             <el-switch
               v-model="value2"
               active-color="#13ce66"
-              inactive-color="#ff4949">
+              inactive-color="rgb(80,80,80)">
             </el-switch>
           </span>
         </div>

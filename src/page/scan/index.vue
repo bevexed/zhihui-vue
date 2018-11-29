@@ -19,7 +19,7 @@
       <el-switch
         v-model="value2"
         active-color="#13ce66"
-        inactive-color="#ff4949">
+        inactive-color="rgb(80,80,80)">
       </el-switch>
     </div>
     <footer>

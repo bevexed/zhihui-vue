@@ -132,7 +132,7 @@
                   console.log(JSON.parse(res));
                   result = JSON.parse(res)
                   console.log(result);
-                  alert(result.appId)
+                  // alert(result.appId)
                   wx.chooseWXPay({
                     appId: result.appId,
                     // appId: 'wx6ae88e9a0dcb59b1',

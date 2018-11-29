@@ -12,8 +12,8 @@
         <img :src="`${baseImgUrl}${$route.params.status == '0'?item.meal_images:item.store_images}`" alt="">
       </div>
       <div class="content">
-        <div class="bus_top">
-          <p>{{item.shop_name}}
+        <div class="bus_top" style="width: 100%">
+          <p style="width: 100%">{{item.shop_name}}
             <span style="font-size:.12rem;float: right;margin-right: .08rem">已售数量{{item.sold_num}}</span>
           </p>
         </div>

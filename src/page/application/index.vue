@@ -9,7 +9,7 @@
     <section class="table">
       <table>
         <tr>
-          <td colspan="2"><a href="">请点击此次下载协议，并将写好的协议上传拍照</a></td>
+          <td colspan="2"><a href="https://shop.zhihuimall.com.cn:443/zhihuishop/public/zhuihui-enter.doc" download="zhuihui-enter.doc">请点击此次下载协议，并将写好的协议上传拍照</a></td>
         </tr>
         <tr>
           <td><label for="shop_name">商店名称：</label></td>
@@ -113,7 +113,7 @@
 </template>
 
 <script>
-  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate,storeAdd } from "../../api/index";
+  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate, storeAdd} from "../../api/index";
 
   export default {
     name: "application",
@@ -140,7 +140,7 @@
           front: '',
           back: '',
           card: '',
-          xieyi:''
+          xieyi: ''
         },
         oneCate: '',
         sOneCate: '',
@@ -294,7 +294,7 @@
         let id_card_positive_photo = this.localId.back
         let id_card_negative_photo = this.localId.front
         let business_license = this.localId.card
-        let xieyi = this.xieyi
+        let xieyi = this.localId.xieyi
         let {shop_name, phone, name, id_card} = this
 
         if (!shop_name) {
@@ -351,7 +351,8 @@
           })
           return
         }
-        if (!uid, !province_id, !city_id, !area_id, !street_id, !community_id, !phone, !name, !address, !id_card, !id_card_positive_photo, !id_card_negative_photo , !business_license,!xieyi) {
+        if (!id_card_positive_photo, !id_card_negative_photo , !business_license, !xieyi) {
+          console.log(id_card_positive_photo,id_card_negative_photo,business_license,xieyi)
           this.$message({
             message: "请上传照片",
             type: 'error',
@@ -359,7 +360,7 @@
           })
           return
         }
-        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license,xieyi)
+        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, xieyi)
         if (result.code === 1) {
           this.$message({
             message: result.message,
@@ -377,9 +378,10 @@
 </script>
 
 <style scoped>
-  *{
+  * {
     -webkit-backface-visibility: unset;
   }
+
   header .pay_top {
     margin: 0;
   }
