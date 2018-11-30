@@ -19,12 +19,14 @@
     <shopRecom/>
 
     <div class="index_mid">
-      <div :style="`background: url(${baseImgUrl}${v.images}) 0 0 / 100% 100% no-repeat;`"
+      <div :style="`background: url(${baseImgUrl}${v.images}) 0 0 / 100% 100% no-repeat;overflow:hidden`"
            v-for="(v,i) in discountList"
            :key="v.id"
            @click="goToSale(i,v.id)"
       >
-        <div class="mask">{{v.name}}</div>
+        <div class="mask">
+          <span>{{v.name}}</span>
+        </div>
       </div>
     </div>
 
@@ -95,7 +97,7 @@
     },
     data() {
       return {
-        uid:'',
+        uid: '',
         discountList: [],
         shopCateListData: [],
         allSortList: [],
@@ -118,7 +120,7 @@
             title: '至惠商联', // 分享标题
             desc: '扫码付款立返消费券', // 分享描述
             link: url, // 分享链接
-            imgUrl: '@/assets/logo.png', // 分享图标
+            imgUrl: 'https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/static/imgs/logo.png', // 分享图标
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
@@ -133,11 +135,11 @@
           })
         })
       },
-      navBar(index){
-        if (index === 1){
+      navBar(index) {
+        if (index === 1) {
           window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
         }
-        if (index === 0){
+        if (index === 0) {
           window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${this.uid}#/index`)
         }
       },
@@ -235,10 +237,50 @@
 </script>
 
 <style scoped>
-  a:active{
+  .index_mid {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /*.index_mid div.mask:last-child{*/
+  /*width: 100%;*/
+  /*height: 100%;*/
+  /*position: absolute;*/
+  /*left: 0;*/
+  /*top: 0;*/
+  /*background: rgba(101, 101, 101, .6) !important;*/
+  /*color: #fff;*/
+  /*text-align: center;*/
+  /*line-height: .7rem;*/
+  /*border-radius: .05rem;*/
+  /*}*/
+
+  .index_mid div.mask:last-child {
+    position: absolute;
+    left: -.05rem;
+    top: 0;
+    background: rgb(0, 148, 226) !important;
+    color: #fff;
+    text-align: center;
+    transform: skewX(-30deg);
+    border-radius: .05rem;
+  }
+
+  .index_mid div.mask:last-child span{
+    padding: 0 .1rem ;
+    display: block;
+    background: rgba(101, 101, 101, 0) !important;
+    color: #fff;
+    text-align: center;
+    transform: skewX(30deg);
+    border-radius: .05rem;
+  }
+
+  a:active {
     text-underline: none;
   }
-  .tab{
+
+  .tab {
     width: 100%;
     box-sizing: border-box;
     border-bottom: 4px solid #e3e3e3;
@@ -253,43 +295,31 @@
     box-sizing: border-box;
     border-radius: 5px;
   }
-  nav.tab span:last-child{
+
+  nav.tab span:last-child {
 
     color: #FFFFFF !important;
   }
 
-  nav.tab a{
+  nav.tab a {
     border-radius: 10px !important;
     color: #0f0f0f;
   }
 
-  nav.tab span:first-child a{
+  nav.tab span:first-child a {
     width: 1rem;
     background: #7a7573 !important;
     color: #FFFFFF !important;
   }
 
-  nav.tab span:last-child a{
+  nav.tab span:last-child a {
     width: 1rem;
     background: #f15353 !important;
     color: #FFFFFF !important;
   }
 
-
   div {
     background: #ffffff;
   }
 
-  .mask {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: rgba(101, 101, 101, .6) !important;
-    color: #fff;
-    text-align: center;
-    line-height: .7rem;
-    border-radius: .05rem;
-  }
 </style>

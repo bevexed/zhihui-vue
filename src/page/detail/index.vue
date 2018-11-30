@@ -180,7 +180,6 @@
         localStorage.preset_time = i
       },
       showDetail(i) {
-        alert(i)
         if (i === this.show3){
           this.show3 =  -1
           return

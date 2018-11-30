@@ -93,8 +93,8 @@
     text-align: center;
     margin-top: .01rem;
     margin-left: .01rem;
-    height: .3rem;
-    line-height: .3rem;
+    height: .4rem;
+    line-height: .4rem;
   }
 
   /*# sourceMappingURL=allList.css.map */

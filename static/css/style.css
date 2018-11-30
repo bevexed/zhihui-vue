@@ -253,7 +253,7 @@ html {
   justify-content: flex-start;
   height: .9rem;
   box-sizing: border-box;
-  border-bottom: .01rem rgba(242, 242, 242, .9) solid;
+  border-bottom: 1px rgb(242, 242, 242) solid;
   /*background: rgb(238, 238, 238);*/
 }
 
@@ -627,4 +627,8 @@ html {
   box-shadow: 0 1px 3px rgba(0, 0, 0, .3) !important;
   box-sizing: border-box !important;
   width: 80% !important;
+}
+
+a:hover{
+  text-decoration: none;
 }
