@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>支付提示</title>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="format-detection" content="email=no"/>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+  <style>
+    body  {
+      text-align: center;
+    }
+    div {
+      text-align: right;
+    }
+
+    img {
+      margin-top: 2rem;
+      width: 70%;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <img src="./static/imgs/44.png" alt="">
+</div>
+<img src="./static/imgs/4.png" style="width: 40%" alt="">
+<script>
+  getRequest = function () {
+    let url = window.location.search; //获取url中"?"符后的字串
+    let theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+      let str = url.substr(1);
+      let strs = str.split("&");
+      for (var i = 0; i < strs.length; i++) {
+        theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+      }
+    }
+    return theRequest;
+  }
+
+  let ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/MicroMessenger/i) == "micromessenger") {
+    setTimeOut(()=>{
+    	window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
+    },5000)
+  } else {
+  	alert(getRequest().uid)
+  window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/alipay/pay?uid=${getRequest().uid}&price=${getRequest().realprice}&ordernumber=${getRequest().ordernumber}`)
+  }
+</script>
+</body>
+</html>

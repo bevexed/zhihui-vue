@@ -141,8 +141,10 @@ export const upLoadImgToOur = (src) => ajax(Base_url + '/api/allarea/uploadimg',
 export const oneCate = () => ajax(Base_url + '/api/allarea/onecate')
 // 二级分类选择
 export const twoCate = (p_id) => ajax(Base_url + '/api/allarea/twocate', {p_id})
+// 店铺审核中
+export const userArealist = (uid) => ajax(Base_url + '/api/allarea/userarealist', {uid})
 // 商家入驻添加
-export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license) => ajax(Base_url + '/api/allarea/storeadd', {
+export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license,enter_phone,store_images) => ajax(Base_url + '/api/allarea/storeadd', {
   uid,
   shopcate_id,
   shopchildcate_id,
@@ -158,7 +160,9 @@ export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_i
   id_card,
   id_card_positive_photo,
   id_card_negative_photo,
-  business_license
+  business_license,
+  enter_phone,
+  store_images
 })
 
 

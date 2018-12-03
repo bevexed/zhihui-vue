@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="show">
     <header>
       <div class="pay_top">
         <p class="iconfont icon-fanhui comeback" @click="$router.go(-1)"></p>
@@ -9,7 +9,11 @@
     <section class="table">
       <table>
         <tr>
-          <td colspan="2"><a href="https://shop.zhihuimall.com.cn:443/zhihuishop/public/zhuihui-enter.doc" download="zhuihui-enter.doc">请点击此次下载协议，并将写好的协议上传拍照</a></td>
+          <!--<td colspan="2"><a href="https://shop.zhihuimall.com.cn:443/zhihuishop/public/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a></td>-->
+          <!--<td colspan="2" v-show="isa === 'a'"><a href="qq browser://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a>-->
+          <td colspan="2" v-show="isa === 'a'"><a href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/alipay/bbk.html">请点击此次下载协议，并将写好的协议上传拍照</a>
+          <td colspan="2" v-show="isa === 'i'"><a href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a>
+          </td>
         </tr>
         <tr>
           <td><label for="shop_name">商店名称：</label></td>
@@ -101,7 +105,17 @@
                    multiple="" @change="upLoadImg('xieyi')">
             <img src="../../assets/add.png" alt="" v-if="!localId.xieyi" style="width: .3rem">
             <!--<span @click="chooseImage('card')" v-if="!localId.card">请选择照片</span>-->
-            <img :src="`${ImgBaseUrl}${localId.xieyi}`" alt="" v-show="localId.card">
+            <img :src="`${ImgBaseUrl}${localId.xieyi}`" alt="" v-show="localId.xieyi">
+          </td>
+        </tr>
+        <tr>
+          <td>店铺头像：</td>
+          <td>
+            <input class="weui-uploader__input" type="file" name="file" accept="image/*"
+                   multiple="" @change="upLoadImg('store_images')">
+            <img src="../../assets/add.png" alt="" v-if="!localId.store_images" style="width: .3rem">
+            <!--<span @click="chooseImage('card')" v-if="!localId.card">请选择照片</span>-->
+            <img :src="`${ImgBaseUrl}${localId.store_images}`" alt="" v-show="localId.store_images">
           </td>
         </tr>
       </table>
@@ -113,12 +127,13 @@
 </template>
 
 <script>
-  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate, storeAdd} from "../../api/index";
+  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate, storeAdd, userArealist} from "../../api/index";
 
   export default {
     name: "application",
     data() {
       return {
+        show:true,
         ImgBaseUrl,
         Base_url: Base_url,
         shop_name: '',
@@ -140,15 +155,27 @@
           front: '',
           back: '',
           card: '',
-          xieyi: ''
+          xieyi: '',
+          store_images:''
         },
         oneCate: '',
         sOneCate: '',
         twoCate: '',
-        sTwoCate: ''
+        sTwoCate: '',
+        isa:''
       }
     },
     methods: {
+      is(){
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+          this.isa = 'a'
+        } else if (isiOS) {
+          this.isa = 'i'
+        }
+      },
       async getWxConfig() {
 
         let that = this
@@ -295,6 +322,7 @@
         let id_card_negative_photo = this.localId.front
         let business_license = this.localId.card
         let xieyi = this.localId.xieyi
+        let store_images = this.localId.store_images
         let {shop_name, phone, name, id_card} = this
 
         if (!shop_name) {
@@ -351,8 +379,8 @@
           })
           return
         }
-        if (!id_card_positive_photo, !id_card_negative_photo , !business_license, !xieyi) {
-          console.log(id_card_positive_photo,id_card_negative_photo,business_license,xieyi)
+        if (!id_card_positive_photo, !id_card_negative_photo , !business_license, !xieyi,!store_images) {
+          console.log(id_card_positive_photo, id_card_negative_photo, business_license, xieyi,store_images)
           this.$message({
             message: "请上传照片",
             type: 'error',
@@ -360,17 +388,34 @@
           })
           return
         }
-        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, xieyi)
+        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, xieyi,store_images)
         if (result.code === 1) {
           this.$message({
             message: result.message,
             type: 'success',
             duration: 1000
           })
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${localStorage.uid}#/index`)
+        }
+      },
+      async come() {
+        let result = await userArealist(localStorage.uid)
+        if (result.code === 1) {
+          this.show = false
+          this.$message({
+            message: '正在审核中',
+            type: 'error'
+          })
+          setTimeout(() => {
+            window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${localStorage.uid}#/index`)
+          }, 3000)
+
         }
       }
     },
     created() {
+      this.is()
+      this.come()
       this.getProvince()
       this.getOneCate()
     }

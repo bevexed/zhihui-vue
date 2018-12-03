@@ -32,6 +32,7 @@ Vue.prototype.$isAndroid = function () {
     alert("ios");
   } else {
   }
+
   var ua = window.navigator.userAgent.toLowerCase();
   if (ua.match(/MicroMessenger/i) == 'micromessenger') {
     alert("微信");

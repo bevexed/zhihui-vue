@@ -5,7 +5,7 @@
     <form action="#" onsubmit="return false;" style="width: 90%">
       <el-input
         type="search"
-        placeholder="输入商家名字、品类"
+        placeholder="输入套餐名称"
         prefix-icon="el-icon-search"
         @focus="$router.push({path:'/shopSearch'})"
       >
