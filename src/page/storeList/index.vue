@@ -42,7 +42,11 @@
           <span v-else>没有更多了</span>
         </div>
         <div style="width: 100%;text-align: center;padding: .2rem 0" v-if="allSortList.length === 0">
-          没有更多了
+          商家招募中
+          <div style="margin-top: 10px" @click="">
+            <el-button type="primary" @click="$router.replace('/application')">商家入驻</el-button>
+          </div>
+
         </div>
       </div>
     </div>

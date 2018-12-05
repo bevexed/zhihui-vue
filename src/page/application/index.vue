@@ -11,8 +11,10 @@
         <tr>
           <!--<td colspan="2"><a href="https://shop.zhihuimall.com.cn:443/zhihuishop/public/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a></td>-->
           <!--<td colspan="2" v-show="isa === 'a'"><a href="qq browser://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a>-->
-          <td colspan="2" v-show="isa === 'a'"><a href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/alipay/bbk.html">请点击此次下载协议，并将写好的协议上传拍照</a>
-          <td colspan="2" v-show="isa === 'i'"><a href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a>
+          <td colspan="2" v-show="isa === 'a'"><a
+            href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/alipay/bbk.html">请点击此次下载协议，并将写好的协议上传拍照</a>
+          <td colspan="2" v-show="isa === 'i'"><a
+            href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a>
           </td>
         </tr>
         <tr>
@@ -33,9 +35,9 @@
         </tr>
         <tr>
           <td><label for="adderss">商店地址：</label></td>
-          <td style="display: flex;flex-wrap: wrap">
+          <td style="display: flex;flex-wrap: wrap;background: white">
             <select name="" id="adderss" @change="getCity(sProvince)" v-model="sProvince">
-              <!--<option disabled value="">请选择</option>-->
+              <option disabled value="">请选择</option>
               <option v-for="v in province" :value="v.id">{{v.region_name}}</option>
             </select>
             <select name="" id="city" @change="getArea(sCity)" v-model="sCity" v-if="city.length !== 0">
@@ -57,8 +59,12 @@
           </td>
         </tr>
         <tr>
+          <td><label for="addd">详细地址：</label></td>
+          <td style="background: white"><input type="text" id="addd" v-model="addresses" placeholder="请输入您的详细地址"></td>
+        </tr>
+        <tr>
           <td>行业分类：</td>
-          <td style="display: flex;flex-wrap: wrap">
+          <td style="display: flex;flex-wrap: wrap;background: white">
             <select name="" id="onecate" v-model="sOneCate" @change="getTwoCate(sOneCate)">
               <!--<option disabled value="">请选择</option>-->
               <option value="" v-for="v in oneCate" :value="v.id">{{v.catename}}</option>
@@ -133,7 +139,7 @@
     name: "application",
     data() {
       return {
-        show:true,
+        show: true,
         ImgBaseUrl,
         Base_url: Base_url,
         shop_name: '',
@@ -142,31 +148,32 @@
         id_card: '',
         address: '',
         province: [],
-        sProvince: '',
+        sProvince: '27062',
         city: [],
-        sCity: '',
+        sCity: '27118',
         area: [],
-        sArea: '',
+        sArea: '27119',
         country: [],
         sCountry: '',
         agency: [],
         sAgency: [],
+        addresses: [],
         localId: {
           front: '',
           back: '',
           card: '',
           xieyi: '',
-          store_images:''
+          store_images: ''
         },
         oneCate: '',
         sOneCate: '',
         twoCate: '',
         sTwoCate: '',
-        isa:''
+        isa: ''
       }
     },
     methods: {
-      is(){
+      is() {
         var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -212,8 +219,9 @@
         let result = await areaList(1, 0)
         console.log(result);
         this.province = result
-        this.sProvince = result[0].id
-        this.getCity(result[0].id)
+        // this.sProvince = result[0].id
+        this.sProvince = 27062
+        this.getCity(this.sProvince)
       },
       async getCity(provinceId) {
         let result = await areaList(2, provinceId)
@@ -226,6 +234,7 @@
         }
         console.log(result);
         this.city = result
+        // this.sCity = result[0].id
         this.sCity = result[0].id
         this.getArea(result[0].id)
       },
@@ -264,6 +273,67 @@
         console.log(result);
         this.agency = result
       },
+
+      async getProvince1() {
+        let result = await areaList(1, 0)
+        console.log(result);
+        this.province = result
+        // this.sProvince = result[0].id
+        this.sProvince = 27062
+        this.getCity1(this.sProvince)
+      },
+
+      async getCity1(provinceId) {
+        let result = await areaList(2, provinceId)
+        if (result === false) {
+          this.city = ''
+          this.area = ''
+          this.country = ''
+          this.agency = ''
+          return
+        }
+        console.log(result);
+        this.city = result
+        // this.sCity = result[0].id
+        this.sCity = 27118
+        this.getArea1(this.sCity)
+      },
+      async getArea1(CityId) {
+        let result = await areaList(3, CityId)
+        if (result === false) {
+          this.area = ''
+          this.country = ''
+          this.agency = ''
+          return
+        }
+        console.log(result);
+        this.area = result
+        this.sArea = 27119
+        this.getCountry1(result[0].id)
+      },
+      async getCountry1(areaId) {
+        let result = await areaList(4, areaId)
+        if (result === false) {
+          this.country = ''
+          this.agency = ''
+          return
+        }
+        console.log(result);
+        this.country = result
+        this.sCountry = result[0].id
+        this.getAgency1(result[0].id)
+      },
+      async getAgency1(countryId) {
+        let result = await areaList(5, countryId)
+        if (result === false) {
+          this.agency = ''
+          return
+        }
+        this.sAgency = result[0].id
+        console.log(result);
+        this.agency = result
+      },
+
       async getOneCate() {
         let result = await oneCate()
         if (result.code === 1) {
@@ -316,7 +386,7 @@
         console.log(area);
         console.log(street);
         console.log(community);
-        let address = province + city + area + street + community
+        let address = province + city + area + street + community + addresses
         console.log(address);
         let id_card_positive_photo = this.localId.back
         let id_card_negative_photo = this.localId.front
@@ -379,8 +449,8 @@
           })
           return
         }
-        if (!id_card_positive_photo, !id_card_negative_photo , !business_license, !xieyi,!store_images) {
-          console.log(id_card_positive_photo, id_card_negative_photo, business_license, xieyi,store_images)
+        if (!id_card_positive_photo, !id_card_negative_photo , !business_license, !xieyi, !store_images) {
+          console.log(id_card_positive_photo, id_card_negative_photo, business_license, xieyi, store_images)
           this.$message({
             message: "请上传照片",
             type: 'error',
@@ -388,7 +458,7 @@
           })
           return
         }
-        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, xieyi,store_images)
+        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, xieyi, store_images)
         if (result.code === 1) {
           this.$message({
             message: result.message,
@@ -416,7 +486,7 @@
     created() {
       this.is()
       this.come()
-      this.getProvince()
+      this.getProvince1()
       this.getOneCate()
     }
   }
@@ -442,6 +512,7 @@
   }
 
   section.table table tr td {
+
     position: relative;
     padding: .13rem 0 .13rem .12rem;
   }
@@ -476,12 +547,23 @@
   section.table table tr td:nth-child(2) select {
     display: block;
     margin: .1rem;
+    border-radius: 5px;
+    width: 60%;
     border: solid 1px #000;
-    padding: .02rem .2rem;
+    padding: .02rem .3rem;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll 120px center transparent;
+  }
+
+  option {
+    text-align: center;
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
   }
 
   section.table table tr td:nth-child(2) select::-ms-expand {
