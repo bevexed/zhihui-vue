@@ -97,5 +97,7 @@
 <style>
   #app {
     -webkit-tap-highlight-color: transparent;
+    width: 100%;
+    overflow: hidden;
   }
 </style>

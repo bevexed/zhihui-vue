@@ -554,7 +554,7 @@
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll 120px center transparent;
+    background: url("../../assets/arrow.png") no-repeat scroll 120px center transparent;
   }
 
   option {
