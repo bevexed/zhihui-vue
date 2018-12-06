@@ -245,3 +245,5 @@ export const addComment = (shop_id, content, file, uid, cost_effective, environm
   service,		   	//	必传			服务
   order_id,			  //	必传			订单ID
 })
+
+export const img_s = (uid) => ajax('https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php/api/allarea/storeimg',{uid})

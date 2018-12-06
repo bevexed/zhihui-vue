@@ -36,6 +36,7 @@
            v-if="getCode"
            @click="getCode = ''"
            @wheel.prevent @tochmove.prevent>
+        <img class="img_s" :src="`${baseImgUrl}${s_img}`" alt="">
         <Qriosly
           style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999;height: 3rem;background: white"/>
       </div>
@@ -70,7 +71,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, isaShop, newsAdd, storeImgs} from "../../api/index";
+  import {ImgBaseUrl, isaShop, newsAdd, storeImgs,img_s} from "../../api/index";
   import Qriosly from "../../components/Qriosly"
 
   export default {
@@ -89,10 +90,16 @@
           name: ''
         },
         toJSON: '',
-        getCode: ''
+        getCode: '',
+        s_img:''
       }
     },
     methods: {
+      async getimg_s(){
+        let result = await img_s(localStorage.uid)
+        console.log(result);
+        this.s_img = result.data
+      },
       handleCommand(command) {
         if (command === 'getStoreListImg') {
           this.getStoreListImg()
@@ -154,7 +161,7 @@
       this.getisShop()
     },
     mounted() {
-
+      this.getimg_s()
     }
   }
 </script>
@@ -167,6 +174,20 @@
     position: absolute;
     z-index: 9998;
     top: 0;
+  }
+  .store_img img.img_s{
+    border-radius: 5px;
+    z-index: 99999;
+    display: block;
+    position: absolute;
+    width: .7rem;
+    height: .7rem;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
   }
 
   .index_head .el-input input {
