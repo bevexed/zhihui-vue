@@ -27,6 +27,7 @@
            v-if="storeImg"
            @click="storeImg = ''"
            @wheel.prevent @tochmove.prevent>
+        <img class="img_s" :src="`${baseImgUrl}${s_img}`" alt="">
         <img
           style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999"
           :src="`data:image/png;base64,${storeImg}`" alt="">

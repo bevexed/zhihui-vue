@@ -386,7 +386,7 @@
         console.log(area);
         console.log(street);
         console.log(community);
-        let address = province + city + area + street + community + addresses
+        let address = province + city + area + street + community + this.addresses
         console.log(address);
         let id_card_positive_photo = this.localId.back
         let id_card_negative_photo = this.localId.front
