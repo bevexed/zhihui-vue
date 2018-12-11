@@ -31,6 +31,7 @@
         <img
           style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999"
           :src="`data:image/png;base64,${storeImg}`" alt="">
+        <p>推广码</p>
       </div>
       <!--商家付款二维码-->
       <div class="store_img"
@@ -40,6 +41,7 @@
         <img class="img_s" :src="`${baseImgUrl}${s_img}`" alt="">
         <Qriosly
           style="border-radius:.2rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto; width: 80%;z-index: 9999;height: 3rem;background: white"/>
+        <p>收款码</p>
       </div>
 
       <el-dropdown trigger="click" @command="handleCommand">
@@ -171,7 +173,7 @@
   .store_img {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, .8);
     position: absolute;
     z-index: 9998;
     top: 0;
@@ -181,8 +183,8 @@
     z-index: 99999;
     display: block;
     position: absolute;
-    width: .7rem;
-    height: .7rem;
+    width: .5rem;
+    height: .5rem;
     margin: auto;
     top: 0;
     left: 0;
@@ -190,6 +192,18 @@
     right: 0;
     background: white;
   }
+  .store_img p{
+    color: white;
+    font-size: .2rem;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    right: 0;
+    margin: auto;
+    z-index: 99999999;
+  }
+
 
   .index_head .el-input input {
     line-height: .3rem;

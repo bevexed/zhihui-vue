@@ -309,7 +309,7 @@
         console.log(result);
         this.area = result
         this.sArea = 27119
-        this.getCountry1(result[0].id)
+        this.getCountry1(this.sArea)
       },
       async getCountry1(areaId) {
         let result = await areaList(4, areaId)
@@ -320,8 +320,8 @@
         }
         console.log(result);
         this.country = result
-        this.sCountry = result[0].id
-        this.getAgency1(result[0].id)
+        this.sCountry = 67850
+        this.getAgency1(this.sCountry)
       },
       async getAgency1(countryId) {
         let result = await areaList(5, countryId)
@@ -403,16 +403,16 @@
           })
           return
         }
-        let uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
-        console.log(!uPattern.test(shop_name));
-        if (!uPattern.test(shop_name)) {
-          this.$message({
-            message: "商铺名字为4到16位,且不能包含特殊字符",
-            type: 'error',
-            duration: 1000
-          })
-          return
-        }
+        // let uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
+        // console.log(!uPattern.test(shop_name));
+        // if (!uPattern.test(shop_name)) {
+        //   this.$message({
+        //     message: "商铺名字为4到16位,且不能包含特殊字符",
+        //     type: 'error',
+        //     duration: 1000
+        //   })
+        //   return
+        // }
 
         if (!name) {
           this.$message({

@@ -59,8 +59,8 @@
               <a v-if="v.discount_amount == 100">原价：￥{{v.amount_money}}</a>  <b style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
           <span class="button"
-                @click.stop="booking(v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
-            预订
+                @click.stop="booking(v.is_display,v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
+            {{v.is_display === 1 ? "购买":"预订"}}
           </span>
 
           <el-collapse-transition>
@@ -204,14 +204,17 @@
           this.detail = result.data
         }
       },
-      async booking(...arr) {
-        if (localStorage.preset_time === 'null') {
-          this.$message({
-            message: '请选择日期',
-            type: 'error'
-          })
-          return
+      async booking(p,...arr) {
+        if (p === 0){
+          if (localStorage.preset_time === 'null') {
+            this.$message({
+              message: '请选择日期',
+              type: 'error'
+            })
+            return
+          }
         }
+
         let result = await memberPhone(localStorage.uid)
         console.log(arr);
         localStorage.arr = JSON.stringify(arr)

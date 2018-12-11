@@ -92,7 +92,7 @@
                 uid: localStorage.uid,
                 ordernumber: that.orderData.ordernumber,
                 realprice: that.orderData.realprice,
-                type:2
+                type: 2
                 // realprice: 0.01
               },
               success: function (res) {
@@ -101,7 +101,7 @@
                   console.log(JSON.parse(res));
                   result = JSON.parse(res)
                   console.log(result.timeStamp);
-                  let test =  window.location.href.split('#')[0];
+                  let test = window.location.href.split('#')[0];
                   let parameter = 'appId=' + result.appId
                     + '&timeStamp=' + result.timeStamp
                     + '&nonceStr=' + result.nonceStr
@@ -122,7 +122,7 @@
                 uid: localStorage.uid,
                 ordernumber: that.orderData.ordernumber,
                 realprice: that.orderData.realprice,
-                type:1
+                type: 1
                 // realprice: 0.01
               },
               success: function (res) {
