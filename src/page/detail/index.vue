@@ -304,7 +304,7 @@
   .detail_head {
     position: relative;
     width: 100%;
-    height: 1.6rem;
+    height: 2.2rem;
     overflow: hidden;
   }
 

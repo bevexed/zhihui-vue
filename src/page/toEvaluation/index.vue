@@ -69,6 +69,7 @@
       return {
         shop_id: '',
         content: '',
+
         file: '',
         uid: '',
         cost_effective: null, // 性价比评分
