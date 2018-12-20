@@ -51,12 +51,13 @@
     <section class="booking_money">
       <ul>
         <li v-for="(v,i) in detail.shop_goods" :key="v.id" @click="showDetail(i)">
-          <img style="height: .6rem" :src="`${baseImgUrl}${v.meal_images}`" alt="">
+          <img style="height: .6rem;width: .6rem" :src="`${baseImgUrl}${v.meal_images}`" alt="">
           <div>
             <p>套餐名称：{{v.meal_name}}</p>
             [{{v.rule === ''? '不限时' : v.rule}}] <a v-if="v.discount_amount != 100">原价：￥{{v.amount_money}}</a>
             <span><a v-if="v.discount_amount != 100">{{detail.discount/1}}折 ￥{{v.discount_amount}}</a>
-              <a v-if="v.discount_amount == 100">原价：￥{{v.amount_money}}</a>  <b style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
+              <a v-if="v.discount_amount == 100">原价：￥{{v.amount_money}}</a>  <b
+                style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
           <span class="button"
                 @click.stop="booking(v.is_display,v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
@@ -156,6 +157,14 @@
                 message: "分享成功",
                 type: 'success'
               })
+              // alert({
+              //   title: that.detail.shop_name, // 分享标题
+              //   desc: '至惠商联，让消费者成为第一赢家', // 分享描述
+              //   link: url, // 分享链接
+              //   imgUrl: `${that.baseImgUrl}${that.detail.store_images}`, // 分享图标
+              //   type: '', // 分享类型,music、video或link，不填默认为link
+              //   dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+              // });
             },
             cancel: function () {
               // 用户取消分享后执行的回调函数
@@ -180,8 +189,8 @@
         localStorage.preset_time = i
       },
       showDetail(i) {
-        if (i === this.show3){
-          this.show3 =  -1
+        if (i === this.show3) {
+          this.show3 = -1
           return
         }
         this.show3 = i
@@ -204,8 +213,8 @@
           this.detail = result.data
         }
       },
-      async booking(p,...arr) {
-        if (p === 0){
+      async booking(p, ...arr) {
+        if (p === 0) {
           if (localStorage.preset_time === 'null') {
             this.$message({
               message: '请选择日期',
@@ -530,7 +539,7 @@
     color: white !important;
   }
 
-  .ahahaha img{
+  .ahahaha img {
     width: 100% !important;
     max-width: 100% !important;
   }

@@ -157,6 +157,7 @@ html {
 }
 
 .slide_img {
+  width: .9rem;
   height: .64rem;
   margin-right: .16rem;
 }

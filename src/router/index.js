@@ -26,6 +26,17 @@ import 'jquery'
 Vue.use(Router)
 
 const router = new Router({
+  scrollBehavior (to, from, savedPosition) {
+    console.log(to, from, savedPosition);
+    if (savedPosition) {
+      // return savedPosition
+        setTimeout(() => {
+          window.scrollTo(savedPosition.x, savedPosition.y)
+        }, 200)
+    } else {
+      return { x: 0, y: 0 }
+    }
+  },
   routes: [
     {
       component: index,
