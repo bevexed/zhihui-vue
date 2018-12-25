@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="detail_head">
-      <p class="iconfont icon-fanhui back cursor_pointer" @click="$router.go(-1)"></p>
+      <p class="iconfont icon-fanhui back cursor_pointer" @click="$router.go(-2)"></p>
       <img v-if="detail.store_images" :src="`${baseImgUrl}${detail.store_images}`" alt="">
     </section>
 
