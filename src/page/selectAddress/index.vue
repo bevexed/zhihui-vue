@@ -17,7 +17,7 @@
     </form>
     <section class="address">
       <div @click="reset">
-        从新定位
+        重新定位
       </div>
     </section>
     <section class="address" v-show="!search_key">
@@ -42,7 +42,7 @@
       }
     },
     methods: {
-      reset(){
+      reset() {
         localStorage.removeItem('longitude_latitude')
         this.$router.push('/index')
         history.go(0)

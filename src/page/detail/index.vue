@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="detail_head">
-      <p class="iconfont icon-fanhui back cursor_pointer" @click="$router.go(-2)"></p>
+      <p class="iconfont icon-fanhui back cursor_pointer" @click="$router.go(-1)"></p>
       <img v-if="detail.store_images" :src="`${baseImgUrl}${detail.store_images}`" alt="">
     </section>
 
@@ -283,7 +283,10 @@
       if (location.href.indexOf("#reloaded") === -1) {
         location.href += "#reloaded";
         location.reload();
+      } else {
+        history.go(-1)
       }
+
       // if (!localStorage.share) {
       //   localStorage.share = 'true'
       //
