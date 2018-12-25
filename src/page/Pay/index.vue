@@ -17,7 +17,6 @@
         <div class="info">
           <div class="inner">
             <div style='color:#ff6600'>{{orderData.realprice}}<span id="orderprice">
-
             </span>
             </div>
           </div>
@@ -79,7 +78,7 @@
         }
         // 支付宝支付
         if (this.checked === 1) {
-          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/alipay/aliPay.html?uid=${localStorage.uid}&realprice=${this.orderData.realprice}&ordernumber=${this.orderData.ordernumber}`)
           // window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/aliPay.html?uid=${localStorage.uid}&realprice=${0.01}&ordernumber=${this.orderData.ordernumber}`)
         }
         // weixin

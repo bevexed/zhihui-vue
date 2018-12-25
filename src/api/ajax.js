@@ -1,6 +1,5 @@
 const fly = require("flyio")
-import { Loading } from 'element-ui';
-
+import {Loading} from 'element-ui';
 
 
 // 添加请求拦截器
@@ -14,8 +13,7 @@ function makeFormData(obj, form_data) {
   const data = [];
   if (obj instanceof File) {
     data.push({key: "", value: obj});
-  }
-  else if (obj instanceof Array) {
+  } else if (obj instanceof Array) {
     for (let j = 0, len = obj.length; j < len; j++) {
       let arr = makeFormData(obj[j]);
       for (let k = 0, l = arr.length; k < l; k++) {
@@ -23,8 +21,7 @@ function makeFormData(obj, form_data) {
         data.push({key: key, value: arr[k].value})
       }
     }
-  }
-  else if (typeof obj == 'object') {
+  } else if (typeof obj == 'object') {
     for (let j in obj) {
       let arr = makeFormData(obj[j]);
       for (let k = 0, l = arr.length; k < l; k++) {
@@ -32,8 +29,7 @@ function makeFormData(obj, form_data) {
         data.push({key: key, value: arr[k].value})
       }
     }
-  }
-  else {
+  } else {
     data.push({key: "", value: obj});
   }
   if (!!form_data) {
@@ -41,8 +37,7 @@ function makeFormData(obj, form_data) {
     for (let i = 0, len = data.length; i < len; i++) {
       form_data.append(data[i].key, data[i].value)
     }
-  }
-  else {
+  } else {
     return data;
   }
 }
