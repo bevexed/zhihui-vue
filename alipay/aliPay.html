@@ -26,17 +26,17 @@
 </head>
 <body>
 <div>
-  <img src="./static/imgs/44.png" alt="">
+  <img src="./44.png" alt="">
 </div>
-<img src="./static/imgs/4.png" style="width: 40%" alt="">
+<img src="./4.png" style="width: 40%" alt="">
 <script>
   getRequest = function () {
     let url = window.location.search; //获取url中"?"符后的字串
-    let theRequest = new Object();
-    if (url.indexOf("?") != -1) {
+    let theRequest = {};
+    if (url.indexOf("?") !== -1) {
       let str = url.substr(1);
       let strs = str.split("&");
-      for (var i = 0; i < strs.length; i++) {
+      for (let i = 0; i < strs.length; i++) {
         theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
       }
     }
@@ -47,7 +47,7 @@
   if (ua.match(/MicroMessenger/i) == "micromessenger") {
     setTimeout(() => {
       window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
-    }, 5000)
+    }, 10000)
   } else {
     window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/alipay/pay?uid=${getRequest().uid}&price=${getRequest().realprice}&ordernumber=${getRequest().ordernumber}`)
   }
