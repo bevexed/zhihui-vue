@@ -145,13 +145,13 @@
 
       this.getStoreList()
       this.share()
-
-      // if (location.href.indexOf("#reloaded") === -1) {
-      //   location.href += "#reloaded";
-      //   location.reload();
-      // } else {
-      //   this.$router.go(-1)
-      // }
+      var mySwiper = new Swiper('.swiper-container', {
+        width: innerWidth,
+        slidesPerView: 6,
+        freeMode: true,
+        observer: true,//修改swiper自己或子元素时，自动初始化swiper
+        observeParents: true,//修改swiper的父元素时，自动初始化swiper
+      })
 
 
     },
@@ -164,7 +164,7 @@
           let jssdkconfig = result
 
           wx.config({
-            debug: true,
+            debug: false,
             appId: jssdkconfig.appId,
             timestamp: jssdkconfig.timestamp,
             nonceStr: jssdkconfig.nonceStr,
@@ -181,7 +181,7 @@
             console.log(`err:${JSON.stringify(res)}`)
           });
         }
-        let url = `${window.location.href.split('#')[0]}&mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`
+        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`
         this.$getWxConfig()
         let that = this
         wx.ready(function () {
@@ -189,7 +189,7 @@
             title: that.detail.shop_name, // 分享标题
             desc: '至惠商联，让消费者成为第一赢家', // 分享描述
             link: url, // 分享链接
-            imgUrl: `${that.baseImgUrl}${that.detail.store_images}`, // 分享图标
+            imgUrl: that.baseImgUrl + that.detail.store_images, // 分享图标
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
@@ -294,32 +294,6 @@
         console.log(result);
       },
     },
-
-    beforeRouteEnter(to, from, next) {
-      function a(name) {
-        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        let r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]);
-        return null;
-      }
-
-      let mid = a('mid')
-      if (localStorage.uid) { // 先判断uid是否存在
-        next() // 存在说明以前注册过
-      } else { //不存在
-        if (mid) {  // 一定是被分享进来的
-          this.$getWxConfig()
-          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
-        } else {
-          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
-        }
-      }
-
-    },
-    beforeRouteLeave(to, from, next) {
-      next()
-    }
-
   }
 </script>
 

@@ -86,7 +86,6 @@
     data() {
       return {
         Near,
-        uid: '',
         discountList: [],
         shopCateListData: [],
         allSortList: [],
@@ -99,11 +98,11 @@
         toJSON: ''
       }
     },
-    watch:{
-      $route(to,from){
+    watch: {
+      $route(to, from) {
         if (to.name === 'index') {
-         this.share()
-       }
+          this.share()
+        }
       }
     },
     mounted() {
@@ -121,7 +120,7 @@
           let jssdkconfig = result
 
           wx.config({
-            debug: true,
+            debug: false,
             appId: jssdkconfig.appId,
             timestamp: jssdkconfig.timestamp,
             nonceStr: jssdkconfig.nonceStr,
@@ -138,14 +137,14 @@
             console.log(`err:${JSON.stringify(res)}`)
           });
         }
-        let url = `${window.location.href.split('#')[0]}&mid=${localStorage.uid}#/index`
+        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/index`
         let that = this
         wx.ready(function () {
           wx.onMenuShareAppMessage({
             title: '至惠商联', // 分享标题
             desc: '扫码付款立返消费券', // 分享描述
             link: url, // 分享链接
-            imgUrl: 'https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/static/imgs/logo.png', // 分享图标
+            imgUrl: 'https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/alipay/logo.png', // 分享图标
             type: '', // 分享类型,music、video或link，不填默认为link
             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
             success: function () {
@@ -165,7 +164,7 @@
           window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
         }
         if (index === 0) {
-          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${this.uid}#/index`)
+          window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${localStorage.uid}#/index`)
         }
       },
       level() {
@@ -191,14 +190,12 @@
       async getDiscountList() {
         let result = await discountList()
         if (result.code === 1) {
-          console.log(result)
           this.discountList = result.data
         }
       },
       async getShopCateList() {
         let result = await shopCatelist()
         this.shopCateListData = result.data
-        console.log(result)
       },
       async getAllSort(sort_status) {
         this.allLoaded = true
@@ -206,7 +203,6 @@
         this.sort_status = sort_status
         let result = await allSort(sort_status, localStorage.longitude_latitude, '', '', 1, localStorage.area_id)
         if (result.code === 1) {
-          console.log(result)
           this.allSortList = result.data.data
         }
       },
@@ -244,12 +240,6 @@
         }
       },
     },
-    created() {
-      let p = /=(\d*)#/
-      let uid = window.location.href.match(p)[1]
-      localStorage.uid = uid
-      this.uid = uid
-    }
   }
 </script>
 

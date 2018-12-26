@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive exclude="detail">
+    <keep-alive exclude="detail，pay">
       <router-view/>
     </keep-alive>
   </div>
@@ -19,14 +19,6 @@
     },
     methods: {
       async uidExist() {
-        function a(name) {
-          let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-          let r = window.location.search.substr(1).match(reg);
-          if (r != null) return unescape(r[2]);
-          return null;
-        }
-
-        let mid = a('mid')
         let result = await existUid(localStorage.uid)
         if (result.code === 0) {
           window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
@@ -84,8 +76,6 @@
 
       if (localStorage.uid) {
         this.uidExist()
-      } else {
-        window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
       }
 
       if (localStorage.longitude_latitude) {

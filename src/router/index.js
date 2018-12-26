@@ -26,14 +26,14 @@ import 'jquery'
 Vue.use(Router)
 
 const router = new Router({
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       // return savedPosition
-        setTimeout(() => {
-          window.scrollTo(savedPosition.x, savedPosition.y)
-        }, 200)
+      setTimeout(() => {
+        window.scrollTo(savedPosition.x, savedPosition.y)
+      }, 200)
     } else {
-      return { x: 0, y: 0 }
+      return {x: 0, y: 0}
     }
   },
   routes: [
@@ -150,16 +150,51 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!localStorage.uid) {  // 判断uid是否存在
+  alert(localStorage.uid)
+  alert(localStorage.uid === null);
+  alert(localStorage.uid == null);
+  alert(localStorage.uid === 'null');
+  if (to.name === 'index' || to.name === 'detail') {
+    /*
+    *  获取用户 UID
+    *  1. 用户只有通过一期项目进入 才会携带 uid
+    * */
+    localStorage.uid = getQuery('uid')
+    /*
+    *  获取用户 MID
+    *  1. 用户只有通过分享链接进入 才会携带 mid
+    * */
+    let mid = getQuery('mid')
 
-    if (from.fullPath === '/') {  // 首次进入页面
+    if (localStorage.uid !== 'null') {
+      /*
+      * 先判断 uid 是否存在
+      * 1. 用户通过 一期项目 正常登录 通过 localStorage.uid = getQuery('uid') 正常获取 UID
+      * 2. 用户通过 点击 自己分享的链接登录 此时 使用的是 系统缓存中的 UID
+      * */
       next()
-    } else { // 已经进入页面
-      window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
+    } else { //不存在
+      if (mid) {  // 一定是被分享进来的
+        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${getQuery('mid')}&do=shop&m=vslai_shop`) // 去拿授权
+      } else {
+        // 用户手动输入网址 或者其他原因
+        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
+      }
     }
+    return
+  }
+  if (!localStorage.uid) {  // 判断uid是否存在
+    window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
   } else {
-    next();
+    next()
   }
 })
+
+function getQuery(name) {
+  let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+  let r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]);
+  return null;
+}
 
 export default router
