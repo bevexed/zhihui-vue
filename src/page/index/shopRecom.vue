@@ -11,7 +11,7 @@
     <div class="day_recom_bottom">
       <div class="swiper-container" id="shopGoodList">
         <div class="swiper-wrapper day_recom_swiper">
-          <div class="swiper-slide" v-for="item in shopGoodList" :key="item.store_id"
+          <div class="swiper-slide" v-for="(item,i) in shopGoodList" :key="i"
                @click="$router.push({ name: 'detail', params: { id: item.store_id, status : 0 }})"
           >
             <img class="slide_img" :src="`${baseImgUrl}${item.meal_images}`" alt="">

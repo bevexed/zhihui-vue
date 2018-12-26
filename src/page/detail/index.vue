@@ -139,8 +139,48 @@
         }
       }
     },
+    mounted() {
+      localStorage.arr = null
+      localStorage.preset_time = null
+
+      this.getStoreList()
+      this.share()
+
+      // if (location.href.indexOf("#reloaded") === -1) {
+      //   location.href += "#reloaded";
+      //   location.reload();
+      // } else {
+      //   this.$router.go(-1)
+      // }
+
+
+    },
     methods: {
-      share() {
+      async share() {
+        if (true) {
+          let url = window.location.href.split('#')[0]
+          let result = await wxConfig(url)
+          result = JSON.parse(result.data)
+          let jssdkconfig = result
+
+          wx.config({
+            debug: true,
+            appId: jssdkconfig.appId,
+            timestamp: jssdkconfig.timestamp,
+            nonceStr: jssdkconfig.nonceStr,
+            signature: jssdkconfig.signature,
+            jsApiList: [
+              'getLocation',
+              'chooseWXPay',
+              'openLocation',
+              'onMenuShareTimeline',
+              'onMenuShareAppMessage'
+            ]
+          });
+          wx.error(function (res) {
+            console.log(`err:${JSON.stringify(res)}`)
+          });
+        }
         let url = `${window.location.href.split('#')[0]}&mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`
         this.$getWxConfig()
         let that = this
@@ -157,14 +197,6 @@
                 message: "分享成功",
                 type: 'success'
               })
-              // alert(JSON.stringify({
-              //   title: that.detail.shop_name, // 分享标题
-              //   desc: '至惠商联，让消费者成为第一赢家', // 分享描述
-              //   link: url, // 分享链接
-              //   imgUrl: `${that.baseImgUrl}${that.detail.store_images}`, // 分享图标
-              //   type: '', // 分享类型,music、video或link，不填默认为link
-              //   dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-              // }));
             },
             cancel: function () {
               // 用户取消分享后执行的回调函数
@@ -263,37 +295,6 @@
       },
     },
 
-    mounted() {
-      localStorage.arr = null
-      localStorage.preset_time = null
-
-      var mySwiper = new Swiper('.swiper-container', {
-        width: innerWidth,
-        slidesPerView: 6,
-        freeMode: true,
-        observer: true,//修改swiper自己或子元素时，自动初始化swiper
-        observeParents: true,//修改swiper的父元素时，自动初始化swiper
-      })
-      this.getStoreList()
-      setTimeout(() => {
-        // window.history.go(0)
-        this.share()
-      })
-
-      if (location.href.indexOf("#reloaded") === -1) {
-        location.href += "#reloaded";
-        location.reload();
-      } else {
-        history.go(-1)
-      }
-
-      // if (!localStorage.share) {
-      //   localStorage.share = 'true'
-      //
-      //   // window.location.assign(`${window.location.href.split('#')[0]}&share#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`)
-      // }
-
-    },
     beforeRouteEnter(to, from, next) {
       function a(name) {
         let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -316,7 +317,6 @@
 
     },
     beforeRouteLeave(to, from, next) {
-      localStorage.share = ""
       next()
     }
 

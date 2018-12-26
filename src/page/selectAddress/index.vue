@@ -54,7 +54,8 @@
         // localStorage.longitude_latitude = lat_lng
         localStorage.area_id = area_id
         localStorage.area = area
-        this.$router.push({path: '/index'})
+        location.href = location.href.split('#')[0]
+        // console.log(location);
       },
       async getCitySelectList() {
         let result = await citySelectList()

@@ -31,7 +31,6 @@
     </div>
 
     <h3 class="index_bottom_title">附近商家</h3>
-
     <div class="index_bottom">
       <div class="index_foot">
         <p @click="getAllSort(1)" :class="{'active':sort_status === 1}">
@@ -45,31 +44,19 @@
         <p @click="getAllSort(5)" :class="{'active':sort_status === 5}">
           好评排序</p>
       </div>
+      <keep-alive>
+        <component v-bind:is="Near" :allSortList="allSortList"></component>
+      </keep-alive>
+    </div>
 
-      <div class="index_foot_list" v-for="item in allSortList" :key="item.id"
-           @click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})">
-        <img :src="`${baseImgUrl}${item.store_images}`" alt="">
-        <div>
-          <p class="list_name">{{item.shop_name}}</p>
-          <p class="list_content">[{{item.address}}]</p>
-          <p class="list_price" v-if="item.discount/1 !== 10">{{item.discount/1}}折起 </p>
-
-        </div>
-        <div class="align_self">
-          <p class="fontSm">{{item.distance}}km</p>
-          <span class="colorRed" v-show="item.amount_money">￥{{item.amount_money}}</span>
-          <p style="color: #756b5e;font-size: .12rem">已售 {{item.sold_num}}</p>
-        </div>
+    <div>
+      <div style="width: 100%;text-align: center;padding: .2rem 0" @click="loadingMore()"
+           v-if="allSortList.length !== 0">
+        <span v-if="allLoaded">上拉或点击加载更多</span>
+        <span v-else>没有更多了</span>
       </div>
-      <div>
-        <div style="width: 100%;text-align: center;padding: .2rem 0" @click="loadingMore()"
-             v-if="allSortList.length !== 0">
-          <span v-if="allLoaded">上拉或点击加载更多</span>
-          <span v-else>没有更多了</span>
-        </div>
-        <div style="width: 100%;text-align: center;padding: .2rem 0" v-if="allSortList.length === 0">
-          没有更多了
-        </div>
+      <div style="width: 100%;text-align: center;padding: .2rem 0" v-if="allSortList.length === 0">
+        没有更多了
       </div>
     </div>
   </div>
@@ -77,13 +64,14 @@
 
 <script>
   import wx from 'weixin-js-sdk';
-  import {ImgBaseUrl, discountList, shopCatelist, allSort} from '../../api'
+  import {ImgBaseUrl, discountList, shopCatelist, allSort, wxConfig} from '../../api'
   import top from './top'
   import banner from './banner'
   import BooKList from '../../components/BooKList'
   import ShopSort from '../../components/ShopSort'
   import dayRecom from './dayRecom'
   import shopRecom from './shopRecom'
+  import Near from './Near'
 
   export default {
     name: "index",
@@ -97,6 +85,7 @@
     },
     data() {
       return {
+        Near,
         uid: '',
         discountList: [],
         shopCateListData: [],
@@ -110,10 +99,46 @@
         toJSON: ''
       }
     },
+    watch:{
+      $route(to,from){
+        if (to.name === 'index') {
+         this.share()
+       }
+      }
+    },
+    mounted() {
+      this.getDiscountList();
+      this.getShopCateList();
+      this.getAllSort(1);
+      this.share()
+    },
     methods: {
-      share() {
+      async share() {
+        if (true) { //此处避免变量覆盖问题。。。
+          let url = window.location.href.split('#')[0]
+          let result = await wxConfig(url)
+          result = JSON.parse(result.data)
+          let jssdkconfig = result
+
+          wx.config({
+            debug: true,
+            appId: jssdkconfig.appId,
+            timestamp: jssdkconfig.timestamp,
+            nonceStr: jssdkconfig.nonceStr,
+            signature: jssdkconfig.signature,
+            jsApiList: [
+              'getLocation',
+              'chooseWXPay',
+              'openLocation',
+              'onMenuShareTimeline',
+              'onMenuShareAppMessage'
+            ]
+          });
+          wx.error(function (res) {
+            console.log(`err:${JSON.stringify(res)}`)
+          });
+        }
         let url = `${window.location.href.split('#')[0]}&mid=${localStorage.uid}#/index`
-        this.$getWxConfig()
         let that = this
         wx.ready(function () {
           wx.onMenuShareAppMessage({
@@ -220,18 +245,10 @@
       },
     },
     created() {
-      console.log(window.location.href);
       let p = /=(\d*)#/
       let uid = window.location.href.match(p)[1]
-      console.log(uid);
       localStorage.uid = uid
       this.uid = uid
-    },
-    mounted() {
-      this.getDiscountList()
-      this.getShopCateList()
-      this.getAllSort(1)
-      this.share()
     }
   }
 </script>
@@ -266,8 +283,8 @@
     border-radius: .05rem;
   }
 
-  .index_mid div.mask:last-child span{
-    padding: 0 .1rem ;
+  .index_mid div.mask:last-child span {
+    padding: 0 .1rem;
     display: block;
     background: rgba(101, 101, 101, 0) !important;
     color: #fff;

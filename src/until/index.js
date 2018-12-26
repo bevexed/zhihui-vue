@@ -48,7 +48,7 @@ Vue.prototype.$getWxConfig = async function () {
   let jssdkconfig = result
 
   wx.config({
-    debug: false,
+    debug: true,
     appId: jssdkconfig.appId,
     timestamp: jssdkconfig.timestamp,
     nonceStr: jssdkconfig.nonceStr,
@@ -62,7 +62,7 @@ Vue.prototype.$getWxConfig = async function () {
     ]
   });
   wx.error(function (res) {
-    console.log(`err:${res}`)
+    console.log(`err:${JSON.stringify(res)}`)
   });
 
 },
