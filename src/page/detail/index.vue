@@ -133,7 +133,7 @@
       timeSel() {
         if (this.detail.shop_goods_time) {
           let arr = []
-          arr = this.detail.shop_goods_time.map(item => item.rule)
+          arr = [...this.detail.shop_goods_time].map(item => item.rule)
           arr = this.$removeSameItem(arr)
           return arr
         }
@@ -182,7 +182,6 @@
           });
         }
         let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`
-        this.$getWxConfig()
         let that = this
         wx.ready(function () {
           wx.onMenuShareAppMessage({
