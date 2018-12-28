@@ -76,13 +76,20 @@
             result = await firmDiscountList(localStorage.longitude_latitude, this.page, localStorage.area_id)
             if (result.code === 1) {//判断接受是否成功
               this.loading = false
-              console.log(this.allSortList.length, result.data.total)
-              if (this.allSortList.length === result.data.total) {
-                return
+              console.log(this.shopList, result.data.total)
+              if (this.shopList.length === result.data.total) {
+                return false
               } else {
 
                 this.loading_more = true
-                this.shopList = [...this.shopList, ...result.data.data];
+                for (let [i,v] of Object.entries(result.data)){
+                  if (i === 'total') {
+                    continue
+                  }
+                  console.log(v);
+                  this.shopList.push(v)
+                }
+                console.log(this.shopList);
               }
             } else {
               setTimeout(() => {
@@ -101,8 +108,12 @@
           alert(result.message)
         }
         if (result.code === 1) {
-          console.log(result.data)
-          this.shopList = result.data.data
+          for (let [i,v] of Object.entries(result.data)){
+            if (i === 'total') {
+              continue
+            }
+            this.shopList.push(v)
+          }
         }
       },
     }
