@@ -67,7 +67,7 @@
           <el-collapse-transition>
             <section v-show="show3 === i" style="border-top: .01rem solid #e6e6e6">
               <p style="float:right;font-weight: lighter;font-size: .12rem;color: #409eff">商品详情</p>
-              <p v-html="v.details" class="ahahaha"></p>
+              <p v-html="v.details" class="maxImg"></p>
             </section>
           </el-collapse-transition>
         </li>
@@ -82,7 +82,7 @@
         商户信息
         <!--<i class="el-icon-arrow-right"></i>-->
       </header>
-      <footer v-html="detail.content">
+      <footer v-html="detail.content" class="maxImg">
 
       </footer>
     </section>
@@ -534,7 +534,7 @@
     color: white !important;
   }
 
-  .ahahaha img {
+  .maxImg img {
     width: 100% !important;
     max-width: 100% !important;
   }
