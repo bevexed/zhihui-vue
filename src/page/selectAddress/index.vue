@@ -51,11 +51,9 @@
         history.go(-1)
       },
       changeAddress(lat_lng, area_id, area) {
-        // localStorage.longitude_latitude = lat_lng
         localStorage.area_id = area_id
         localStorage.area = area
         location.href = location.href.split('#')[0]
-        // console.log(location);
       },
       async getCitySelectList() {
         let result = await citySelectList()
@@ -81,10 +79,6 @@
       }
     },
     mounted() {
-      //路由拦截。。。
-      // if (!localStorage.longitude_latitude) {
-      //     location.assign('./index.html')
-      // }
 
       setTimeout(() => {
         this.getCitySelectList()

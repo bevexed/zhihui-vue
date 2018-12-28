@@ -6,7 +6,7 @@
                     :key="item.id">
         <div class="banner">
           <!--<router-link :to="{ name: 'detail', params: { id: item.shop_id, status : 1 }}">-->
-            <!--<img :src="`${baseImgUrl}${item.images}`" alt="">-->
+          <!--<img :src="`${baseImgUrl}${item.images}`" alt="">-->
           <!--</router-link>-->
           <a :href="item.banner_url">
             <img :src="`${baseImgUrl}${item.images}`" alt="">
@@ -39,14 +39,16 @@
     },
     data() {
       return {
-        toJSON:'',
+        toJSON: '',
         swiperOption: {
+          notNextTick: true,
+          loop: true,
           autoplay: {
-            delay: 3000,
+            delay: 1000,
           },
           pagination: {
             el: '.swiper-pagination',
-            clickable :true,
+            clickable: true,
           },
           width: innerWidth,
           observer: true,//修改swiper自己或子元素时，自动初始化swiper
@@ -64,13 +66,16 @@
       },
     },
     created() {
-      this.getBanner()
+
     },
     mounted() {
+      this.getBanner()
+
       // current swiper instance
       // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
       console.log('this is current swiper instance object', this.swiper)
-    }
+    },
+
   }
 </script>
 

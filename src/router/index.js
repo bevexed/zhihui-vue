@@ -150,10 +150,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // alert(localStorage.uid)
-  // alert(localStorage.uid === null);
-  // alert(localStorage.uid == null);
-  // alert(localStorage.uid === 'null');
   if (to.name === 'index' || to.name === 'detail') {
     /*
     *  获取用户 UID

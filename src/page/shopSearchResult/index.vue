@@ -32,21 +32,7 @@
           <p style="color: #756b5e;font-size: .12rem">已售 {{item.sold_num}}</p>
         </div>
       </div>
-      <!--<div class="index_foot_list" v-for="item in allSortList" :key="item.id"-->
-      <!--@click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})"-->
-      <!--&gt;-->
-      <!--<img :src="`${baseImgUrl}${item.store_images}`" alt="">-->
-      <!--<div>-->
-      <!--<p class="list_name">{{item.shop_name}}</p>-->
-      <!--<p class="list_content">[{{item.address}}]</p>-->
-      <!--<p class="list_price">{{item.discount/1}}折起</p>-->
-      <!--</div>-->
-      <!--<div class="align_self">-->
-      <!--<p class="fontSm">{{item.distance}}km</p>-->
-      <!--<span class="colorRed" v-show="item.amount_money">￥{{item.amount_money}}</span>-->
-      <!--<p>已售{{item.sold_num}}</p>-->
-      <!--</div>-->
-      <!--</div>-->
+
       <div v-if="!allSortList" style="text-align: center">没有相关项目请重新搜索</div>
       <div style="width: 100%;text-align: center">
         <span v-if="allLoaded">上拉加载更多</span>
@@ -97,36 +83,13 @@
             message: result.message
           })
         }
-        // if (result.code === 1) {
-        //   if (result.data !== null) {
-        //     let obj = {}
-        //     let arr = []
-        //     for (let i = 0; i < result.data.length; i++) {
-        //       // console.log(result.data[i]);
-        //       if (result.data[i] !== null) {
-        //         for (let a in result.data[i]) {
-        //           // console.log(a);
-        //           // console.log(result.data[i][a]);
-        //           obj[a] = result.data[i][a]
-        //           // console.log(`obj:${JSON.stringify(obj)}`);
-        //         }
-        //         arr.push(obj)
-        //         // console.log(arr);
-        //       }
-        //     }
-        //     this.allSortList = arr
-        //     console.log(this.allSortList);
-        //     console.log(typeof result.data[0])
-        //   }
-        //
-        // }
+
       },
       async loadingMore() {
         if (this.allLoaded === false) {
           return
         }
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
-          // console.log(1)
           this.allLoaded = false
           this.loading = true;
           this.sortPage++;

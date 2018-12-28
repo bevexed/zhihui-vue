@@ -249,19 +249,6 @@
     overflow: hidden;
   }
 
-  /*.index_mid div.mask:last-child{*/
-  /*width: 100%;*/
-  /*height: 100%;*/
-  /*position: absolute;*/
-  /*left: 0;*/
-  /*top: 0;*/
-  /*background: rgba(101, 101, 101, .6) !important;*/
-  /*color: #fff;*/
-  /*text-align: center;*/
-  /*line-height: .7rem;*/
-  /*border-radius: .05rem;*/
-  /*}*/
-
   .index_mid div.mask:last-child {
     position: absolute;
     left: -.05rem;

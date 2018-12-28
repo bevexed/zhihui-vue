@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive exclude="detail,pay">
+    <keep-alive exclude="detail,pay,booking,aliPay,application,evaluation,paySuccess,scan,shopSearch,toevaluation">
       <router-view/>
     </keep-alive>
   </div>
@@ -83,6 +83,26 @@
         this.getWxConfig()
       }
     },
+    watch:{
+      $route(to,from){
+        console.log(to.name);
+        console.log(from.name);
+        // 从首页到 seconderyClass
+        if (to.name === 'seconderyClass' && from.name === 'index'){
+          this.$router.go(0)
+        }
+
+        // 从 seconderyClass 到 storeList
+        if (to.name === 'storeList' && from.name === 'seconderyClass'){
+          this.$router.go(0)
+        }
+
+        // 从 twoAllList 到 storeList
+        if (to.name === 'storeList' && from.name === 'twoAllList'){
+          this.$router.go(0)
+        }
+      }
+    }
   }
 </script>
 

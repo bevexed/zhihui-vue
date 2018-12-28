@@ -51,16 +51,17 @@
     <section class="booking_money">
       <ul>
         <li v-for="(v,i) in detail.shop_goods" :key="v.id" @click="showDetail(i)">
-          <img style="height: .6rem;width: .6rem" :src="`${baseImgUrl}${v.meal_images}`" alt="">
-          <div>
-            <p>套餐名称：{{v.meal_name}}</p>
-            [{{v.rule === ''? '不限时' : v.rule}}] <a v-if="v.discount_amount != 100">原价：￥{{v.amount_money}}</a>
-            <span><a v-if="v.discount-0 !== 100">{{v.discount/10}}折</a>
-              <a>原价：￥{{v.amount_money}}</a>  <b
-                style="color: red;margin-left: .1rem;font-size: .14rem">满{{detail.full}}减{{detail.reduce}}</b></span>
+          <img style="height: .6rem;width: .6rem" :src="baseImgUrl+v.meal_images" alt="">
+          <div style="margin-bottom: .05rem">
+            <p>{{v.meal_name}}</p>
+            [{{v.rule === ''? '不限时' : v.rule}}] <a style="margin-left: .05rem"><cite style="font-size: .12rem;color: #666">原价:</cite>￥{{v.amount_money}}</a>
+            <span style="display: flex;align-content: center">
+              <a class="list_price" v-if="v.discount-0 !== 100">{{v.discount/10}}折</a>
+              <span style="color: #ff5234;font-size: .14rem"><cite style="font-size: .12rem;color: #666">满减:</cite>满{{detail.full}}减{{detail.reduce}}</span>
+            </span>
           </div>
           <span class="button"
-                @click.stop="booking(v.is_display,v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,detail.discount)">
+                @click.stop="booking(v.is_display,v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,v.discount)">
             {{v.is_display === 1 ? "购买":"预订"}}
           </span>
 
@@ -256,14 +257,12 @@
         }
 
         let result = await memberPhone(localStorage.uid)
-        console.log(arr);
         localStorage.arr = JSON.stringify(arr)
         if (result.code === 1) {
           this.$router.push({
             name: 'booking',
             params: {store_id: this.$route.params.id, status: this.$route.params.status}
           })
-          console.log(result);
         } else {
           this.dialogFormVisible = true
         }

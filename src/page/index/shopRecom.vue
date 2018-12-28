@@ -73,7 +73,7 @@
 <style scoped>
 .nowrap{
   display: inline-block;
-  width: 1.2rem;
+  width: 1rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

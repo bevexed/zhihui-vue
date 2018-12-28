@@ -7,7 +7,6 @@
           <div class="user-wrapper">
             <div class="user-pic">
               <div class="imgbox" style="background: none;">
-                <!--<img :src="`${ImgBaseUrl}${value.avatar}`" style="height: 100%;">-->
                 <img :src="value.avatar" style="height: 100%;border-radius: 50%">
               </div>
             </div>
@@ -36,7 +35,6 @@
             </span>
           </div>
           <div>
-            <!--<a href="//i.meituan.com/poi/98800120" style="color:#666;font-size: .16rem">高温派对·海鲜烤肉火锅自助</a>-->
           </div>
           <div class="block-reply" v-if="value.reply_time">
             <div class="block-reply-head">商家回复：
@@ -81,7 +79,6 @@
         let result = await commentList(this.$route.params.store_id, 2, 1)
         if (result.code === 1) {
           this.commentList = result.info.list
-          // let pic = result.info.list.filter(item => item === 'picture') // 过滤出pic
           let pic = result.info.list.map(item => item.picture) // 过滤出pic
           console.log(pic);
           this.imgs = pic.map(item => item.split(','))
@@ -104,7 +101,7 @@
               this.loading = false
               if (this.page === result.info.total_page) {
                 console.log('没有更多数据')
-                return
+                return false
               } else {
                 this.loading_more = true
                 this.shopList = [...this.commentList, ...result.info.list];
