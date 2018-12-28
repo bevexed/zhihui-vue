@@ -8,7 +8,7 @@
          @click="$router.push({ name: 'detail', params: { id: item.store_id,status:1 }})"
     >
       <div class="img">
-        <img :src="`${baseImgUrl}${item.meal_images}`" alt="">
+        <img :src="`${baseImgUrl}${item.meal_images}`" style="width: 100%" alt="">
       </div>
 
       <div class="content">

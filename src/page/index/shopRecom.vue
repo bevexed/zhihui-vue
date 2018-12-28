@@ -16,8 +16,11 @@
           >
             <img class="slide_img" :src="`${baseImgUrl}${item.meal_images}`" alt="">
             <div class="slide_div">
-              <p>{{item.shop_name}} <span style="float: right">已售{{item.sold_num}}</span></p>
-              <p>{{item.meal_name}} <span style="float: right">{{item.distance}}km</span></p>
+              <p>
+                <span class="nowrap">{{item.shop_name}}</span>已售{{item.sold_num}}
+              </p>
+              <p>
+                <span class="nowrap">{{item.meal_name}}</span>{{item.distance}}km</p>
               <p>
                 <span class="dollar colorRed">￥</span><span class="colorRed">{{item.amount_money/1}}</span>
                 <span class="">满{{item.full/1}}减{{item.reduce/1}}</span>
@@ -40,7 +43,7 @@
       return {
         baseImgUrl: ImgBaseUrl,
         shopGoodList: [],
-        toJSON:''
+        toJSON: ''
       }
     },
     methods: {
@@ -68,5 +71,11 @@
 </script>
 
 <style scoped>
-
+.nowrap{
+  display: inline-block;
+  width: 1.2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 </style>

@@ -170,6 +170,8 @@ html {
 }
 
 .slide_div > p:nth-child(1) {
+  display: flex;
+  align-content: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -179,6 +181,8 @@ html {
 }
 
 .slide_div > p:nth-child(2) {
+  display: flex;
+  align-content: center;
   color: #8e8e8e;
   width: 1.5rem;
   font-size: .12rem;
