@@ -12,7 +12,7 @@
           <p class="colorWrap list_content">{{item.address}}</p>
         </div>
         <div class="bus_down">
-          <p class="colorRed" style="font-size: .13rem">{{item.discount/1}}折</p>
+          <p class="colorRed" style="font-size: .13rem" v-show="item.discount/1 !== 10">{{item.discount/1}}折</p>
           <p>已售{{item.sold_num}}</p>
           <p class="dollar">{{item.distance}}km</p>
         </div>

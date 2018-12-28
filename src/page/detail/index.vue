@@ -55,8 +55,8 @@
           <div>
             <p>套餐名称：{{v.meal_name}}</p>
             [{{v.rule === ''? '不限时' : v.rule}}] <a v-if="v.discount_amount != 100">原价：￥{{v.amount_money}}</a>
-            <span><a v-if="v.discount_amount != 100">{{detail.discount/1}}折 ￥{{v.discount_amount}}</a>
-              <a v-if="v.discount_amount == 100">原价：￥{{v.amount_money}}</a>  <b
+            <span><a v-if="v.discount-0 !== 100">{{v.discount/10}}折 ￥{{v.discount_amount}}</a>
+              <a>原价：￥{{v.amount_money}}</a>  <b
                 style="color: red;margin-left: .1rem;font-size: .14rem">满{{v.full}}减{{v.reduce}}</b></span>
           </div>
           <span class="button"
