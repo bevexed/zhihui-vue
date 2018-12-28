@@ -3,8 +3,8 @@
     <Back
       :title="'狠优惠'"
     />
-    <div class="business_list recommend_list" v-for="item in shopList" :key="item.id"
-         @click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})">
+    <div class="business_list recommend_list" v-for="item in shopList" :key="item.store_id"
+         @click="$router.push({ name: 'detail', params: { id: item.store_id,status:1 }})">
       <div>
         <div class="bus_top">
           <p style="margin-top: .1rem">{{item.shop_name}}</p>
@@ -12,7 +12,7 @@
           <p class="colorWrap list_content">{{item.address}}</p>
         </div>
         <div class="bus_down">
-          <p class="colorRed" style="font-size: .13rem" v-show="item.discount/1 !== 10">{{item.discount/1}}折</p>
+          <p class="colorRed" style="font-size: .13rem" v-show="item.discount/1 !== 10 && item.discount/1 !== 0">{{item.discount/1}}折</p>
           <p>已售{{item.sold_num}}</p>
           <p class="dollar">{{item.distance}}km</p>
         </div>

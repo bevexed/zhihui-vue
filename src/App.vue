@@ -83,24 +83,31 @@
         this.getWxConfig()
       }
     },
-    watch:{
-      $route(to,from){
-        console.log(to.name);
+    watch: {
+      $route(to, from) {
         console.log(from.name);
+        console.log(to.name);
         // 从首页到 seconderyClass
-        if (to.name === 'seconderyClass' && from.name === 'index'){
-          this.$router.go(0)
+        if (from.name === 'index' && to.name === 'seconderyClass') {
+          location.reload()
         }
 
         // 从 seconderyClass 到 storeList
-        if (to.name === 'storeList' && from.name === 'seconderyClass'){
-          this.$router.go(0)
+        if (from.name === 'seconderyClass' && to.name === 'storeList') {
+          location.reload()
         }
 
         // 从 twoAllList 到 storeList
-        if (to.name === 'storeList' && from.name === 'twoAllList'){
-          this.$router.go(0)
+        if (from.name === 'twoAllList' && to.name === 'storeList') {
+          location.reload()
         }
+
+
+        // 从 shopSearch 到 shopSearchResult
+        if (from.name === 'shopSearch' && to.name === 'shopSearchResult') {
+          location.reload()
+        }
+
       }
     }
   }

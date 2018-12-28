@@ -21,7 +21,7 @@
               <p>{{item.address}}</p>
               <p style="display: flex;justify-content: space-between;align-items:baseline;width: 100%;">
                 <!--<span class="dollar colorRed">￥</span>-->
-                <span class="colorRed" style="font-size: .1rem" v-show="item.discount !== '无折扣'"><span style="font-size: .16rem" >{{item.discount/1}}</span>折起</span>
+                <span class="colorRed" style="font-size: .1rem" v-show="item.discount !== '无折扣' && item.discount/1 !== 100 && item.discount !== 0"><span style="font-size: .16rem" >{{item.discount/1}}</span>折起</span>
                 <!--<span class="through_span">￥188</span>-->
                 <span class="dollar" >{{item.distance}}km</span>
               </p>

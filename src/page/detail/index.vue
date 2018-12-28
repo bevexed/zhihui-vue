@@ -7,8 +7,9 @@
 
     <section class="address">
       <header v-if="detail">
-        {{detail.shop_name}}
+        {{detail.shop_name}}<span style="color: #ff5234;font-size: .12rem;border: 1px solid #ff5234;margin-left: 10px" v-if="detail.reduce - 0 != 0">满{{detail.full}}减{{detail.reduce}}</span>
       </header>
+
       <footer>
         <i class="iconfont icon-dingwei"></i>
         <div class="position_detail" @click="toMap()">
@@ -53,15 +54,14 @@
         <li v-for="(v,i) in detail.shop_goods" :key="v.id" @click="showDetail(i)">
           <img style="height: .6rem;width: .6rem" :src="baseImgUrl+v.meal_images" alt="">
           <div style="margin-bottom: .05rem">
-            <p>{{v.meal_name}}</p>
-            [{{v.rule === ''? '不限时' : v.rule}}] <a style="margin-left: .05rem"><cite style="font-size: .12rem;color: #666">原价:</cite>￥{{v.amount_money}}</a>
+            <p>{{v.meal_name}}   <a class="list_price" v-if="v.discount-0 !== 100 && v.discount-0 !== 0 ">{{v.discount/10}}折</a></p>
+            [{{v.rule === ''? '不限时' : v.rule}}]
             <span style="display: flex;align-content: center">
-              <a class="list_price" v-if="v.discount-0 !== 100">{{v.discount/10}}折</a>
-              <span style="color: #ff5234;font-size: .14rem"><cite style="font-size: .12rem;color: #666">满减:</cite>满{{detail.full}}减{{detail.reduce}}</span>
+             <a style="margin-left: .05rem"><cite style="font-size: .12rem;color: #666">原价:</cite>￥{{v.amount_money}}</a>
             </span>
           </div>
           <span class="button"
-                @click.stop="booking(v.is_display,v.store_id,v.id,v.rule,v.full+','+v.reduce,v.amount_money,v.discount)">
+                @click.stop="booking(v.is_display,v.store_id,v.id,detail.rule,v.full+','+detail.reduce,v.amount_money,v.discount)">
             {{v.is_display === 1 ? "购买":"预订"}}
           </span>
 
@@ -434,6 +434,7 @@
 
   .booking_money div {
     display: inline-block;
+    vertical-align: top;
   }
 
   .booking_money span {

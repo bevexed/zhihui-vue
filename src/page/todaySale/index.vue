@@ -23,7 +23,7 @@
           <!--{{item.address}}</span>-->
         </p>
         <div class="bus_down">
-          <p class="colorRed"> <i v-if="item.discount-0 !== 10">{{item.discount}}折后</i>￥{{item.discount_amount}}起</p>
+          <p class="colorRed"> <span class="list_price" v-if="item.discount-0 !== 10 && item.discount-0 !== 0">{{item.discount}}折</span>￥{{item.discount_amount}}起</p>
           <p class="dollar" style="text-align:right;flex-grow: 1">{{item.distance}}km &nbsp;</p>
         </div>
       </div>

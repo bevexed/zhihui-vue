@@ -15,7 +15,7 @@
           <p class="colorWrap nowrap">￥{{item.amount_money}}</p>
         </div>
         <div class="bus_down" style="padding-bottom: .05rem;">
-          <p class="colorRed" v-if="item.discount/1 !== 10">{{item.discount/1}}折</p>
+          <p class="colorRed" v-if="item.discount/1 !== 10 && item.discount/1 !== 0">{{item.discount/1}}折</p>
           <p v-if="item.full"> 满{{item.full/1}}减{{item.reduce/1}}</p>
           <p style="color: #7e7e7e;">{{item.distance}}km</p>
         </div>

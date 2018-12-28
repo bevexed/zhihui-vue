@@ -29,7 +29,7 @@
         <div>
           <p class="list_name">{{item.shop_name}}</p>
           <p class="list_content">[{{item.address}}]</p>
-          <p class="list_price" v-if="item.discount/1 !== 10">{{item.discount/1}}折起 </p>
+          <p class="list_price" v-if="item.discount/1 !== 10 && item.discount/1 !== 0">{{item.discount/1}}折起 </p>
 
         </div>
         <div class="align_self">
