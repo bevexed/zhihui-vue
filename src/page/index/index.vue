@@ -211,7 +211,6 @@
           return
         }
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
-          // console.log(1)
           this.allLoaded = false
           this.loading = true;
           this.sortPage++;
@@ -223,8 +222,9 @@
               this.loading = false
               console.log(this.allSortList.length, result.data.total)
               if (this.allSortList.length === result.data.total) {
-                return
+                this.loading_more = false
               } else {
+                this.allLoaded = true
                 this.loading_more = true
                 this.allSortList = [...this.allSortList, ...result.data.data];
               }

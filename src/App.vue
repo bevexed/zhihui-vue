@@ -21,7 +21,7 @@
       async uidExist() {
         let result = await existUid(localStorage.uid)
         if (result.code === 0) {
-          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${a('uid')}&do=shop&m=vslai_shop`)
+          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
         }
       },
       async getDistrict() {

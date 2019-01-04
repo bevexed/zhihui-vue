@@ -61,13 +61,13 @@
             </span>
           </div>
           <span class="button"
-                @click.stop="booking(v.is_display,v.store_id,v.id,detail.rule,v.full+','+detail.reduce,v.amount_money,v.discount)">
+                @click.stop="booking(v.is_display,v.store_id,v.id,v.rule,detail.full+','+detail.reduce,v.amount_money,v.discount)">
             {{v.is_display === 1 ? "购买":"预订"}}
           </span>
 
           <el-collapse-transition>
             <section v-show="show3 === i" style="border-top: .01rem solid #e6e6e6">
-              <p style="float:right;font-weight: lighter;font-size: .12rem;color: #409eff">商品详情</p>
+              <!--<p style="float:right;font-weight: lighter;font-size: .12rem;color: #409eff">商品详情</p>-->
               <p v-html="v.details" class="maxImg"></p>
             </section>
           </el-collapse-transition>
@@ -533,16 +533,13 @@
     border-radius: .04rem;
     color: white !important;
   }
-
-  .maxImg img {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
 </style>
-
 <style>
+  .maxImg{
+    max-width: 3.75rem;
+    overflow: hidden;
+  }
   .maxImg img {
-    width: 100% !important;
-    max-width: 100% !important;
+    max-width: 3.55rem !important;
   }
 </style>

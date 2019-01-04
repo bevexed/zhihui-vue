@@ -100,6 +100,7 @@
           })
           return
         }
+        console.log(localStorage.uid, this.store_id, this.real.realMoney, this.rebatemoney - this.real.left);
         let result = await addOrder(localStorage.uid, this.store_id, this.real.realMoney, this.rebatemoney - this.real.left)
         if (result.code === 1) {
           this.$router.push({name: 'pay', params: {order_id: result.data.order_id}})

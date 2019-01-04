@@ -8,7 +8,7 @@
     props: {},
     data() {
       return {
-        initQCode: `https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=""#/scan/sjid/${localStorage.uid}`
+        initQCode: `https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?#/scan/sjid/${localStorage.uid}`
       }
     }
   }

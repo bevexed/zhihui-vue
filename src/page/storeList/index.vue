@@ -106,6 +106,7 @@
               if (this.allSortList.length === result.data.total) {
                 return
               } else {
+                this.allLoaded = true
                 this.loading_more = true
                 this.allSortList = [...this.allSortList, ...result.data.data];
               }

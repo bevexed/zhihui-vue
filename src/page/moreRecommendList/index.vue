@@ -111,6 +111,7 @@
                 console.log('没有更多数据')
                 return
               } else {
+                this.allLoaded = true
                 this.loading_more = true
                 this.shopList = [...this.shopList, ...res.data.data];
               }
