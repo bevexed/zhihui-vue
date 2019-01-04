@@ -4,8 +4,8 @@
     <section class="cate">
       <section class="img">
         <!--<header @click="$router.push({name:'seconderyClass',params:{id:v.id,status:0}})">-->
-          <!--<img :src="baseImgUrl+v.images" alt="">-->
-          <!--<span>{{v.catename}}</span>-->
+        <!--<img :src="baseImgUrl+v.images" alt="">-->
+        <!--<span>{{v.catename}}</span>-->
         <!--</header>-->
         <div>
           <p v-for="v in list" @click="$router.push({name: 'storeList', params: {id: v.id, status: 0}})"> {{v.catename}}</p>
@@ -25,16 +25,16 @@
     components: {
       searchShopHead
     },
-    data(){
-      return{
-        list:'',
+    data() {
+      return {
+        list: '',
       }
     },
     methods: {
       async getList() {
         let result = await moreTwoShopCateList(this.$route.params.id)
         console.log(result);
-        if (result.code === 1){
+        if (result.code === 1) {
           this.list = result.data
         }
       },

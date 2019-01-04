@@ -67,7 +67,7 @@
       return {
         ImgBaseUrl,
         commentList: [],
-        imgs:[],
+        imgs: [],
         page: 1,
         allLoaded: true,
         loading: false,//判断是否加载数据

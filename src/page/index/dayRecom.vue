@@ -3,8 +3,8 @@
     <div class="day_recom_top">
       <p>小编推荐</p>
       <p>
-          <span class="fontSm"
-                @click="$router.push({ name: 'moreRecommendList', params: { id: 'xbtj',status:'undefined' }})"
+          <span @click="$router.push({ name: 'moreRecommendList', params: { id: 'xbtj',status:'undefined' }})"
+                class="fontSm"
           >更多推荐
             <i class="iconfont icon-iconfontjiantou5 fontSm"></i></span>
       </p>
@@ -12,18 +12,18 @@
     <div class="day_recom_bottom">
       <div class="swiper-container" id="recommend">
         <div class="swiper-wrapper day_recom_swiper">
-          <div class="swiper-slide" v-for="item in recommendList" :key="item.id"
-               @click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})"
+          <div :key="item.id" @click="$router.push({ name: 'detail', params: { id: item.id,status:1 }})" class="swiper-slide"
+               v-for="item in recommendList"
           >
-            <img class="slide_img" :src="`${baseImgUrl}${item.store_images}`" alt="">
+            <img :src="`${baseImgUrl}${item.store_images}`" alt="" class="slide_img">
             <div class="slide_div">
               <p>{{item.shop_name}}</p>
               <p>{{item.address}}</p>
               <p style="display: flex;justify-content: space-between;align-items:baseline;width: 100%;">
                 <!--<span class="dollar colorRed">￥</span>-->
-                <span class="colorRed" style="font-size: .1rem" v-show="item.discount !== '无折扣' && item.discount/1 !== 100 && item.discount !== 0"><span style="font-size: .16rem" >{{item.discount/1}}</span>折起</span>
+                <span class="colorRed" style="font-size: .1rem" v-show="item.discount !== '无折扣' && item.discount/1 !== 100 && item.discount !== 0"><span style="font-size: .16rem">{{item.discount/1}}</span>折起</span>
                 <!--<span class="through_span">￥188</span>-->
-                <span class="dollar" >{{item.distance}}km</span>
+                <span class="dollar">{{item.distance}}km</span>
               </p>
             </div>
           </div>
@@ -42,7 +42,7 @@
       return {
         baseImgUrl: ImgBaseUrl,
         recommendList: [],
-        toJSON:''
+        toJSON: ''
       }
     },
     methods: {

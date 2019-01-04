@@ -54,7 +54,7 @@
         <li v-for="(v,i) in detail.shop_goods" :key="v.id" @click="showDetail(i)">
           <img style="height: .6rem;width: .6rem" :src="baseImgUrl+v.meal_images" alt="">
           <div style="margin-bottom: .05rem">
-            <p>{{v.meal_name}}   <a class="list_price" v-if="v.discount-0 !== 100 && v.discount-0 !== 0 ">{{v.discount/10}}折</a></p>
+            <p>{{v.meal_name}} <a class="list_price" v-if="v.discount-0 !== 100 && v.discount-0 !== 0 ">{{v.discount/10}}折</a></p>
             [{{v.rule === ''? '不限时' : v.rule}}]
             <span style="display: flex;align-content: center">
              <a style="margin-left: .05rem"><cite style="font-size: .12rem;color: #666">原价:</cite>￥{{v.amount_money}}</a>
@@ -535,10 +535,11 @@
   }
 </style>
 <style>
-  .maxImg{
+  .maxImg {
     max-width: 3.75rem;
     overflow: hidden;
   }
+
   .maxImg img {
     max-width: 3.55rem !important;
   }

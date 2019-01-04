@@ -188,7 +188,7 @@ router.beforeEach((to, from, next) => {
 
   if (!localStorage.uid) {  // 判断uid是否存在
     window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
-  }else{
+  } else {
     next()
   }
 })

@@ -15,9 +15,9 @@
 </template>
 
 <script>
-    export default {
-        name: "top"
-    }
+  export default {
+    name: "top"
+  }
 </script>
 
 <style scoped>

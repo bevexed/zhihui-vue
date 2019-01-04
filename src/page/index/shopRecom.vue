@@ -71,11 +71,11 @@
 </script>
 
 <style scoped>
-.nowrap{
-  display: inline-block;
-  width: 1rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+  .nowrap {
+    display: inline-block;
+    width: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 </style>

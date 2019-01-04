@@ -44,9 +44,7 @@
         <p @click="getAllSort(5)" :class="{'active':sort_status === 5}">
           好评排序</p>
       </div>
-      <keep-alive>
-        <component v-bind:is="Near" :allSortList="allSortList"></component>
-      </keep-alive>
+      <component v-bind:is="Near" :allSortList="allSortList"></component>
     </div>
 
     <div>
@@ -114,10 +112,10 @@
     methods: {
       async share() {
         if (true) { //此处避免变量覆盖问题。。。
-          let url = window.location.href.split('#')[0]
-          let result = await wxConfig(url)
-          result = JSON.parse(result.data)
-          let jssdkconfig = result
+          let url = window.location.href.split('#')[0];
+          let result = await wxConfig(url);
+          result = JSON.parse(result.data);
+          let jssdkconfig = result;
 
           wx.config({
             debug: false,
@@ -137,8 +135,8 @@
             console.log(`err:${JSON.stringify(res)}`)
           });
         }
-        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/index`
-        let that = this
+        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/index`;
+        let that = this;
         wx.ready(function () {
           wx.onMenuShareAppMessage({
             title: '至惠商联', // 分享标题
@@ -188,20 +186,21 @@
         }
       },
       async getDiscountList() {
-        let result = await discountList()
+        let result = await discountList();
         if (result.code === 1) {
           this.discountList = result.data
         }
       },
       async getShopCateList() {
-        let result = await shopCatelist()
+        let result = await shopCatelist();
         this.shopCateListData = result.data
       },
       async getAllSort(sort_status) {
-        this.allLoaded = true
-        this.sortPage = 1
-        this.sort_status = sort_status
-        let result = await allSort(sort_status, localStorage.longitude_latitude, '', '', 1, localStorage.area_id)
+        this.allLoaded = true;
+        this.loading_more = true;
+        this.sortPage = 1;
+        this.sort_status = sort_status;
+        let result = await allSort(sort_status, localStorage.longitude_latitude, '', '', 1, localStorage.area_id);
         if (result.code === 1) {
           this.allSortList = result.data.data
         }
@@ -211,26 +210,26 @@
           return
         }
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
-          this.allLoaded = false
+          this.allLoaded = false;
           this.loading = true;
           this.sortPage++;
-          let result
+          let result;
           if (this.loading_more) {
-            this.loading_more = false //禁止浏览器发送ajax请求
-            result = await allSort(this.sort_status, localStorage.longitude_latitude, '', '', this.sortPage, localStorage.area_id)
+            this.loading_more = false; //禁止浏览器发送ajax请求
+            result = await allSort(this.sort_status, localStorage.longitude_latitude, '', '', this.sortPage, localStorage.area_id);
             if (result.code === 1) {//判断接受是否成功
-              this.loading = false
-              console.log(this.allSortList.length, result.data.total)
+              this.loading = false;
+              console.log(this.allSortList.length, result.data.total);
               if (this.allSortList.length === result.data.total) {
                 this.loading_more = false
               } else {
-                this.allLoaded = true
-                this.loading_more = true
+                this.allLoaded = true;
+                this.loading_more = true;
                 this.allSortList = [...this.allSortList, ...result.data.data];
               }
             } else {
               setTimeout(() => {
-                this.loading = false
+                this.loading = false;
                 this.loading_more = true
               }, 1000)
             }

@@ -57,7 +57,7 @@ export const newsAdd = (uid, content) => ajax(Base_url + '/api/allnews/newsadd',
 //热搜
 export const hotSearchList = () => ajax(Base_url + '/api/allsearch/hotsearchlist')
 //套餐搜索
-export const shopGoodsSearchList = (search_key, longitude_latitude, uid, area_id,sort_status,page) => ajax(Base_url + '/api/allsearch/shopgoodssearchlist', {
+export const shopGoodsSearchList = (search_key, longitude_latitude, uid, area_id, sort_status, page) => ajax(Base_url + '/api/allsearch/shopgoodssearchlist', {
   search_key,
   longitude_latitude,
   uid,
@@ -144,7 +144,7 @@ export const twoCate = (p_id) => ajax(Base_url + '/api/allarea/twocate', {p_id})
 // 店铺审核中
 export const userArealist = (uid) => ajax(Base_url + '/api/allarea/userarealist', {uid})
 // 商家入驻添加
-export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license,enter_phone,store_images) => ajax(Base_url + '/api/allarea/storeadd', {
+export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, enter_phone, store_images) => ajax(Base_url + '/api/allarea/storeadd', {
   uid,
   shopcate_id,
   shopchildcate_id,
@@ -184,7 +184,7 @@ export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone',
 // 当前用户添加预留手机号
 export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/addmemberphone', {uid, phone})
 // 订单立即支付
-export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount, shopgoods_num,remark) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
+export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount, shopgoods_num, remark) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
   uid,
   preset_time,
   full_reducemoney,
@@ -246,4 +246,4 @@ export const addComment = (shop_id, content, file, uid, cost_effective, environm
   order_id,			  //	必传			订单ID
 })
 
-export const img_s = (uid) => ajax('https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php/api/allarea/storeimg',{uid})
+export const img_s = (uid) => ajax('https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php/api/allarea/storeimg', {uid})

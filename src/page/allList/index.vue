@@ -16,11 +16,12 @@
 </template>
 
 <script>
-  import {moreShopCateList,ImgBaseUrl} from "../../api";
+  import {moreShopCateList, ImgBaseUrl} from "../../api";
   import searchShopHead from '../../components/searchShopHead'
+
   export default {
     name: "allList",
-    components:{
+    components: {
       searchShopHead
     },
     data() {
@@ -34,13 +35,13 @@
       async getList() {
         let result = await moreShopCateList()
         console.log(result);
-        if (result.code === 1){
+        if (result.code === 1) {
           this.list = result.data
         }
       },
     },
     created() {
-        this.getList()
+      this.getList()
     },
   }
 </script>

@@ -82,7 +82,7 @@
               } else {
 
                 this.loading_more = true
-                for (let [i,v] of Object.entries(result.data)){
+                for (let [i, v] of Object.entries(result.data)) {
                   if (i === 'total') {
                     continue
                   }
@@ -108,7 +108,7 @@
           alert(result.message)
         }
         if (result.code === 1) {
-          for (let [i,v] of Object.entries(result.data)){
+          for (let [i, v] of Object.entries(result.data)) {
             if (i === 'total') {
               continue
             }

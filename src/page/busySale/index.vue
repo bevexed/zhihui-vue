@@ -102,7 +102,8 @@
   .bus_down > p {
     width: 30%;
   }
-  .bus_down > p:last-child{
+
+  .bus_down > p:last-child {
     font-size: .12rem;
   }
 </style>

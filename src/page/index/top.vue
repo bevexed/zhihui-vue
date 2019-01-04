@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, isaShop, newsAdd, storeImgs,img_s} from "../../api/index";
+  import {ImgBaseUrl, isaShop, newsAdd, storeImgs, img_s} from "../../api/index";
   import Qriosly from "../../components/Qriosly"
 
   export default {
@@ -94,11 +94,11 @@
         },
         toJSON: '',
         getCode: '',
-        s_img:''
+        s_img: ''
       }
     },
     methods: {
-      async getimg_s(){
+      async getimg_s() {
         let result = await img_s(localStorage.uid)
         console.log(result);
         this.s_img = result.data
@@ -178,7 +178,8 @@
     z-index: 9998;
     top: 0;
   }
-  .store_img img.img_s{
+
+  .store_img img.img_s {
     border-radius: 5px;
     z-index: 99999;
     display: block;
@@ -192,7 +193,8 @@
     right: 0;
     background: white;
   }
-  .store_img p{
+
+  .store_img p {
     color: white;
     font-size: .2rem;
     text-align: center;

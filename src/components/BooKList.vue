@@ -28,11 +28,11 @@
 
   export default {
     name: "BooKList",
-    props:['shopCateListData','goTo','level'],
+    props: ['shopCateListData', 'goTo', 'level'],
     data() {
       return {
         baseImgUrl: ImgBaseUrl,
-        toJSON:''
+        toJSON: ''
       }
     },
     computed: {
@@ -53,9 +53,7 @@
         return arr
       }
     },
-    methods: {
-
-    },
+    methods: {},
     created() {
 
     }

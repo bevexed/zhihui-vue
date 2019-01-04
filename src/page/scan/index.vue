@@ -85,18 +85,18 @@
         }
       },
       async getOrderId() {
-        if (!this.money){
+        if (!this.money) {
           this.$message({
-            message:"请输入金额",
-            type:'error'
+            message: "请输入金额",
+            type: 'error'
           })
           return
         }
-        let  p =  /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
-        if (!p.test(this.money)){
+        let p = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+        if (!p.test(this.money)) {
           this.$message({
-            message:"请检查输入的金额是否正确",
-            type:'error'
+            message: "请检查输入的金额是否正确",
+            type: 'error'
           })
           return
         }

@@ -80,8 +80,8 @@
       }
     },
     methods: {
-      delImg(index){
-         this.img.splice(index,1)
+      delImg(index) {
+        this.img.splice(index, 1)
       },
       getImg() {
         console.log(`img:${this.img}`);
@@ -123,7 +123,7 @@
         }
 
         let newPic = window.URL.createObjectURL(document.getElementById('f').files.item(0))
-        this.img = [...this.img,newPic]
+        this.img = [...this.img, newPic]
       },
 
       async custAddComment(content, file, cost_effective, environment, service) {

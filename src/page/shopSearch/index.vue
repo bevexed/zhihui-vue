@@ -37,7 +37,8 @@
 </template>
 
 <script>
-  import {hotSearchList,historySearchList,deleteHistory} from '../../api'
+  import {hotSearchList, historySearchList, deleteHistory} from '../../api'
+
   export default {
     name: "shopSearch",
     data() {
@@ -67,7 +68,7 @@
           })
           return
         }
-        this.$router.push({name:'shopSearchResult',params:{search_key}})
+        this.$router.push({name: 'shopSearchResult', params: {search_key}})
       },
 
       async getHotSearchList() {

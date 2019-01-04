@@ -57,10 +57,11 @@
 </template>
 
 <script>
-  import {twoShopCateList,ImgBaseUrl,allSort} from '../../api'
+  import {twoShopCateList, ImgBaseUrl, allSort} from '../../api'
   import top from './top'
   import ShopSort from '../../components/ShopSort'
   import BooKList from '../../components/BooKList'
+
   export default {
     name: "seconderyClass",
     components: {
@@ -68,11 +69,11 @@
       BooKList,
       ShopSort
     },
-    data(){
-      return{
-        baseImgUrl:ImgBaseUrl,
-        shopCateListData:'',
-        allSortList:[],
+    data() {
+      return {
+        baseImgUrl: ImgBaseUrl,
+        shopCateListData: '',
+        allSortList: [],
         sort_status: [],
         sortPage: 1,
         allLoaded: true,
@@ -80,18 +81,19 @@
         loading_more: true,//控制是否发送ajax请求
       }
     },
-    methods:{
-      goTo(item){
+    methods: {
+      goTo(item) {
         this.$router.push({name: 'storeList', params: {id: item.id, status: 0}})
       },
-      level(){
-        this.$router.push({name:'twoAllList'})
+      level() {
+        this.$router.push({name: 'twoAllList'})
       },
       async getAllSort(sort_status) {
+        this.loading_more = true;
         this.allLoaded = true
         this.sort_status = sort_status
         this.sortPage = 1
-        let result = await allSort(sort_status, localStorage.longitude_latitude,1,this.$route.params.id, 1,localStorage.area_id)
+        let result = await allSort(sort_status, localStorage.longitude_latitude, 1, this.$route.params.id, 1, localStorage.area_id)
         if (result.code === 1) {
           console.log(result)
           this.allSortList = result.data.data
@@ -109,7 +111,7 @@
           let result
           if (this.loading_more) {
             this.loading_more = false //禁止浏览器发送ajax请求
-            result = await allSort(this.sort_status, localStorage.longitude_latitude, 1,this.$route.params.id ,this.sortPage,localStorage.area_id)
+            result = await allSort(this.sort_status, localStorage.longitude_latitude, 1, this.$route.params.id, this.sortPage, localStorage.area_id)
             if (result.code === 1) {//判断接受是否成功
               this.loading = false
               console.log(this.allSortList.length, result.data.total)
@@ -137,7 +139,7 @@
         console.log(result)
       },
     },
-    created(){
+    created() {
       this.getShopCateList()
       this.getAllSort(1)
     }

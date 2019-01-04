@@ -44,7 +44,7 @@
 
   export default {
     name: "ShopSort",
-    props:['allSortList','getAllSort','sort_status','sortPage'],
+    props: ['allSortList', 'getAllSort', 'sort_status', 'sortPage'],
     data() {
       return {
         baseImgUrl: ImgBaseUrl,

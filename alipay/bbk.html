@@ -10,9 +10,10 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
   <style>
-    body  {
+    body {
       text-align: center;
     }
+
     div {
       text-align: right;
     }
@@ -43,9 +44,9 @@
 
   let ua = navigator.userAgent.toLowerCase();
   if (ua.match(/MicroMessenger/i) == "micromessenger") {
-    setTimeout(()=>{
-    	window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
-    },10000)
+    setTimeout(() => {
+      window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
+    }, 10000)
   } else {
     window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhuihui-enter.doc`)
   }
