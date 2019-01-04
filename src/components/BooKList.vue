@@ -37,8 +37,8 @@
     },
     computed: {
       cate() {
-        let arr = []
-        let arr2 = []
+        let arr = [];
+        let arr2 = [];
         if (this.shopCateListData) {
           this.shopCateListData.forEach(c => {
             if (arr2.length === 8) {

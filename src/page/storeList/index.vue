@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, storeList, allSort} from "../../api";
+  import {allSort, ImgBaseUrl} from "../../api";
 
   export default {
     name: "storeList",

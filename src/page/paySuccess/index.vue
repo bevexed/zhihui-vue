@@ -18,9 +18,9 @@
     methods: {
       goTo() {
         setInterval(() => {
-          this.time--
+          this.time--;
           if (this.time === 0) {
-            this.time = 5
+            this.time = 5;
             window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&p=list_shop&status=1&mid=${localStorage.uid}&do=order&m=vslai_shop`)
           }
         }, 1000)

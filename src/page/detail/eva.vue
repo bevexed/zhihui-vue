@@ -76,11 +76,11 @@
     },
     methods: {
       async getCommentList() {
-        let result = await commentList(this.$route.params.id, 1)
+        let result = await commentList(this.$route.params.id, 1);
         if (result.code === 1) {
-          this.commentList = result.info.list
+          this.commentList = result.info.list;
           if (result.info.list) {
-            let pic = result.info.list.map(item => item.picture) // 过滤出pic
+            let pic = result.info.list.map(item => item.picture); // 过滤出pic
             this.imgs = pic.map(item => item.split(','))
           }
 

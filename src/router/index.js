@@ -23,7 +23,7 @@ import paySuccess from '@/page/paySuccess/index'
 import scan from '@/page/scan/index'
 import 'jquery'
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   scrollBehavior(to, from, savedPosition) {
@@ -147,7 +147,7 @@ const router = new Router({
       redirect: '/index'
     }
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'index' || to.name === 'detail' || to.name === 'scan') {
@@ -166,7 +166,7 @@ router.beforeEach((to, from, next) => {
     *  获取用户 MID
     *  1. 用户只有通过分享链接进入 才会携带 mid
     * */
-    let mid = getQuery('mid')
+    let mid = getQuery('mid');
 
     if (localStorage.uid) {
       /*
@@ -191,7 +191,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})
+});
 
 function getQuery(name) {
   let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

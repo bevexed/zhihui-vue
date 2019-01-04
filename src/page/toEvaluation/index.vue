@@ -90,7 +90,7 @@
           this.$message({
             message: '最多上传5张图片',
             type: 'error'
-          })
+          });
           return
         }
         console.log($("#f"));
@@ -107,22 +107,22 @@
           this.$message({
             message: '文件类型错误,请上传图片类型',
             type: 'error'
-          })
+          });
           return false;
         } else if (parseInt(fileSize) >= parseInt(maxSize)) {
           this.$message({
             message: '上传的文件不能超过500K',
             type: 'error'
-          })
+          });
           return false;
         } else {
           // let data = new FormData($('#form1')[0]);
-          this.file = [...this.file, img_file]
+          this.file = [...this.file, img_file];
           console.log(img_file);
           console.log(this.file);
         }
 
-        let newPic = window.URL.createObjectURL(document.getElementById('f').files.item(0))
+        let newPic = window.URL.createObjectURL(document.getElementById('f').files.item(0));
         this.img = [...this.img, newPic]
       },
 
@@ -132,7 +132,7 @@
           this.$message({
             message: '请填写评论',
             type: 'error'
-          })
+          });
           return
         }
         if (!cost_effective || !environment || !service) {
@@ -141,12 +141,12 @@
             type: 'error'
           })
         }
-        let result = await addComment(this.$route.params.store_id, content, file, localStorage.uid, cost_effective, environment, service, this.$route.params.order_id)
+        let result = await addComment(this.$route.params.store_id, content, file, localStorage.uid, cost_effective, environment, service, this.$route.params.order_id);
         if (result.code === 1) {
           this.$message({
             message: result.message,
             type: 'success'
-          })
+          });
           window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
         } else {
           this.$message({

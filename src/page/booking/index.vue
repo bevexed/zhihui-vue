@@ -116,7 +116,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, orderList, allShopGoodList, shopOrderActualList} from "../../api";
+  import {ImgBaseUrl, orderList, shopOrderActualList} from "../../api";
 
   export default {
     name: "booking",
@@ -133,24 +133,24 @@
     },
     computed: {
       payResult() {
-        let real // 实际支付金额
-        let all = this.orderData.full_reducemoney * 1000 // 总金额(即折后价之后的满减价格)
-        let reduce = this.orderData.rebatemoney * 1000 // 总折扣卷
-        let leave // 剩余的抵扣卷数量
-        let used // 用掉的抵扣卷数量
+        let real; // 实际支付金额
+        let all = this.orderData.full_reducemoney * 1000; // 总金额(即折后价之后的满减价格)
+        let reduce = this.orderData.rebatemoney * 1000; // 总折扣卷
+        let leave; // 剩余的抵扣卷数量
+        let used; // 用掉的抵扣卷数量
         if (this.value2 === true) { // 用卷
           if (all >= reduce) {
-            real = all - reduce
+            real = all - reduce;
             leave = 0
           } else {
-            real = 0
+            real = 0;
             leave = reduce - all
           }
         } else {  // 不用卷
-          real = all
+          real = all;
           leave = reduce
         }
-        used = reduce - leave
+        used = reduce - leave;
         return {real: real / 1000, leave: leave / 1000, used: used / 1000}
       },
       realReduce() {
@@ -167,24 +167,24 @@
         this.getOderList()
       },
       async getOderList() {
-        let result = await orderList(localStorage.uid, localStorage.preset_time, ...JSON.parse(localStorage.arr), this.num1)
+        let result = await orderList(localStorage.uid, localStorage.preset_time, ...JSON.parse(localStorage.arr), this.num1);
         if (result.code === 1) {
           this.orderData = result.data
         }
       },
       async pay() {
-        let rebat = this.payResult.real // 实付金额
-        let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr), this.num1, this.remark)
+        let rebat = this.payResult.real; // 实付金额
+        let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr), this.num1, this.remark);
         if (result.code === 1) {
           console.log(result);
-          let order_id = result.data.order_id
+          let order_id = result.data.order_id;
           this.$router.push({name: 'pay', params: {order_id}})
         } else {
           this.$message({
             message: result.message,
             type: 'error'
-          })
-          return
+          });
+
         }
       },
     },

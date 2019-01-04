@@ -105,7 +105,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, allShopGoodList, memberPhone, addmemberphone, wxConfig} from '../../api'
+  import {addmemberphone, allShopGoodList, ImgBaseUrl, memberPhone, wxConfig} from '../../api'
   import wx from 'weixin-js-sdk';
   import eva from './eva'
 
@@ -133,19 +133,19 @@
     computed: {
       timeSel() {
         if (this.detail.shop_goods_time) {
-          let arr = []
-          arr = [...this.detail.shop_goods_time].map(item => item.rule)
-          arr = this.$removeSameItem(arr)
+          let arr = [];
+          arr = [...this.detail.shop_goods_time].map(item => item.rule);
+          arr = this.$removeSameItem(arr);
           return arr
         }
       }
     },
     mounted() {
-      localStorage.arr = null
-      localStorage.preset_time = null
+      localStorage.arr = null;
+      localStorage.preset_time = null;
 
-      this.getStoreList()
-      this.share()
+      this.getStoreList();
+      this.share();
       var mySwiper = new Swiper('.swiper-container', {
         width: innerWidth,
         slidesPerView: 6,
@@ -159,10 +159,10 @@
     methods: {
       async share() {
         if (true) {
-          let url = window.location.href.split('#')[0]
-          let result = await wxConfig(url)
-          result = JSON.parse(result.data)
-          let jssdkconfig = result
+          let url = window.location.href.split('#')[0];
+          let result = await wxConfig(url);
+          result = JSON.parse(result.data);
+          let jssdkconfig = result;
 
           wx.config({
             debug: false,
@@ -182,8 +182,8 @@
             console.log(`err:${JSON.stringify(res)}`)
           });
         }
-        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`
-        let that = this
+        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`;
+        let that = this;
         wx.ready(function () {
           wx.onMenuShareAppMessage({
             title: that.detail.shop_name, // 分享标题
@@ -205,7 +205,7 @@
         })
       },
       toMap() {
-        let that = this
+        let that = this;
         wx.openLocation({
           latitude: that.detail.longitude_latitude.split(',')[1] - 0, // 纬度，浮点数，范围为90 ~ -90
           longitude: that.detail.longitude_latitude.split(',')[0] - 0, // 经度，浮点数，范围为180 ~ -180。
@@ -216,32 +216,32 @@
         });
       },
       selectDate(index, i) {
-        this.dataSelect = index
-        this.show3 = 0
+        this.dataSelect = index;
+        this.show3 = 0;
         localStorage.preset_time = i
       },
       showDetail(i) {
         if (i === this.show3) {
-          this.show3 = -1
+          this.show3 = -1;
           return
         }
         this.show3 = i
       },
       async filterTime(v, i) {
-        this.selected = i
-        await this.getStoreList()
+        this.selected = i;
+        await this.getStoreList();
         if (this.detail.shop_goods) {
           this.detail.shop_goods = this.detail.shop_goods.filter(item => item.rule === v)
         }
 
       },
       async getStoreList() {
-        let result = await allShopGoodList(this.$route.params.id, localStorage.longitude_latitude, this.$route.params.status)
+        let result = await allShopGoodList(this.$route.params.id, localStorage.longitude_latitude, this.$route.params.status);
         if (result.code === 0) {
           alert(result.message)
         }
         if (result.code === 1) {
-          console.log(result.data)
+          console.log(result.data);
           this.detail = result.data
         }
       },
@@ -251,13 +251,13 @@
             this.$message({
               message: '请选择日期',
               type: 'error'
-            })
+            });
             return
           }
         }
 
-        let result = await memberPhone(localStorage.uid)
-        localStorage.arr = JSON.stringify(arr)
+        let result = await memberPhone(localStorage.uid);
+        localStorage.arr = JSON.stringify(arr);
         if (result.code === 1) {
           this.$router.push({
             name: 'booking',
@@ -272,12 +272,12 @@
           this.$message({
             message: '请输入正确的手机号码',
             type: 'error',
-          })
+          });
           return
         }
-        let result = await addmemberphone(localStorage.uid, this.form.phone)
+        let result = await addmemberphone(localStorage.uid, this.form.phone);
         if (result.code === 1) {
-          this.dialogFormVisible = false
+          this.dialogFormVisible = false;
           this.$message({
             message: result.message,
             type: 'success',

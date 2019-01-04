@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, firmDiscountList} from "../../api";
+  import {firmDiscountList, ImgBaseUrl} from "../../api";
   import Back from '../../components/Back'
 
   export default {
@@ -67,21 +67,21 @@
         }
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
           // alert(1)
-          this.allLoaded = false
+          this.allLoaded = false;
           this.loading = true;
           this.page++;
-          let result
+          let result;
           if (this.loading_more) {
-            this.loading_more = false //禁止浏览器发送ajax请求
-            result = await firmDiscountList(localStorage.longitude_latitude, this.page, localStorage.area_id)
+            this.loading_more = false; //禁止浏览器发送ajax请求
+            result = await firmDiscountList(localStorage.longitude_latitude, this.page, localStorage.area_id);
             if (result.code === 1) {//判断接受是否成功
-              this.loading = false
-              console.log(this.shopList, result.data.total)
+              this.loading = false;
+              console.log(this.shopList, result.data.total);
               if (this.shopList.length === result.data.total) {
                 return false
               } else {
 
-                this.loading_more = true
+                this.loading_more = true;
                 for (let [i, v] of Object.entries(result.data)) {
                   if (i === 'total') {
                     continue
@@ -93,7 +93,7 @@
               }
             } else {
               setTimeout(() => {
-                this.loading = false
+                this.loading = false;
                 this.loading_more = true
               }, 1000)
             }
@@ -103,7 +103,7 @@
         }
       },
       async getStoreList(page) {
-        let result = await firmDiscountList(localStorage.longitude_latitude, page, localStorage.area_id)
+        let result = await firmDiscountList(localStorage.longitude_latitude, page, localStorage.area_id);
         if (result.code === 0) {
           alert(result.message)
         }

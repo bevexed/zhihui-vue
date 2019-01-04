@@ -61,21 +61,21 @@
         history.go(-1)
       },
       async getStoreList(page) {
-        let result
+        let result;
         if (this.$route.params.status == '0') {
-          result = await moreShopGoodsList(localStorage.longitude_latitude, page, localStorage.area_id)
+          result = await moreShopGoodsList(localStorage.longitude_latitude, page, localStorage.area_id);
           if (result.code === 1) {
-            console.log(result.data)
-            this.shopList = result.data
+            console.log(result.data);
+            this.shopList = result.data;
             if (this.shopList.length === result.data.total + 1) {
               this.allLoaded = false
             }
           }
         } else {
-          result = await MoreRecommendList(localStorage.longitude_latitude, page, localStorage.area_id)
+          result = await MoreRecommendList(localStorage.longitude_latitude, page, localStorage.area_id);
           if (result.code === 1) {
-            console.log(result.data)
-            this.shopList = result.data.data
+            console.log(result.data);
+            this.shopList = result.data.data;
             if (this.shopList.length === result.data.total + 1) {
               this.allLoaded = false
             }
@@ -91,12 +91,12 @@
           return
         }
         if ($(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
-          this.allLoaded = false
+          this.allLoaded = false;
           this.loading = true;
           this.page++;
-          let result
+          let result;
           if (this.loading_more) {
-            this.loading_more = false //禁止浏览器发送ajax请求let result
+            this.loading_more = false; //禁止浏览器发送ajax请求let result
 
             if (this.$route.params.status === 0) {
               result = await moreShopGoodsList(localStorage.longitude_latitude, this.page, localStorage.area_id)
@@ -105,19 +105,19 @@
             }
 
             if (result.code === 1) {//判断接受是否成功
-              this.loading = false
+              this.loading = false;
               // console.log(this.allSortList.length, result.data.total)
               if (this.shopList.length === result.data.total + 1) {
-                console.log('没有更多数据')
-                return
+                console.log('没有更多数据');
+
               } else {
-                this.allLoaded = true
-                this.loading_more = true
+                this.allLoaded = true;
+                this.loading_more = true;
                 this.shopList = [...this.shopList, ...res.data.data];
               }
             } else {
               setTimeout(() => {
-                this.loading = false
+                this.loading = false;
                 this.loading_more = true
               }, 1000)
             }

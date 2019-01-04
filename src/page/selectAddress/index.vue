@@ -43,37 +43,37 @@
     },
     methods: {
       reset() {
-        localStorage.removeItem('longitude_latitude')
-        this.$router.push('/index')
+        localStorage.removeItem('longitude_latitude');
+        this.$router.push('/index');
         history.go(0)
       },
       back() {
         history.go(-1)
       },
       changeAddress(lat_lng, area_id, area) {
-        localStorage.area_id = area_id
-        localStorage.area = area
+        localStorage.area_id = area_id;
+        localStorage.area = area;
         location.href = location.href.split('#')[0]
       },
       async getCitySelectList() {
-        let result = await citySelectList()
-        console.log(result)
+        let result = await citySelectList();
+        console.log(result);
         if (result.code === 1) {
           this.citySelectLists = result.data
         }
       },
       async getCitySearchSelectList(search_key) {
-        let result = await citySearchSelectList(search_key)
+        let result = await citySearchSelectList(search_key);
         if (result.code === 1) {
           if (!result.data) {
             this.$message({
               message: "暂不支持此地址",
               type: 'error',
               duration: 1000
-            })
+            });
             return
           }
-          this.citySearchSelectList = result.data
+          this.citySearchSelectList = result.data;
           console.log(result);
         }
       }

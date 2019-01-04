@@ -1,10 +1,10 @@
-const fly = require("flyio")
+const fly = require("flyio");
 import {Loading} from 'element-ui';
 
 
 // 添加请求拦截器
-let loading
-let jssdkconfig
+let loading;
+let jssdkconfig;
 
 // localStorage.longitude_latitude = '120,30'
 // localStorage.uid = 1212
@@ -66,14 +66,14 @@ fly.interceptors.request.use((request) => {
   //     location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=8811&do=shop&m=vslai_shop')
   // }
   return request
-})
+});
 
 // 添加响应拦截器，响应拦截器会在then/catch处理之前执行
 fly.interceptors.response.use(
   (response) => {
     // 只将请求结果的data字段返回
     // wx.hideLoading()
-    loading.close()
+    loading.close();
     return response
   }, (err) => {
     loading.close()
@@ -84,20 +84,20 @@ fly.interceptors.response.use(
     // })
     // return Promise.resolve("ssss")
   }
-)
+);
 
 export default function ajax(url, data = {}, type = "POST") {
   return new Promise(function (resolve, reject) {
     // 执行异步ajax请求
-    let promise
+    let promise;
     if (type === 'GET') {
       // 准备url query参数数据
-      let dataStr = '' // 数据拼接字符串
+      let dataStr = ''; // 数据拼接字符串
       Object.keys(data).forEach(key => {
         dataStr += key + '=' + data[key] + '&'
-      })
+      });
       if (dataStr !== '') {
-        dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
+        dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'));
         url = url + '?' + dataStr
       }
       // 发送get请求
@@ -105,7 +105,7 @@ export default function ajax(url, data = {}, type = "POST") {
     } else {
       // 发送post请求
       let form_data = new FormData();
-      makeFormData(data, form_data)
+      makeFormData(data, form_data);
       promise = fly.post(url, form_data)
     }
     promise.then(function (response) {

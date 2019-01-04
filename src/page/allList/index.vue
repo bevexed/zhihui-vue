@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import {moreShopCateList, ImgBaseUrl} from "../../api";
+  import {ImgBaseUrl, moreShopCateList} from "../../api";
   import searchShopHead from '../../components/searchShopHead'
 
   export default {
@@ -33,7 +33,7 @@
     },
     methods: {
       async getList() {
-        let result = await moreShopCateList()
+        let result = await moreShopCateList();
         console.log(result);
         if (result.code === 1) {
           this.list = result.data

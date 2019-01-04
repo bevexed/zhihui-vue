@@ -1,61 +1,61 @@
 import ajax from './ajax'
 
 // const ImgBaseUrl ='http://192.168.1.15'
-export const ImgBaseUrl = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public'
+export const ImgBaseUrl = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public';
 // const Base_url = 'http://192.168.1.15'
-export const Base_url = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php'
+export const Base_url = 'https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php';
 
 //获取权限
-export const wxConfig = (url) => ajax(Base_url + '/api/allaccesstoken/tokenlist', {url})
+export const wxConfig = (url) => ajax(Base_url + '/api/allaccesstoken/tokenlist', {url});
 //获取当前地址
-export const districts = (longitude_latitude) => ajax(Base_url + '/api/allaccesstoken/longlat', {longitude_latitude})
+export const districts = (longitude_latitude) => ajax(Base_url + '/api/allaccesstoken/longlat', {longitude_latitude});
 // uid 是否存在
-export const existUid = (uid) => ajax(Base_url + '/api/allaccesstoken/existuid', {uid})
+export const existUid = (uid) => ajax(Base_url + '/api/allaccesstoken/existuid', {uid});
 
 
 //所有轮播
 //列表广告
-export const bannerList = () => ajax(Base_url + '/api/allbanner/bannerlist')
+export const bannerList = () => ajax(Base_url + '/api/allbanner/bannerlist');
 
 //优惠相关
 //优惠底层图片和文案
-export const discountList = () => ajax(Base_url + '/api/alldiscount/discountlist')
+export const discountList = () => ajax(Base_url + '/api/alldiscount/discountlist');
 //今日钜惠
 export const todayDiscountList = (longitude_latitude, page, area_id) => ajax(Base_url + '/api/alldiscount/todydiscountlist', {
   longitude_latitude,
   page,
   area_id
-})
+});
 //很优惠
 export const firmDiscountList = (longitude_latitude, page, area_id) => ajax(Base_url + '/api/alldiscount/firmdiscountlist', {
   longitude_latitude,
   page,
   area_id
-})
+});
 //优惠信息
 export const informationDiscountList = (longitude_latitude, page, area_id) => ajax(Base_url + '/api/alldiscount/informationdiscountlist', {
   longitude_latitude,
   page,
   area_id
-})
+});
 
 //商家二维码
 //商家二维码
 export const storeImgs = (uid, longitude_latitude) => ajax(Base_url + '/api/allstoreimg/storeimglist', {
   uid,
   longitude_latitude
-}, "GET")
+}, "GET");
 //判断否是商家
-export const isaShop = (uid) => ajax(Base_url + '/api/allstoreimg/isashop', {uid}, "GET")
+export const isaShop = (uid) => ajax(Base_url + '/api/allstoreimg/isashop', {uid}, "GET");
 
 //需求发布
 //需求发布
-export const newsAdd = (uid, content) => ajax(Base_url + '/api/allnews/newsadd', {uid, content})
+export const newsAdd = (uid, content) => ajax(Base_url + '/api/allnews/newsadd', {uid, content});
 
 
 //搜索展示
 //热搜
-export const hotSearchList = () => ajax(Base_url + '/api/allsearch/hotsearchlist')
+export const hotSearchList = () => ajax(Base_url + '/api/allsearch/hotsearchlist');
 //套餐搜索
 export const shopGoodsSearchList = (search_key, longitude_latitude, uid, area_id, sort_status, page) => ajax(Base_url + '/api/allsearch/shopgoodssearchlist', {
   search_key,
@@ -64,21 +64,21 @@ export const shopGoodsSearchList = (search_key, longitude_latitude, uid, area_id
   area_id,
   sort_status,
   page
-})
+});
 //搜索历史
-export const historySearchList = (uid) => ajax(Base_url + '/api/allsearch/historysearchlist', {uid})
+export const historySearchList = (uid) => ajax(Base_url + '/api/allsearch/historysearchlist', {uid});
 //删除搜索历史
 export const deleteHistory = (uid) => ajax(Base_url + '/api/allsearch/delhistorysearchlist', {uid});
 
 //所有分类
 // 一级分类
-export const shopCatelist = () => ajax(Base_url + '/api/allshopcate/shopcatelist')
+export const shopCatelist = () => ajax(Base_url + '/api/allshopcate/shopcatelist');
 // 更多分类
-export const moreShopCateList = () => ajax(Base_url + '/api/allshopcate/moreshopcatelist')
+export const moreShopCateList = () => ajax(Base_url + '/api/allshopcate/moreshopcatelist');
 // 二级分类
-export const twoShopCateList = (p_id) => ajax(Base_url + '/api/allshopcate/twoshopcateList', {p_id})
+export const twoShopCateList = (p_id) => ajax(Base_url + '/api/allshopcate/twoshopcateList', {p_id});
 // 更多二级分类列表
-export const moreTwoShopCateList = (p_id) => ajax(Base_url + '/api/allshopcate/moretwoshopcateList', {p_id})
+export const moreTwoShopCateList = (p_id) => ajax(Base_url + '/api/allshopcate/moretwoshopcateList', {p_id});
 
 //店铺套餐
 //套餐
@@ -86,7 +86,7 @@ export const allShopGoodList = (store_id, longitude_latitude, status) => ajax(Ba
   store_id,
   longitude_latitude,
   status
-})
+});
 
 //智能排序
 //排序
@@ -97,7 +97,7 @@ export const allSort = (sort_status, longitude_latitude, type, shopcate_id, page
   shopcate_id,
   page,
   area_id
-})
+});
 
 //分类下的店铺
 //店铺列表
@@ -107,42 +107,42 @@ export const storeList = (shopcate_id, type, longitude_latitude, page, area_id) 
   longitude_latitude,
   page,
   area_id
-})
+});
 //小编推荐
 export const recommendList = (longitude_latitude, area_id) => ajax(Base_url + '/api/allstore/recommendlist', {
   longitude_latitude,
   area_id
-})
+});
 //小编更多推荐
 export const MoreRecommendList = (longitude_latitude, page, area_id) => ajax(Base_url + '/api/allstore/morerecommendlist', {
   longitude_latitude,
   page,
   area_id
-})
+});
 //商家推荐列表
 export const shopGoodList = (longitude_latitude, area_id, page = 1) => ajax(Base_url + '/api/allstore/shopgoodslist', {
   longitude_latitude,
   area_id,
   page
-})
+});
 //更多商家推荐列表
 export const moreShopGoodsList = (longitude_latitude, page, area_id) => ajax(Base_url + '/api/allstore/moreshopgoodslist', {
   longitude_latitude,
   page,
   area_id
-})
+});
 
 // 商家入驻相关
 // 地区列表
-export const areaList = (region_type, parent_id) => ajax(Base_url + '/api/allarea/arealist', {region_type, parent_id})
+export const areaList = (region_type, parent_id) => ajax(Base_url + '/api/allarea/arealist', {region_type, parent_id});
 //图片上传
-export const upLoadImgToOur = (src) => ajax(Base_url + '/api/allarea/uploadimg', {src})
+export const upLoadImgToOur = (src) => ajax(Base_url + '/api/allarea/uploadimg', {src});
 // 一级分类选择
-export const oneCate = () => ajax(Base_url + '/api/allarea/onecate')
+export const oneCate = () => ajax(Base_url + '/api/allarea/onecate');
 // 二级分类选择
-export const twoCate = (p_id) => ajax(Base_url + '/api/allarea/twocate', {p_id})
+export const twoCate = (p_id) => ajax(Base_url + '/api/allarea/twocate', {p_id});
 // 店铺审核中
-export const userArealist = (uid) => ajax(Base_url + '/api/allarea/userarealist', {uid})
+export const userArealist = (uid) => ajax(Base_url + '/api/allarea/userarealist', {uid});
 // 商家入驻添加
 export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, enter_phone, store_images) => ajax(Base_url + '/api/allarea/storeadd', {
   uid,
@@ -163,7 +163,7 @@ export const storeAdd = (uid, shopcate_id, shopchildcate_id, province_id, city_i
   business_license,
   enter_phone,
   store_images
-})
+});
 
 
 // 关于订单
@@ -178,11 +178,11 @@ export const orderList = (uid, preset_time, store_id, goods_id, rule, full_reduc
   pretium,
   discount,
   shopgoods_num
-})
+});
 // 当前用户是否存在手机号
-export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone', {uid})
+export const memberPhone = (uid) => ajax(Base_url + '/api/allorder/memberphone', {uid});
 // 当前用户添加预留手机号
-export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/addmemberphone', {uid, phone})
+export const addmemberphone = (uid, phone) => ajax(Base_url + '/api/allorder/addmemberphone', {uid, phone});
 // 订单立即支付
 export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, amount_after_discount, amount_after_fullreduce, store_id, goods_id, rule, full_reduce, pretium, discount, shopgoods_num, remark) => ajax(Base_url + '/api/allorder/shoporderactuallist', {
   uid,
@@ -199,41 +199,41 @@ export const shopOrderActualList = (uid, preset_time, full_reducemoney, coupon, 
   discount,
   shopgoods_num,
   remark
-})
+});
 // 选择支付单号和实际支付价格
-export const shopOrderPayList = (order_id) => ajax(Base_url + '/api/allorder/shoporderpaylist', {order_id})
+export const shopOrderPayList = (order_id) => ajax(Base_url + '/api/allorder/shoporderpaylist', {order_id});
 // 用户扫商家二维码获取相关信息
-export const orderInfo = (s_id, u_id) => ajax(Base_url + '/api/allorder/orderInfo', {s_id, u_id})
+export const orderInfo = (s_id, u_id) => ajax(Base_url + '/api/allorder/orderInfo', {s_id, u_id});
 // 扫码订单立即支付
 export const addOrder = (uid, store_id, full_reducemoney, coupon) => ajax(Base_url + '/api/allorder/addOrder', {
   uid,				      //必传		用户id
   store_id,			    //必传		店铺id
   full_reducemoney, //必传		实际支付金额
   coupon,			      //必传		购物券抵扣金额
-})
+});
 
 
 //关于城市选择
-export const citySelectList = () => ajax(Base_url + '/api/allcityselect/cityselectlist')
+export const citySelectList = () => ajax(Base_url + '/api/allcityselect/cityselectlist');
 //城市列表
-export const citySearchList = (area, city) => ajax(Base_url + '/api/allcityselect/citysearchlist', {area, city})
+export const citySearchList = (area, city) => ajax(Base_url + '/api/allcityselect/citysearchlist', {area, city});
 //城市搜索
-export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allcityselect/citysearchselectlist', {search_city})
+export const citySearchSelectList = (search_city) => ajax(Base_url + '/api/allcityselect/citysearchselectlist', {search_city});
 
 // 关于支付
-export const pay = (price, ordernumber) => ajax(Base_url + '/api/alipay/pay', {price, ordernumber}, "GET")
+export const pay = (price, ordernumber) => ajax(Base_url + '/api/alipay/pay', {price, ordernumber}, "GET");
 export const balancepay = (uid, ordernumber, pay_type = 'balance') => ajax('https://shop.zhihuimall.com.cn/zhihuishop/public/index.php/api/notify/updateOrder', {
   uid,
   ordernumber,
   pay_type
-})
+});
 
 // 评论列表接口
 export const commentList = (shop_id, type, page) => ajax(Base_url + '/api/Allshopcomment/commentList', {
   shop_id, //  必传     		商品ID
   type, //   必传			类型（1：预览；2：更多）
   page // page				否（详情时传）	页数
-})
+});
 // 提交评论
 export const addComment = (shop_id, content, file, uid, cost_effective, environment, service, order_id) => ajax(Base_url + '/api/Allshopcomment/addComment', {
   shop_id,        		//必传     		商品ID
@@ -244,6 +244,6 @@ export const addComment = (shop_id, content, file, uid, cost_effective, environm
   environment,		//	必传			环境
   service,		   	//	必传			服务
   order_id,			  //	必传			订单ID
-})
+});
 
-export const img_s = (uid) => ajax('https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php/api/allarea/storeimg', {uid})
+export const img_s = (uid) => ajax('https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php/api/allarea/storeimg', {uid});

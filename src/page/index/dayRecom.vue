@@ -47,9 +47,9 @@
     },
     methods: {
       async getRecommendList() {
-        let result = await recommendList(localStorage.longitude_latitude, localStorage.area_id)
+        let result = await recommendList(localStorage.longitude_latitude, localStorage.area_id);
         if (result.code === 1) {
-          this.recommendList = result.data.data
+          this.recommendList = result.data.data;
           console.log(result)
         }
       },

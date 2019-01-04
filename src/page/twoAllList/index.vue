@@ -32,7 +32,7 @@
     },
     methods: {
       async getList() {
-        let result = await moreTwoShopCateList(this.$route.params.id)
+        let result = await moreTwoShopCateList(this.$route.params.id);
         console.log(result);
         if (result.code === 1) {
           this.list = result.data

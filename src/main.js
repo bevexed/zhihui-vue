@@ -5,13 +5,15 @@ import App from './App'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueQriously from 'vue-qriously'
+import wx from 'weixin-js-sdk';
+import './until'
+
+import router from './router'
 
 Vue.use(ElementUI);
 
-import VueQriously from 'vue-qriously'
-
-Vue.use(VueQriously)
-import wx from 'weixin-js-sdk';
+Vue.use(VueQriously);
 
 
 wx.miniProgram.getEnv(function (res) {
@@ -19,13 +21,9 @@ wx.miniProgram.getEnv(function (res) {
   // true代表在小程序里
   //false代表在公众号里
   localStorage.isSmall = res.miniprogram
-})
+});
 
-import './until'
-
-import router from './router'
-
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 export const app = new Vue({
@@ -33,4 +31,4 @@ export const app = new Vue({
   router,
   components: {App},
   template: '<App/>',
-})
+});

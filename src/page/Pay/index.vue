@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import {shopOrderPayList, pay, balancepay} from "../../api";
+  import {balancepay, shopOrderPayList} from "../../api";
   import wx from 'weixin-js-sdk';
 
   export default {
@@ -69,7 +69,7 @@
         this.checked = i
       },
       async pay() {
-        let that = this
+        let that = this;
         if (this.checked === -1) {
           this.$message({
             message: '请选择支付方式',
@@ -96,9 +96,9 @@
               },
               success: function (res) {
                 if (res) {
-                  let result
+                  let result;
                   console.log(JSON.parse(res));
-                  result = JSON.parse(res)
+                  result = JSON.parse(res);
                   console.log(result.timeStamp);
                   let test = window.location.href.split('#')[0];
                   let parameter = 'appId=' + result.appId
@@ -107,7 +107,7 @@
                     + '&package=' + result.package.split("=")[1]
                     + '&signType=' + result.signType
                     + '&paySign=' + result.paySign
-                    + '&url=' + encodeURIComponent(test)
+                    + '&url=' + encodeURIComponent(test);
                   let url = '/pages/pay2/index?' + parameter;
                   wx.miniProgram.navigateTo({url});
                 }
@@ -127,9 +127,9 @@
               success: function (res) {
 
                 if (res) {
-                  let result
+                  let result;
                   console.log(JSON.parse(res));
-                  result = JSON.parse(res)
+                  result = JSON.parse(res);
                   console.log(result);
                   // alert(result.appId)
                   wx.chooseWXPay({
@@ -147,7 +147,7 @@
                         that.$message({
                           message: '支付成功',
                           type: 'success'
-                        })
+                        });
                         console.log(res);
                         that.$router.push({name: 'paySuccess'})
                       } else {
@@ -174,13 +174,13 @@
         }
         // 平台
         if (this.checked === 3) {
-          let result = await balancepay(localStorage.uid, that.orderData.ordernumber)
+          let result = await balancepay(localStorage.uid, that.orderData.ordernumber);
           console.log(result);
           if (result.code === 1) {
             this.$message({
               message: result.message,
               type: 'success'
-            })
+            });
             this.$router.push({name: 'paySuccess'})
           } else {
             this.$message({
@@ -192,25 +192,25 @@
 
       },
       async getShopOrderPayList() {
-        let result = await shopOrderPayList(this.$route.params.order_id)
+        let result = await shopOrderPayList(this.$route.params.order_id);
         if (result.code === 1) {
           this.orderData = result.data
         }
       },
     },
     created() {
-      this.getShopOrderPayList()
+      this.getShopOrderPayList();
       this.$getWxConfig()
     },
     beforeRouteEnter(to, from, next) {
       if (from.name === null) { // 从外部直接进来
         next(vm => {
-          localStorage.uid = vm.$getRequest().uid
+          localStorage.uid = vm.$getRequest().uid;
           vm.$getWxConfig()
         })
       } else {
         if (from.name === 'booking' || from.name === 'scan') {
-          next()
+          next();
           this.$getWxConfig()
         } else {
           window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')

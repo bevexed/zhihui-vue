@@ -76,12 +76,12 @@
     },
     methods: {
       async getCommentList() {
-        let result = await commentList(this.$route.params.store_id, 2, 1)
+        let result = await commentList(this.$route.params.store_id, 2, 1);
         if (result.code === 1) {
-          this.commentList = result.info.list
-          let pic = result.info.list.map(item => item.picture) // 过滤出pic
+          this.commentList = result.info.list;
+          let pic = result.info.list.map(item => item.picture); // 过滤出pic
           console.log(pic);
-          this.imgs = pic.map(item => item.split(','))
+          this.imgs = pic.map(item => item.split(','));
           console.log(this.imgs);
         }
       },
@@ -90,25 +90,25 @@
           return
         }
         if ($(window).scrollTop() + $(window).height() + 10 >= $(document).height()) {
-          this.allLoaded = false
+          this.allLoaded = false;
           this.loading = true;
           this.page++;
-          let result
+          let result;
           if (this.loading_more) {
-            this.loading_more = false //禁止浏览器发送ajax请求let result
-            result = await commentList(this.$route.params.store_id, 2, this.page)
+            this.loading_more = false; //禁止浏览器发送ajax请求let result
+            result = await commentList(this.$route.params.store_id, 2, this.page);
             if (result.code === 1) {//判断接受是否成功
-              this.loading = false
+              this.loading = false;
               if (this.page === result.info.total_page) {
-                console.log('没有更多数据')
+                console.log('没有更多数据');
                 return false
               } else {
-                this.loading_more = true
+                this.loading_more = true;
                 this.shopList = [...this.commentList, ...result.info.list];
               }
             } else {
               setTimeout(() => {
-                this.loading = false
+                this.loading = false;
                 this.loading_more = true
               }, 1000)
             }

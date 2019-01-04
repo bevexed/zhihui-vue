@@ -24,7 +24,7 @@
 <script>
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
   import 'swiper/dist/css/swiper.css'
-  import {ImgBaseUrl, bannerList} from "../../api/index";
+  import {bannerList, ImgBaseUrl} from "../../api/index";
 
   export default {
     name: "banner",
@@ -60,8 +60,8 @@
     },
     methods: {
       async getBanner() {
-        let result = await bannerList()
-        this.banner = result.data
+        let result = await bannerList();
+        this.banner = result.data;
         console.log(result)
       },
     },
@@ -69,7 +69,7 @@
 
     },
     mounted() {
-      this.getBanner()
+      this.getBanner();
 
       // current swiper instance
       // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了

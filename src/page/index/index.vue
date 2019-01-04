@@ -9,9 +9,9 @@
     <banner/>
 
     <BooKList
-      :shopCateListData="shopCateListData"
       :goTo="goTo"
       :level="level"
+      :shopCateListData="shopCateListData"
     />
 
     <dayRecom/>
@@ -19,10 +19,10 @@
     <shopRecom/>
 
     <div class="index_mid">
-      <div :style="`background: url(${baseImgUrl}${v.images}) 0 0 / 100% 100% no-repeat;overflow:hidden`"
-           v-for="(v,i) in discountList"
-           :key="v.id"
+      <div :key="v.id"
+           :style="`background: url(${baseImgUrl}${v.images}) 0 0 / 100% 100% no-repeat;overflow:hidden`"
            @click="goToSale(i,v.id)"
+           v-for="(v,i) in discountList"
       >
         <div class="mask">
           <span>{{v.name}}</span>
@@ -33,22 +33,22 @@
     <h3 class="index_bottom_title">附近商家</h3>
     <div class="index_bottom">
       <div class="index_foot">
-        <p @click="getAllSort(1)" :class="{'active':sort_status === 1}">
+        <p :class="{'active':sort_status === 1}" @click="getAllSort(1)">
           离我最近</p>
-        <p @click="getAllSort(2)" :class="{'active':sort_status === 2}">
+        <p :class="{'active':sort_status === 2}" @click="getAllSort(2)">
           折扣最高</p>
-        <p @click="getAllSort(3)" :class="{'active':sort_status === 3}">
+        <p :class="{'active':sort_status === 3}" @click="getAllSort(3)">
           最新发布</p>
-        <p @click="getAllSort(4)" :class="{'active':sort_status === 4}">
+        <p :class="{'active':sort_status === 4}" @click="getAllSort(4)">
           价格排序</p>
-        <p @click="getAllSort(5)" :class="{'active':sort_status === 5}">
+        <p :class="{'active':sort_status === 5}" @click="getAllSort(5)">
           好评排序</p>
       </div>
-      <component v-bind:is="Near" :allSortList="allSortList"></component>
+      <component :allSortList="allSortList" v-bind:is="Near"></component>
     </div>
 
     <div>
-      <div style="width: 100%;text-align: center;padding: .2rem 0" @click="loadingMore()"
+      <div @click="loadingMore()" style="width: 100%;text-align: center;padding: .2rem 0"
            v-if="allSortList.length !== 0">
         <span v-if="allLoaded">上拉或点击加载更多</span>
         <span v-else>没有更多了</span>
@@ -62,7 +62,7 @@
 
 <script>
   import wx from 'weixin-js-sdk';
-  import {ImgBaseUrl, discountList, shopCatelist, allSort, wxConfig} from '../../api'
+  import {allSort, discountList, ImgBaseUrl, shopCatelist, wxConfig} from '../../api'
   import top from './top'
   import banner from './banner'
   import BooKList from '../../components/BooKList'

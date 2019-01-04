@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import {hotSearchList, historySearchList, deleteHistory} from '../../api'
+  import {deleteHistory, historySearchList, hotSearchList} from '../../api'
 
   export default {
     name: "shopSearch",
@@ -51,9 +51,9 @@
     },
     computed: {
       color() {
-        let arr = []
+        let arr = [];
         for (let i = 0; i < 30; i++) {
-          let h = Math.floor(Math.random() * 255) + 1
+          let h = Math.floor(Math.random() * 255) + 1;
           arr.push(h)
         }
         return arr
@@ -65,47 +65,47 @@
           this.$message({
             message: '搜索条件不能为空',
             type: 'error',
-          })
+          });
           return
         }
         this.$router.push({name: 'shopSearchResult', params: {search_key}})
       },
 
       async getHotSearchList() {
-        let result = await hotSearchList()
+        let result = await hotSearchList();
         if (result.code === 0) {
           alert(result.message)
         }
         if (result.code === 1) {
-          console.log(result.data)
+          console.log(result.data);
           this.hotSearchList = result.data
         }
       },
       async getHistorySearchList() {
-        let result = await historySearchList(localStorage.uid)
+        let result = await historySearchList(localStorage.uid);
         if (result.code === 0) {
           alert(result.message)
         }
         if (result.code === 1) {
-          console.log(result.data)
+          console.log(result.data);
           this.historysearchList = result.data
         }
       },
       async deleteHistoryList() {
-        let uid = localStorage.uid
-        let result = await deleteHistory(uid)
+        let uid = localStorage.uid;
+        let result = await deleteHistory(uid);
         if (result.code === 0) {
           alert(result.message)
         }
         if (result.code === 1) {
-          console.log(result.data)
+          console.log(result.data);
           window.history.go(0)
         }
       }
 
     },
     mounted() {
-      this.getHotSearchList()
+      this.getHotSearchList();
       this.getHistorySearchList()
     },
   }

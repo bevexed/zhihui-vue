@@ -7,11 +7,11 @@ Vue.prototype.$GetQueryString = function (name) {
   let r = window.location.search.substr(1).match(reg);
   if (r != null) return unescape(r[2]);
   return null;
-}
+};
 
 Vue.prototype.$getRequest = function () {
   let url = window.location.search; //获取url中"?"符后的字串
-  let theRequest = new Object();
+  let theRequest = {};
   if (url.indexOf("?") != -1) {
     let str = url.substr(1);
     let strs = str.split("&");
@@ -20,7 +20,7 @@ Vue.prototype.$getRequest = function () {
     }
   }
   return theRequest;
-}
+};
 
 Vue.prototype.$isAndroid = function () {
   var u = navigator.userAgent;
@@ -39,13 +39,13 @@ Vue.prototype.$isAndroid = function () {
   } else {
     alert("非微信");
   }
-}
+};
 
 Vue.prototype.$getWxConfig = async function () {
-  let url = window.location.href.split('#')[0]
-  let result = await wxConfig(url)
-  result = JSON.parse(result.data)
-  let jssdkconfig = result
+  let url = window.location.href.split('#')[0];
+  let result = await wxConfig(url);
+  result = JSON.parse(result.data);
+  let jssdkconfig = result;
 
   wx.config({
     debug: false,
@@ -69,4 +69,4 @@ Vue.prototype.$getWxConfig = async function () {
 
   Vue.prototype.$removeSameItem = function (arr) {
     return Array.from(new Set(arr))
-  }
+  };

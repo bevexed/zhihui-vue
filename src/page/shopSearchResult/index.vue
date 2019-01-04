@@ -44,7 +44,7 @@
 
 <script>
   import back from '../../components/Back'
-  import {ImgBaseUrl, shopGoodsSearchList, allSort} from "../../api";
+  import {ImgBaseUrl, shopGoodsSearchList} from "../../api";
 
   export default {
     name: "shopSearchResult",
@@ -65,19 +65,19 @@
     },
     methods: {
       async getShopGoodsSearchList(sort_status) {
-        this.sortPage = 1
-        this.allLoaded = true
-        this.sort_status = sort_status
-        let search_key = this.$route.params.search_key
-        let uid = localStorage.uid
-        let result = await shopGoodsSearchList(search_key, localStorage.longitude_latitude, uid, localStorage.area_id, sort_status, 1)
+        this.sortPage = 1;
+        this.allLoaded = true;
+        this.sort_status = sort_status;
+        let search_key = this.$route.params.search_key;
+        let uid = localStorage.uid;
+        let result = await shopGoodsSearchList(search_key, localStorage.longitude_latitude, uid, localStorage.area_id, sort_status, 1);
         if (result.code === 1) {
-          console.log(result)
+          console.log(result);
           this.allSortList = result.data.data
         }
         if (result.code === 0) {
-          this.allSortList = ""
-          this.allLoaded = false
+          this.allSortList = "";
+          this.allLoaded = false;
           this.$message({
             type: 'error',
             message: result.message
@@ -90,25 +90,25 @@
           return
         }
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
-          this.allLoaded = false
+          this.allLoaded = false;
           this.loading = true;
           this.sortPage++;
-          let result
+          let result;
           if (this.loading_more) {
-            this.loading_more = false //禁止浏览器发送ajax请求
-            result = await shopGoodsSearchList(this.$route.params.search_key, localStorage.longitude_latitude, localStorage.uid, localStorage.area_id, this.sort_status, this.sortPage)
+            this.loading_more = false; //禁止浏览器发送ajax请求
+            result = await shopGoodsSearchList(this.$route.params.search_key, localStorage.longitude_latitude, localStorage.uid, localStorage.area_id, this.sort_status, this.sortPage);
             if (result.code === 1) {//判断接受是否成功
-              this.loading = false
-              console.log(this.allSortList.length, result.data.total)
+              this.loading = false;
+              console.log(this.allSortList.length, result.data.total);
               if (this.allSortList.length === result.data.total) {
-                return
+
               } else {
-                this.loading_more = true
+                this.loading_more = true;
                 this.allSortList = [...this.allSortList, ...result.data.data];
               }
             } else {
               setTimeout(() => {
-                this.loading = false
+                this.loading = false;
                 this.loading_more = true
               }, 1000)
             }
@@ -122,7 +122,7 @@
       },
       getRequest() {
         var url = window.location.search; //获取url中"?"符后的字串
-        var theRequest = new Object();
+        var theRequest = {};
         if (url.indexOf("?") != -1) {
           var str = url.substr(1);
           var strs = str.split("&");

@@ -133,7 +133,7 @@
 </template>
 
 <script>
-  import {Base_url, ImgBaseUrl, areaList, oneCate, twoCate, storeAdd, userArealist} from "../../api/index";
+  import {areaList, Base_url, ImgBaseUrl, oneCate, storeAdd, twoCate, userArealist} from "../../api/index";
 
   export default {
     name: "application",
@@ -185,14 +185,14 @@
       },
       async getWxConfig() {
 
-        let that = this
-        let url = window.location.href
-        console.log(url)
+        let that = this;
+        let url = window.location.href;
+        console.log(url);
 
-        let result = await wxConfig(url)
-        result = JSON.parse(result.data)
-        this.jssdkconfig = result
-        console.log(result)
+        let result = await wxConfig(url);
+        result = JSON.parse(result.data);
+        this.jssdkconfig = result;
+        console.log(result);
         jssdkconfig = this.jssdkconfig
       },
       upLoadImg(which) {
@@ -200,7 +200,7 @@
         var formData = new FormData();
         formData.append("file", event.target.files[0]);
         console.log(event.target.files[0]);
-        let url = this.Base_url + '/api/allarea/uploadimg'
+        let url = this.Base_url + '/api/allarea/uploadimg';
         $.ajax({
           url,
           type: 'POST',
@@ -209,173 +209,173 @@
           contentType: false,    //不可缺
           processData: false,    //不可缺
           success: (res) => {
-            console.log(res.data)
+            console.log(res.data);
             this.localId[which] = res.data;
             // alert(JSON.stringify(this.localId))
           }
         });
       },
       async getProvince() {
-        let result = await areaList(1, 0)
+        let result = await areaList(1, 0);
         console.log(result);
-        this.province = result
+        this.province = result;
         // this.sProvince = result[0].id
-        this.sProvince = 27062
+        this.sProvince = 27062;
         this.getCity(this.sProvince)
       },
       async getCity(provinceId) {
-        let result = await areaList(2, provinceId)
+        let result = await areaList(2, provinceId);
         if (result === false) {
-          this.city = ''
-          this.area = ''
-          this.country = ''
-          this.agency = ''
+          this.city = '';
+          this.area = '';
+          this.country = '';
+          this.agency = '';
           return
         }
         console.log(result);
-        this.city = result
+        this.city = result;
         // this.sCity = result[0].id
-        this.sCity = result[0].id
+        this.sCity = result[0].id;
         this.getArea(result[0].id)
       },
       async getArea(CityId) {
-        let result = await areaList(3, CityId)
+        let result = await areaList(3, CityId);
         if (result === false) {
-          this.area = ''
-          this.country = ''
-          this.agency = ''
+          this.area = '';
+          this.country = '';
+          this.agency = '';
           return
         }
         console.log(result);
-        this.area = result
-        this.sArea = result[0].id
+        this.area = result;
+        this.sArea = result[0].id;
         this.getCountry(result[0].id)
       },
       async getCountry(areaId) {
-        let result = await areaList(4, areaId)
+        let result = await areaList(4, areaId);
         if (result === false) {
-          this.country = ''
-          this.agency = ''
+          this.country = '';
+          this.agency = '';
           return
         }
         console.log(result);
-        this.country = result
-        this.sCountry = result[0].id
+        this.country = result;
+        this.sCountry = result[0].id;
         this.getAgency(result[0].id)
       },
       async getAgency(countryId) {
-        let result = await areaList(5, countryId)
+        let result = await areaList(5, countryId);
         if (result === false) {
-          this.agency = ''
+          this.agency = '';
           return
         }
-        this.sAgency = result[0].id
+        this.sAgency = result[0].id;
         console.log(result);
         this.agency = result
       },
 
       async getProvince1() {
-        let result = await areaList(1, 0)
+        let result = await areaList(1, 0);
         console.log(result);
-        this.province = result
+        this.province = result;
         // this.sProvince = result[0].id
-        this.sProvince = 27062
+        this.sProvince = 27062;
         this.getCity1(this.sProvince)
       },
 
       async getCity1(provinceId) {
-        let result = await areaList(2, provinceId)
+        let result = await areaList(2, provinceId);
         if (result === false) {
-          this.city = ''
-          this.area = ''
-          this.country = ''
-          this.agency = ''
+          this.city = '';
+          this.area = '';
+          this.country = '';
+          this.agency = '';
           return
         }
         console.log(result);
-        this.city = result
+        this.city = result;
         // this.sCity = result[0].id
-        this.sCity = 27118
+        this.sCity = 27118;
         this.getArea1(this.sCity)
       },
       async getArea1(CityId) {
-        let result = await areaList(3, CityId)
+        let result = await areaList(3, CityId);
         if (result === false) {
-          this.area = ''
-          this.country = ''
-          this.agency = ''
+          this.area = '';
+          this.country = '';
+          this.agency = '';
           return
         }
         console.log(result);
-        this.area = result
-        this.sArea = 27119
+        this.area = result;
+        this.sArea = 27119;
         this.getCountry1(this.sArea)
       },
       async getCountry1(areaId) {
-        let result = await areaList(4, areaId)
+        let result = await areaList(4, areaId);
         if (result === false) {
-          this.country = ''
-          this.agency = ''
+          this.country = '';
+          this.agency = '';
           return
         }
         console.log(result);
-        this.country = result
-        this.sCountry = 67850
+        this.country = result;
+        this.sCountry = 67850;
         this.getAgency1(this.sCountry)
       },
       async getAgency1(countryId) {
-        let result = await areaList(5, countryId)
+        let result = await areaList(5, countryId);
         if (result === false) {
-          this.agency = ''
+          this.agency = '';
           return
         }
-        this.sAgency = result[0].id
+        this.sAgency = result[0].id;
         console.log(result);
         this.agency = result
       },
 
       async getOneCate() {
-        let result = await oneCate()
+        let result = await oneCate();
         if (result.code === 1) {
-          console.log(result)
-          this.oneCate = result.data
-          this.sOneCate = result.data[0].id
+          console.log(result);
+          this.oneCate = result.data;
+          this.sOneCate = result.data[0].id;
           this.getTwoCate(this.sOneCate)
         }
       },
       async getTwoCate(p_id) {
-        let result = await twoCate(p_id)
+        let result = await twoCate(p_id);
         if (result.code === 1) {
           if (result.data === null) {
-            this.twoCate = null
-            this.sTwoCate = null
+            this.twoCate = null;
+            this.sTwoCate = null;
             return
           }
-          console.log(result.data)
-          this.twoCate = result.data
+          console.log(result.data);
+          this.twoCate = result.data;
           this.sTwoCate = result.data[0].id
         }
       },
       async adds() {
-        let uid = localStorage.uid
-        let shopcate_id = this.sOneCate
-        let shopchildcate_id = this.sTwoCate
-        let province_id = this.sProvince
-        let city_id = this.sCity
-        let area_id = this.sArea
-        let street_id = this.sCountry
-        let community_id = this.sAgency
+        let uid = localStorage.uid;
+        let shopcate_id = this.sOneCate;
+        let shopchildcate_id = this.sTwoCate;
+        let province_id = this.sProvince;
+        let city_id = this.sCity;
+        let area_id = this.sArea;
+        let street_id = this.sCountry;
+        let community_id = this.sAgency;
 
-        let province = this.province.filter((item) => item.id === province_id)[0].region_name
-        let city = this.city.filter((item) => item.id === city_id)[0].region_name
-        let area = this.area.filter((item) => item.id === area_id)[0].region_name
-        let street
+        let province = this.province.filter((item) => item.id === province_id)[0].region_name;
+        let city = this.city.filter((item) => item.id === city_id)[0].region_name;
+        let area = this.area.filter((item) => item.id === area_id)[0].region_name;
+        let street;
         if (this.country) {
           street = this.country.filter((item) => item.id === street_id)[0].region_name
         } else {
           street = ""
         }
-        let community
+        let community;
         if (this.agency) {
           community = this.agency.filter((item) => item.id === community_id)[0].region_name
         } else {
@@ -386,21 +386,21 @@
         console.log(area);
         console.log(street);
         console.log(community);
-        let address = province + city + area + street + community + this.addresses
+        let address = province + city + area + street + community + this.addresses;
         console.log(address);
-        let id_card_positive_photo = this.localId.back
-        let id_card_negative_photo = this.localId.front
-        let business_license = this.localId.card
-        let xieyi = this.localId.xieyi
-        let store_images = this.localId.store_images
-        let {shop_name, phone, name, id_card} = this
+        let id_card_positive_photo = this.localId.back;
+        let id_card_negative_photo = this.localId.front;
+        let business_license = this.localId.card;
+        let xieyi = this.localId.xieyi;
+        let store_images = this.localId.store_images;
+        let {shop_name, phone, name, id_card} = this;
 
         if (!shop_name) {
           this.$message({
             message: "请填写商铺名称",
             type: 'error',
             duration: 1000
-          })
+          });
           return
         }
         // let uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
@@ -419,7 +419,7 @@
             message: "请填写姓名",
             type: 'error',
             duration: 1000
-          })
+          });
           return
         }
 
@@ -428,16 +428,16 @@
             message: "请填写手机号",
             type: 'error',
             duration: 1000
-          })
+          });
           return
         }
-        let phoneReg = /^1[0-9]{10}$/
+        let phoneReg = /^1[0-9]{10}$/;
         if (!phoneReg.test(phone)) {
           this.$message({
             message: "请检查手机号码是否填写正确",
             type: 'error',
             duration: 1000
-          })
+          });
           return
         }
 
@@ -446,36 +446,36 @@
             message: "请填写身份证号码",
             type: 'error',
             duration: 1000
-          })
+          });
           return
         }
         if (!id_card_positive_photo, !id_card_negative_photo , !business_license, !xieyi, !store_images) {
-          console.log(id_card_positive_photo, id_card_negative_photo, business_license, xieyi, store_images)
+          console.log(id_card_positive_photo, id_card_negative_photo, business_license, xieyi, store_images);
           this.$message({
             message: "请上传照片",
             type: 'error',
             duration: 1000
-          })
+          });
           return
         }
-        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, xieyi, store_images)
+        let result = await storeAdd(uid, shopcate_id, shopchildcate_id, province_id, city_id, area_id, street_id, community_id, shop_name, phone, name, address, id_card, id_card_positive_photo, id_card_negative_photo, business_license, xieyi, store_images);
         if (result.code === 1) {
           this.$message({
             message: result.message,
             type: 'success',
             duration: 1000
-          })
+          });
           window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${localStorage.uid}#/index`)
         }
       },
       async come() {
-        let result = await userArealist(localStorage.uid)
+        let result = await userArealist(localStorage.uid);
         if (result.code === 1) {
-          this.show = false
+          this.show = false;
           this.$message({
             message: '正在审核中',
             type: 'error'
-          })
+          });
           setTimeout(() => {
             window.location.assign(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=${localStorage.uid}#/index`)
           }, 3000)
@@ -484,9 +484,9 @@
       }
     },
     created() {
-      this.is()
-      this.come()
-      this.getProvince1()
+      this.is();
+      this.come();
+      this.getProvince1();
       this.getOneCate()
     }
   }

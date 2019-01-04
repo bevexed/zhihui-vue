@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, isaShop, newsAdd, storeImgs, img_s} from "../../api/index";
+  import {img_s, ImgBaseUrl, isaShop, newsAdd, storeImgs} from "../../api/index";
   import Qriosly from "../../components/Qriosly"
 
   export default {
@@ -99,7 +99,7 @@
     },
     methods: {
       async getimg_s() {
-        let result = await img_s(localStorage.uid)
+        let result = await img_s(localStorage.uid);
         console.log(result);
         this.s_img = result.data
       },
@@ -118,8 +118,8 @@
         this.dialogFormVisible = true
       },
       async getStoreListImg() {
-        let result = await storeImgs(localStorage.uid, localStorage.longitude_latitude)
-        console.log(result)
+        let result = await storeImgs(localStorage.uid, localStorage.longitude_latitude);
+        console.log(result);
         this.storeImg = result.data
       },
       goToApp() {
@@ -131,11 +131,11 @@
             message: '需求不能为空',
             type: 'error',
             duration: 1000
-          })
+          });
           return
         }
-        let uid = localStorage.uid
-        let result = await newsAdd(uid, content)
+        let uid = localStorage.uid;
+        let result = await newsAdd(uid, content);
         if (result.code === 1) {
           this.$message({
             message: result.message,
@@ -144,13 +144,13 @@
           })
         }
 
-        this.dialogFormVisible = false
+        this.dialogFormVisible = false;
         console.log(result)
       },
       async getisShop() {
         if (localStorage.uid) {
-          let result = await isaShop(localStorage.uid)
-          console.log(result)
+          let result = await isaShop(localStorage.uid);
+          console.log(result);
           if (result) { // 有结果说明有uid
             this.isShop = result.code
           }

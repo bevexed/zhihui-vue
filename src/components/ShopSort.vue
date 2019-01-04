@@ -60,25 +60,25 @@
         }
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
           // console.log(1)
-          this.allLoaded = false
+          this.allLoaded = false;
           this.loading = true;
           this.sortPage++;
-          let result
+          let result;
           if (this.loading_more) {
-            this.loading_more = false //禁止浏览器发送ajax请求
-            result = await allSort(this.sort_status, localStorage.longitude_latitude, '', '', this.sortPage, localStorage.area_id)
+            this.loading_more = false; //禁止浏览器发送ajax请求
+            result = await allSort(this.sort_status, localStorage.longitude_latitude, '', '', this.sortPage, localStorage.area_id);
             if (result.code === 1) {//判断接受是否成功
-              this.loading = false
-              console.log(this.allSortList.length, result.data.total)
+              this.loading = false;
+              console.log(this.allSortList.length, result.data.total);
               if (this.allSortList.length === result.data.total) {
-                return
+
               } else {
-                this.loading_more = true
+                this.loading_more = true;
                 this.allSortList = [...this.allSortList, ...result.data.data];
               }
             } else {
               setTimeout(() => {
-                this.loading = false
+                this.loading = false;
                 this.loading_more = true
               }, 1000)
             }

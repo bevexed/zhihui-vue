@@ -9,11 +9,11 @@
     name: "aliPay",
     methods: {
       async getWxConfig() {
-        let url = window.location.href
-        console.log(url)
-        let result = await wxConfig(url)
-        let jssdkconfig = JSON.parse(result.data)
-        console.log(jssdkconfig)
+        let url = window.location.href;
+        console.log(url);
+        let result = await wxConfig(url);
+        let jssdkconfig = JSON.parse(result.data);
+        console.log(jssdkconfig);
 
         wx.config({
           debug: false,
@@ -38,7 +38,7 @@
               console.log(JSON.stringify(res));
             }
           });
-        })
+        });
 
         wx.error(function (res) {
           console.log(`err:${res}`)
