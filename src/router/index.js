@@ -151,17 +151,15 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'index' || to.name === 'detail' || to.name === 'scan') {
-    if (to.name === "index") {
-      localStorage.uid = getQuery('uid')
-    }
     /*
     *  获取用户 UID
     *  1. 用户只有通过一期项目进入 才会携带 uid
-    *  2. uid === null 是因为 他是被分享进来时的用户
+    *  2. 当用户被分享进来时，链接内部不存在 UId 所以 uid 为 null
     * */
-    if (!localStorage.uid) {
+    if (to.name === "index") {
       localStorage.uid = getQuery('uid')
     }
+
     /*
     *  获取用户 MID
     *  1. 用户只有通过分享链接进入 才会携带 mid
@@ -176,7 +174,8 @@ router.beforeEach((to, from, next) => {
       * */
 
       next()
-    } else { //不存在
+    } else {
+      // uid 不存在 ，mid 存在
       if (mid !== 'null') {  // 一定是被分享进来的
         window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${getQuery('mid')}&do=shop&m=vslai_shop`) // 去拿授权
       } else {

@@ -14,7 +14,7 @@
           <td colspan="2" v-show="isa === 'a'"><a
             href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/alipay/bbk.html">请点击此次下载协议，并将写好的协议上传拍照</a>
           <td colspan="2" v-show="isa === 'i'"><a
-            href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhuihui-enter.doc" download>请点击此次下载协议，并将写好的协议上传拍照</a>
+            href="https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/zhihui-enter.pdf" download>请点击此次下载协议，并将写好的协议上传拍照</a>
           </td>
         </tr>
         <tr>

@@ -49,9 +49,9 @@
       </dd>
     </dl>
 
-    <div v-if="commentList.length === 1" style="text-align: center;margin-top: .1rem">暂无更多评论</div>
-    <div v-else style="text-align: center;margin-top: .1rem"
-         @click="$router.push({name:'evaluation',params:{store_id:$route.params.id}})">查看更多
+    <div style="text-align: center;margin-top: .1rem" v-if="commentList.length === 1">暂无更多评论</div>
+    <div @click="$router.push({name:'evaluation',params:{store_id:$route.params.id}})" style="text-align: center;margin-top: .1rem"
+         v-else>查看更多
     </div>
   </div>
 </template>
