@@ -177,7 +177,7 @@ router.beforeEach((to, from, next) => {
     } else {
       // uid 不存在 ，mid 存在
       if (mid !== 'null') {  // 一定是被分享进来的
-        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${getQuery('mid')}&do=shop&m=vslai_shop`) // 去拿授权
+        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
       } else {
         // 用户手动输入网址 或者其他原因
         window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)

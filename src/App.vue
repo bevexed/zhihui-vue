@@ -21,7 +21,10 @@
       async uidExist() {
         let result = await existUid(localStorage.uid);
         if (result.code === 0) {
-          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
+          // code 为零表示 uid 不存在
+          localStorage.removeItem('uid')
+          let mid = this.$GetQueryString('mid')
+          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
         }
       },
       async getDistrict() {
