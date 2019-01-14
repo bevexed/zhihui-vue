@@ -1,7 +1,7 @@
 <template>
   <div>
     <Back
-      :title="'今日钜惠'"
+      :title="'今日优惠'"
     />
 
     <div class="today_ul" v-for="item in shopList" :key="item.store_id" v-if="shopList.length !== item+1"
