@@ -14,7 +14,7 @@
     <!--</div>-->
     <div class="card">
       <span>
-          购物卷：{{this.real.left}}元
+          购物券：{{this.real.left}}元
       </span>
       <el-switch
         v-model="value2"
