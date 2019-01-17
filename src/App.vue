@@ -18,15 +18,6 @@
       }
     },
     methods: {
-      async uidExist() {
-        let result = await existUid(localStorage.uid);
-        if (result.code === 0) {
-          // code 为零表示 uid 不存在
-          localStorage.removeItem('uid')
-          let mid = this.$GetQueryString('mid')
-          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-        }
-      },
       async getDistrict() {
         let result = await districts(localStorage.longitude_latitude);
         localStorage.area = result.result.ad_info.district;
@@ -91,9 +82,6 @@
         }, 1000)
       }
 
-      if (localStorage.uid) {
-        this.uidExist()
-      }
 
       // if (localStorage.longitude_latitude) {
       // } else {

@@ -156,40 +156,29 @@ router.beforeEach((to, from, next) => {
     *  1. 用户只有通过一期项目进入 才会携带 uid
     *  2. 当用户被分享进来时，链接内部不存在 UId 所以 uid 为 null
     * */
-    if (to.name === "index") {
-      localStorage.uid = getQuery('uid')
-    }
+    alert(localStorage.uid);
 
-    /*
-    *  获取用户 MID
-    *  1. 用户只有通过分享链接进入 才会携带 mid
-    * */
     let mid = getQuery('mid');
-
-    if (localStorage.uid) {
-      /*
-      * 先判断 uid 是否存在
-      * 1. 用户通过 一期项目 正常登录 通过 localStorage.uid = getQuery('uid') 正常获取 UID
-      * 2. 用户通过 点击 自己分享的链接登录 此时 使用的是 系统缓存中的 UID
-      * */
-
-      next()
-    } else {
-      // uid 不存在 ，mid 存在
-      if (mid !== 'null') {  // 一定是被分享进来的
-        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-      } else {
-        // 用户手动输入网址 或者其他原因
-        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`)
+    if (mid !== 'null') {  // 一定是被分享进来的
+      if (localStorage.uid === 'null') {
+        localStorage.uid = getQuery('uid');
+        if (localStorage.uid === 'null') {
+          window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+        }
+        next()
       }
     }
-  }
 
-  if (!localStorage.uid) {  // 判断uid是否存在
-    window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
-  } else {
+    if (localStorage.uid === 'null') {
+      localStorage.uid = getQuery('uid');
+      if (localStorage.uid === 'null') {
+        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop`) // 去拿授权
+      }
+    }
     next()
   }
+
+
 });
 
 function getQuery(name) {
@@ -198,5 +187,15 @@ function getQuery(name) {
   if (r != null) return unescape(r[2]);
   return null;
 }
+
+// async function uidExist() {
+//   let result = await existUid(localStorage.uid);
+//   if (result.code === 0) {
+//     // code 为零表示 uid 不存在
+//     localStorage.removeItem('uid');
+//     let mid = this.$GetQueryString('mid');
+//     window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+//   }
+// }
 
 export default router
