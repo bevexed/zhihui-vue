@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="detail_head">
-      <p class="iconfont icon-fanhui back cursor_pointer" @click="$router.go(-1)"></p>
+      <p class="iconfont icon-fanhui back cursor_pointer" @click="goBack()"></p>
       <img v-if="detail.store_images" :src="`${baseImgUrl}${detail.store_images}`" alt="">
     </section>
 
@@ -157,6 +157,13 @@
 
     },
     methods: {
+      goBack() {
+        let mid = this.$GetQueryString('mid');
+        if (mid) {
+          return window.location.assign('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html')
+        }
+        this.$router.go(-1)
+      },
       async share() {
         if (true) {
           let url = window.location.href.split('#')[0];

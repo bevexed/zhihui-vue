@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import {citySearchList, districts, existUid} from './api'
+  import {citySearchList, districts} from './api'
   import wx from 'weixin-js-sdk';
 
   export default {
@@ -82,11 +82,7 @@
         }, 1000)
       }
 
-
-      // if (localStorage.longitude_latitude) {
-      // } else {
       this.getWxConfig()
-      // }
     },
     watch: {
       $route(to, from) {
