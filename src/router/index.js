@@ -157,17 +157,17 @@ router.beforeEach((to, from, next) => {
   * */
   // alert(localStorage.uid);
 
-  // let mid = getQuery('mid');
-  // if (mid !== 'null') {  // 一定是被分享进来的
-  //   if (!localStorage.uid) {
-  //     window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-  //   }
-  //   next()
-  // }
+  let mid = getQuery('mid');
+  if (mid !== 'null') {  // 一定是被分享进来的
+    if (!localStorage.uid) {
+      window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+    }
+    next()
+  }
 
-  // if (!localStorage.uid) {
-  //   window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid&do=shop&m=vslai_shop`) // 去拿授权
-  // }
+  if (!localStorage.uid) {
+    window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid&do=shop&m=vslai_shop`) // 去拿授权
+  }
   next()
 });
 
