@@ -16,44 +16,29 @@
 
     </form>
     <section class="address">
-      <div>
-        <div @click="reset">
-          重新定位
-        </div>
+      <div @click="reset">
+        重新定位
       </div>
     </section>
-
-    <div class="content">
-      <section class="address" v-if="!search_key">
-        <div v-for="(value,i) in citySelectLists" :key="i" :id="'anchor-'+i">
-          <div v-for="v in 10" @click="changeAddress(v.lat_lng,v.area_id,v.area)">{{v.area}}</div>
-        </div>
-
-      </section>
-      <section class="address" v-else>
-        <div v-for="">
-          <div v-for="v in citySearchSelectList" @click="changeAddress(v.lat_lng,v.area_id,v.area)">{{v.area}}</div>
-        </div>
-      </section>
-      <aside>
-        <a href="javascript:void(0)" v-anchor="index" v-for="(value,index) in addressInitial" :key="index">{{value}}</a>
-      </aside>
-    </div>
-
+    <section class="address" v-show="!search_key">
+      <div v-for="v in citySelectLists" @click="changeAddress(v.lat_lng,v.area_id,v.area)">{{v.area}}</div>
+    </section>
+    <section class="address" v-show="search_key">
+      <div v-for="v in citySearchSelectList" @click="changeAddress(v.lat_lng,v.area_id,v.area)">{{v.area}}</div>
+    </section>
   </div>
 </template>
 
 <script>
-  import {citySearchSelectList, getAddress} from "../../api";
+  import {citySearchSelectList, citySelectList} from "../../api";
 
   export default {
     name: "selectAddress",
     data() {
       return {
         search_key: '',
-        citySelectLists: [],
+        citySelectLists: '',
         citySearchSelectList: '',
-        addressInitial: []
       }
     },
     methods: {
@@ -70,17 +55,12 @@
         localStorage.area = area;
         location.href = location.href.split('#')[0]
       },
-      async getAddressList() {
-        await getAddress().then(
-          result => {
-            if (result.code === 1) {
-              for (let [key, value] of Object.entries(result.data)) {
-                this.addressInitial.push(key);
-                this.citySelectLists.push(value)
-              }
-            }
-          }
-        )
+      async getCitySelectList() {
+        let result = await citySelectList();
+        console.log(result);
+        if (result.code === 1) {
+          this.citySelectLists = result.data
+        }
       },
       async getCitySearchSelectList(search_key) {
         let result = await citySearchSelectList(search_key);
@@ -99,31 +79,16 @@
       }
     },
     mounted() {
-      this.getAddressList()
+
+      setTimeout(() => {
+        this.getCitySelectList()
+      })
+
     },
   }
 </script>
 
 <style scoped>
-  .content {
-    position: relative;
-    padding: .05rem;
-  }
-
-  .content .address {
-    width: 90%;
-  }
-
-  .content aside {
-    position: fixed;
-    top: 1rem;
-    right: .1rem;
-  }
-
-  .content aside a {
-    display: block;
-  }
-
   section.address {
     padding: 2%;
     display: flex;
@@ -131,22 +96,13 @@
     flex-wrap: wrap;
   }
 
-  section.address > div {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    width: 100%;
-  }
-
-  section.address > div > div {
+  section.address div {
     margin-top: .1rem;
     margin-left: .1rem;
-    min-width: 30%;
+    width: 30%;
     text-align: center;
     background: #ffffff;
     height: .4rem;
     line-height: 0.4rem;
   }
-
-
 </style>
