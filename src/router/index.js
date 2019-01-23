@@ -155,19 +155,19 @@ router.beforeEach((to, from, next) => {
   *  1. 用户只有通过一期项目进入 才会携带 uid
   *  2. 当用户被分享进来时，链接内部不存在 UId 所以 uid 为 null
   * */
-  // alert(localStorage.uid);
-  uidExist()
-  let mid = getQuery('mid');
-  if (mid !== 'null') {  // 一定是被分享进来的
-    if (!localStorage.uid) {
-      window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-    }
-    next()
-  }
 
-  if (!localStorage.uid) {
-    window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-  }
+  // uidExist()
+  // let mid = getQuery('mid');
+  // if (mid !== 'null') {  // 一定是被分享进来的
+  //   if (!localStorage.uid) {
+  //     window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+  //   }
+  //   next()
+  // }
+  //
+  // if (!localStorage.uid) {
+  //   window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+  // }
   next()
 });
 

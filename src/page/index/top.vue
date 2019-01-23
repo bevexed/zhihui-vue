@@ -154,8 +154,6 @@
           if (result) { // 有结果说明有uid
             this.isShop = result.code
           }
-        } else { // 没有uid 回到首页
-          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
         }
       },
 
