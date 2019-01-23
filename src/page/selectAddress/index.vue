@@ -15,18 +15,17 @@
       <span class="button" @click="search_key = ''" v-show="search_key">取消</span>
 
     </form>
-    <section class="address">
-      <div>
+    <section class="reset button">
         <div @click="reset">
           重新定位
         </div>
-      </div>
     </section>
 
     <div class="content">
       <section class="address" v-if="!search_key">
         <div v-for="(value,i) in citySelectLists" :key="i" :id="'anchor-'+i">
-          <div v-for="v in 10" @click="changeAddress(v.lat_lng,v.area_id,v.area)">{{v.area}}</div>
+          <div class="initial" >{{value.key===""?'Top':value.key}}</div>
+          <div v-for="v in value.value" @click="changeAddress(v.lat_lng,v.area_id,v.area)">{{v.area}}</div>
         </div>
 
       </section>
@@ -36,7 +35,7 @@
         </div>
       </section>
       <aside>
-        <a href="javascript:void(0)" v-anchor="index" v-for="(value,index) in addressInitial" :key="index">{{value}}</a>
+        <div v-anchor="index" v-for="(value,index) in addressInitial" :key="index">{{value===""?'Top':value}}</div>
       </aside>
     </div>
 
@@ -53,7 +52,8 @@
         search_key: '',
         citySelectLists: [],
         citySearchSelectList: '',
-        addressInitial: []
+        addressInitial: [],
+        time: true
       }
     },
     methods: {
@@ -76,13 +76,22 @@
             if (result.code === 1) {
               for (let [key, value] of Object.entries(result.data)) {
                 this.addressInitial.push(key);
-                this.citySelectLists.push(value)
+                this.citySelectLists.push({key,value})
               }
             }
           }
         )
       },
       async getCitySearchSelectList(search_key) {
+        if (!this.time) {
+          setTimeout(() => {
+            this.time = true
+          }, 1000);
+          return
+        }
+        if (this.time) {
+          this.time = false
+        }
         let result = await citySearchSelectList(search_key);
         if (result.code === 1) {
           if (!result.data) {
@@ -105,48 +114,70 @@
 </script>
 
 <style scoped>
+  .initial{
+    background: rgb(238,238,238) !important;
+  }
+
   .content {
+    margin-top: .1rem;
+    background: white;
     position: relative;
-    padding: .05rem;
   }
 
   .content .address {
-    width: 90%;
+
+  }
+
+  .reset{
+    padding: 0 .1rem;
+    margin-top: .1rem;
+    margin-left: .1rem;
   }
 
   .content aside {
+    z-index: 999;
     position: fixed;
     top: 1rem;
-    right: .1rem;
+    right: 0;
   }
 
-  .content aside a {
+  .content aside div {
     display: block;
+    color: black;
+    width: .4rem;
+    height: .2rem;
+    margin-top: 5px;
+    text-align: center;
   }
 
   section.address {
-    padding: 2%;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
 
   section.address > div {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
+    text-align: left;
     width: 100%;
   }
 
   section.address > div > div {
-    margin-top: .1rem;
-    margin-left: .1rem;
+    text-indent: 1em;
     min-width: 30%;
-    text-align: center;
     background: #ffffff;
     height: .4rem;
     line-height: 0.4rem;
+    border-bottom: 1px solid rgb(238,238,238);
   }
+  /*section.address > div > div {*/
+    /*margin-top: .1rem;*/
+    /*margin-left: .1rem;*/
+    /*min-width: 30%;*/
+    /*text-align: center;*/
+    /*background: #ffffff;*/
+    /*height: .4rem;*/
+    /*line-height: 0.4rem;*/
+  /*}*/
 
 
 </style>

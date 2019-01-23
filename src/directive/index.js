@@ -2,37 +2,25 @@ import Vue from 'vue'
 
 Vue.directive('anchor', {
   inserted: function (el, binding) {
-    el.onclick = function () {
-      clearInterval(T1)
+    el.ontouchend = scroll
+    el.onclick = scroll
+
+    function scroll() {
+      // clearInterval(T1)
       let top = document.querySelector('#anchor-' + binding.value).offsetTop;
       let scroll = document.documentElement.scrollTop;
+      if (top === scroll) return false
       let T1 = setInterval(() => {
-        if (top > scroll) {
-          scrollToBottom()
-        }
-        if (scroll < top) {
-          scrollToTop()
-        }
+        scrollToBottom()
       }, 10);
-
-      function scrollToTop() {
-        scroll -= (top - scroll) / 20
-        document.documentElement.scrollTop = scroll;
-        console.log(top);
-        console.log(scroll);
-        if (scroll <= top - 100) {
-          document.documentElement.scrollTop = top
-          clearInterval(T1)
-        }
-      }
 
       function scrollToBottom() {
         scroll += (top - scroll) / 20
         document.documentElement.scrollTop = scroll;
-        console.log(top);
-        console.log(scroll);
-        if (scroll >= top - 100) {
+        document.body.scrollTop = scroll
+        if (Math.abs(scroll - top) <= 20) {
           document.documentElement.scrollTop = top
+          document.body.scrollTop = top
           clearInterval(T1)
         }
 
