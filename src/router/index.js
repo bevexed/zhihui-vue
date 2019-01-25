@@ -160,24 +160,26 @@ router.beforeEach((to, from, next) => {
   if (!localStorage.uid) {
     if (!code) {
       window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#/index')}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
-    } else {
-      getUid(code, mid).then(
-        res => {
-          console.log(res);
-          if (res) {
-            localStorage.uid = res.data
-            uidExist()
-            next()
-          }
-        },
-        err => {
-          console.log(err);
-        }
-      )
     }
-  } else {
-    next()
+    getUid(code, mid).then(
+      res => {
+        localStorage.uid = res.data
+        existUid(localStorage.uid).then(
+          result => {
+            if (result.code === 1) {
+              next()
+            }
+          }, err => {
+            localStorage.removeItem('uid');
+          }
+        )
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
+  next()
 
 });
 
@@ -190,17 +192,5 @@ function getQuery(name) {
 
 import {existUid, getUid} from "../api";
 
-
-async function uidExist() {
-  await existUid(localStorage.uid).then(
-    result => {
-    }
-  ).catch(err => {
-      console.log(err);
-      let mid = getQuery('mid');
-      localStorage.removeItem('uid');
-    }
-  )
-}
 
 export default router
