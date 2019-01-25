@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueQriously from 'vue-qriously'
 import wx from 'weixin-js-sdk';
 import './until'
-
+import './directive'
 import router from './router'
 
 Vue.use(ElementUI);

@@ -155,19 +155,20 @@ router.beforeEach((to, from, next) => {
   *  1. 用户只有通过一期项目进入 才会携带 uid
   *  2. 当用户被分享进来时，链接内部不存在 UId 所以 uid 为 null
   * */
-  // alert(localStorage.uid);
-  uidExist()
-  let mid = getQuery('mid');
-  if (mid !== 'null') {  // 一定是被分享进来的
-    if (!localStorage.uid) {
-      window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-    }
-    next()
-  }
 
-  if (!localStorage.uid) {
-    window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-  }
+  // uidExist()
+  // let mid = getQuery('mid');
+  // if (mid !== 'null') {  // 一定是被分享进来的
+  //   if (!localStorage.uid) {
+  //     window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+  //   }
+  //   next()
+  // }
+  //
+  // if (!localStorage.uid) {
+  //   window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+  // }
+  window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#/index')}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
   next()
 });
 
@@ -178,7 +179,8 @@ function getQuery(name) {
   return null;
 }
 
-import {existUid} from "../api";
+import {existUid,getCode} from "../api";
+
 
 async function uidExist() {
   await existUid(localStorage.uid).then(
