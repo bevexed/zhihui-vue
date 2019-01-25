@@ -249,3 +249,5 @@ export const addComment = (shop_id, content, file, uid, cost_effective, environm
 export const img_s = (uid) => ajax('https://shop.zhihuimall.com.cn:443/zhihuishop/public/index.php/api/allarea/storeimg', {uid});
 
 export const getAddress = () => ajax('http://192.168.1.5/api/allcityselect/cityselectList', {}, "GET");
+
+export const getCode = (APPID,REDIRECT_URI) => ajax(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)

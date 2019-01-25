@@ -168,6 +168,11 @@ router.beforeEach((to, from, next) => {
   // if (!localStorage.uid) {
   //   window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
   // }
+  getCode('wx6ae88e9a0dcb59b1','').then(
+    res => {
+      console.log(res);
+    }
+  )
   next()
 });
 
@@ -178,7 +183,8 @@ function getQuery(name) {
   return null;
 }
 
-import {existUid} from "../api";
+import {existUid,getCode} from "../api";
+
 
 async function uidExist() {
   await existUid(localStorage.uid).then(
