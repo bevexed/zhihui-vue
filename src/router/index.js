@@ -168,7 +168,7 @@ router.beforeEach((to, from, next) => {
   // if (!localStorage.uid) {
   //   window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
   // }
-  window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html?uid=10238#/index')}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
+  window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#/index')}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
   next()
 });
 
