@@ -155,8 +155,6 @@ router.beforeEach((to, from, next) => {
   *  1. 用户只有通过一期项目进入 才会携带 uid
   *  2. 当用户被分享进来时，链接内部不存在 UId 所以 uid 为 null
   * */
-
-  // uidExist()
   let mid = getQuery('mid');
   let code = getQuery('code');
   if (!localStorage.uid) {
@@ -166,8 +164,9 @@ router.beforeEach((to, from, next) => {
       getUid(code, mid).then(
         res => {
           console.log(res);
-          if (res.data) {
+          if (res) {
             localStorage.uid = res.data
+            uidExist()
             next()
           }
         },
@@ -195,18 +194,11 @@ import {existUid, getUid} from "../api";
 async function uidExist() {
   await existUid(localStorage.uid).then(
     result => {
-      if (result.code === 0) {
-        // code 为零表示 uid 不存在
-        let mid = getQuery('mid');
-        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`)
-        // // 去拿授权
-      }
     }
   ).catch(err => {
       console.log(err);
       let mid = getQuery('mid');
       localStorage.removeItem('uid');
-      window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`)
     }
   )
 }
