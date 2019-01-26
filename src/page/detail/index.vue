@@ -158,7 +158,7 @@
     },
     methods: {
       goBack() {
-        let mid = this.$GetQueryString('mid');
+        let mid = this.$route.query.mid
         if (mid) {
           return window.location.assign('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html')
         }
