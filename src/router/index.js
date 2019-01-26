@@ -163,7 +163,7 @@ router.beforeEach((to, from, next) => {
     }
     getUid(code, mid).then(
       res => {
-        localStorage.uid = res.data
+        localStorage.uid = res.data;
         existUid(localStorage.uid).then(
           result => {
             if (result.code === 1) {

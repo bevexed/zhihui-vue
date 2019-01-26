@@ -250,4 +250,4 @@ export const img_s = (uid) => ajax('https://shop.zhihuimall.com.cn:443/zhihuisho
 
 export const getAddress = () => ajax(Base_url + '/api/allcityselect/cityselectList', {}, "GET");
 
-export const getUid = (code,mid) => ajax(Base_url +'/api/Allaccesstoken/getUserOpentId',{code},'GET')
+export const getUid = (code,mid) => ajax(Base_url +'/api/Allaccesstoken/getUserOpentId',{code,mid},'GET')
