@@ -43,7 +43,7 @@
       }
     },
     mounted() {
-      getSuccess().then(
+      getSuccess(this.$route.params.order).then(
         res => {
           if (res.code === 1) {
             this.orderData = res.data
