@@ -69,19 +69,6 @@
       },
     },
     mounted() {
-      // 拦截 正常浏览器
-      let ua = window.navigator.userAgent.toLowerCase();
-      if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-      } else {
-        this.$message({
-          message: "暂不支持除微信以外的平台打卡此页面",
-          type: 'error'
-        });
-        setTimeout(() => {
-          window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
-        }, 1000)
-      }
-
       this.getWxConfig()
     },
     watch: {
