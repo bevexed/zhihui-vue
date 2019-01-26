@@ -159,12 +159,13 @@ router.beforeEach((to, from, next) => {
   if (!localStorage.uid) {
     // 获取 Code
     if (!code) {
-      window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#${to.fullPath}`)}&response_type=code&scope=snsapi_userinfo&state=${mid}#wechat_redirect`)
+      window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html#${to.fullPath}`)}&response_type=code&scope=snsapi_userinfo&state=${mid}#wechat_redirect`)
     }
     // 获取 UID
     getUid(code, mid).then(
       res => {
         localStorage.uid = res.data;
+        window.history.go(0)
       },
       err => {
         console.log(err);
@@ -177,11 +178,11 @@ router.beforeEach((to, from, next) => {
     result => {
       if (result.code === 0) {
         localStorage.removeItem('uid');
-        window.location.reload()
       }
-    }, err => {
+    }
+  ).catch(
+    err => {
       localStorage.removeItem('uid');
-      window.location.reload()
     }
   );
   next()
