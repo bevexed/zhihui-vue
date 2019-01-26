@@ -124,7 +124,7 @@ const router = new Router({
     },
     {
       component: paySuccess,
-      path: '/paySuccess',
+      path: '/paySuccess/order/:order',
       name: 'paySuccess'
     },
     {

@@ -149,7 +149,7 @@
                           type: 'success'
                         });
                         console.log(res);
-                        that.$router.push({name: 'paySuccess'})
+                        that.$router.replace({name: 'paySuccess', order: that.orderData.ordernumber})
                       } else {
                         that.$message({
                           message: "支付失败",
@@ -181,7 +181,7 @@
               message: result.message,
               type: 'success'
             });
-            this.$router.push({name: 'paySuccess'})
+            this.$router.push({name: 'paySuccess', order: that.orderData.ordernumber})
           } else {
             this.$message({
               message: result.message,
