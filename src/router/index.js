@@ -166,6 +166,7 @@ router.beforeEach((to, from, next) => {
       res => {
         localStorage.uid = res.data;
         window.history.go(0)
+        window.location.reload(true)
       },
       err => {
         console.log(err);

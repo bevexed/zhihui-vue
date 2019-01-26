@@ -19,18 +19,22 @@
     },
     methods: {
       async getDistrict() {
-        let result = await districts(localStorage.longitude_latitude);
-        localStorage.area = result.result.ad_info.district;
-        localStorage.city = result.result.ad_info.city;
-        this.getCitySearchList()
+        await districts(localStorage.longitude_latitude).then(
+          result => {
+            localStorage.area = result.result.ad_info.district;
+            localStorage.city = result.result.ad_info.city;
+            this.getCitySearchList()
+          }
+        )
       },
       async getCitySearchList() {
-        let result = await citySearchList(localStorage.area, localStorage.city);
-        console.log(result);
-        localStorage.area_id = result.data.id;
-        setTimeout(() => {
-          this.$router.go(0)
-        }, 1000)
+        await citySearchList(localStorage.area, localStorage.city).then(
+          result => {
+            localStorage.area_id = result.data.id;
+          }
+        ).then(
+          res =>  window.location.reload(true)
+        )
       },
       async getWxConfig() {
         let that = this;
