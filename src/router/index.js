@@ -150,28 +150,47 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  /*
-  *  获取用户 UID
-  *  1. 用户只有通过一期项目进入 才会携带 uid
-  *  2. 当用户被分享进来时，链接内部不存在 UId 所以 uid 为 null
-  * */
-
-  uidExist()
-  let mid = getQuery('mid');
-  if (mid !== 'null') {  // 一定是被分享进来的
-    if (!localStorage.uid) {
-      window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
-    }
-    next()
-  }
-
+  // 获取 分享者 ID
+  console.log(to);
+  console.log(from);
+  let mid = to.query.mid
+  // 获取 code
+  let code = getQuery('code');
   if (!localStorage.uid) {
-    window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`) // 去拿授权
+    // 获取 Code
+    if (!code) {
+      window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#${to.fullPath}`)}&response_type=code&scope=snsapi_userinfo&state=${mid}#wechat_redirect`)
+    }
+    // 获取 UID
+    getUid(code, mid).then(
+      res => {
+        localStorage.uid = res.data;
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
-  // window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#/index')}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
+
+  // 检测 UID 是否存在
+  existUid(localStorage.uid).then(
+    result => {
+      if (result.code === 0) {
+        // UID 不存在时 移除 UID 重载页面
+        localStorage.removeItem('uid');
+        window.location.reload()
+      }
+    }, err => {
+      localStorage.removeItem('uid');
+    }
+  );
   next()
+
 });
 
+
+// 获取 query
+// query 不存在时返回 null ，当 null 存入 localStorage 中后 会转成 字符串null
 function getQuery(name) {
   let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
   let r = window.location.search.substr(1).match(reg);
@@ -179,26 +198,8 @@ function getQuery(name) {
   return null;
 }
 
-import {existUid,getCode} from "../api";
 
+import {existUid, getUid} from "../api";
 
-async function uidExist() {
-  await existUid(localStorage.uid).then(
-    result => {
-      if (result.code === 0) {
-        // code 为零表示 uid 不存在
-        let mid = getQuery('mid');
-        window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`)
-        // // 去拿授权
-      }
-    }
-  ).catch(err => {
-      console.log(err);
-      let mid = getQuery('mid');
-      localStorage.removeItem('uid');
-      window.location.assign(`https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&mid=${mid}&do=shop&m=vslai_shop`)
-    }
-  )
-}
 
 export default router
