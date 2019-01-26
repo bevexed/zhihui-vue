@@ -150,6 +150,9 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  if (from.name === 'paySuccess') {
+    next()
+  }
   // 获取 分享者 ID
   console.log(to);
   console.log(from);
