@@ -158,7 +158,7 @@ router.beforeEach((to, from, next) => {
   let code = getQuery('code');
   if (!localStorage.uid) {
     // 获取 Code
-    if (!code){
+    if (!code) {
       window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#${to.fullPath}`)}&response_type=code&scope=snsapi_userinfo&state=${mid}#wechat_redirect`)
     }
     // 获取 UID
@@ -177,7 +177,7 @@ router.beforeEach((to, from, next) => {
     result => {
       if (result.code === 0) {
         localStorage.removeItem('uid');
-        next()
+        window.location.reload()
       }
     }, err => {
       localStorage.removeItem('uid');
