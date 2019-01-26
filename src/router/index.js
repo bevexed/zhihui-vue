@@ -181,6 +181,7 @@ router.beforeEach((to, from, next) => {
       }
     }, err => {
       localStorage.removeItem('uid');
+      window.location.reload()
     }
   );
   next()
