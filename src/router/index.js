@@ -151,13 +151,15 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // 获取 分享者 ID
-  let mid = getQuery('mid');
+  console.log(to);
+  console.log(from);
+  let mid = to.query.mid
   // 获取 code
   let code = getQuery('code');
   if (!localStorage.uid) {
-    if (!code) {
-      // 获取 Code
-      window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#/index')}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
+    // 获取 Code
+    if (!code){
+      window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent(`https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#${to.fullPath}`)}&response_type=code&scope=snsapi_userinfo&state=${mid}#wechat_redirect`)
     }
     // 获取 UID
     getUid(code, mid).then(
@@ -173,7 +175,8 @@ router.beforeEach((to, from, next) => {
   // 检测 UID 是否存在
   existUid(localStorage.uid).then(
     result => {
-      if (result.code === 1) {
+      if (result.code === 0) {
+        localStorage.removeItem('uid');
         next()
       }
     }, err => {

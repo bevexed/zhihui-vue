@@ -189,7 +189,7 @@
             console.log(`err:${JSON.stringify(res)}`)
           });
         }
-        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}`;
+        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/detail/id/${this.$route.params.id}/status/${this.$route.params.status}?mid=${localStorage.uid}`;
         let that = this;
         wx.ready(function () {
           wx.onMenuShareAppMessage({
