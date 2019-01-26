@@ -150,45 +150,50 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  /*
-  *  获取用户 UID
-  *  1. 用户只有通过一期项目进入 才会携带 uid
-  *  2. 当用户被分享进来时，链接内部不存在 UId 所以 uid 为 null
-  * */
+  // 获取 分享者 ID
   let mid = getQuery('mid');
+  // 获取 code
   let code = getQuery('code');
   if (!localStorage.uid) {
     if (!code) {
+      // 获取 Code
       window.location.assign(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ae88e9a0dcb59b1&redirect_uri=${encodeURIComponent('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/test/dist/index.html#/index')}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
     }
+    // 获取 UID
     getUid(code, mid).then(
       res => {
         localStorage.uid = res.data;
-        existUid(localStorage.uid).then(
-          result => {
-            if (result.code === 1) {
-              next()
-            }
-          }, err => {
-            localStorage.removeItem('uid');
-          }
-        )
       },
       err => {
         console.log(err);
       }
     )
   }
+
+  // 检测 UID 是否存在
+  existUid(localStorage.uid).then(
+    result => {
+      if (result.code === 1) {
+        next()
+      }
+    }, err => {
+      localStorage.removeItem('uid');
+    }
+  );
   next()
 
 });
 
+
+// 获取 query
+// query 不存在时返回 null ，当 null 存入 localStorage 中后 会转成 字符串null
 function getQuery(name) {
   let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
   let r = window.location.search.substr(1).match(reg);
   if (r != null) return unescape(r[2]);
   return null;
 }
+
 
 import {existUid, getUid} from "../api";
 
