@@ -135,7 +135,7 @@
             console.log(`err:${JSON.stringify(res)}`)
           });
         }
-        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/index`;
+        let url = `${window.location.href.split('?')[0]}?mid=${localStorage.uid}#/index?mid=${localStorage.uid}`;
         let that = this;
         wx.ready(function () {
           wx.onMenuShareAppMessage({

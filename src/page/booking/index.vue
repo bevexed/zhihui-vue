@@ -76,6 +76,7 @@
       <footer>
         手机号码
         <span>{{orderData.phone}}</span>
+        <!--<input type="text" v-model="phone" @blur="add(changePhone)">-->
       </footer>
     </section>
 
@@ -116,7 +117,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, orderList, shopOrderActualList} from "../../api";
+  import {ImgBaseUrl, orderList, shopOrderActualList,addmemberphone} from "../../api";
 
   export default {
     name: "booking",
@@ -128,10 +129,24 @@
         store: {},
         orderData: {},
         num1: 1,
-        remark: ''
+        remark: '',
+        changePhone:''
       }
     },
     computed: {
+      // phone:{
+      //   get(){
+      //     if (this.orderData){
+      //       if (this.orderData.phone){
+      //         return this.orderData.phone
+      //       }
+      //     }
+      //     return ''
+      //   },
+      //   set(e){
+      //    this.changePhone = e
+      //   }
+      // },
       payResult() {
         let real; // 实际支付金额
         let all = this.orderData.full_reducemoney * 1000; // 总金额(即折后价之后的满减价格)
@@ -163,6 +178,30 @@
       }
     },
     methods: {
+      // async add(changePhone){
+      //   let p = /^1[3-9]\d{9}$/;
+      //   if (!changePhone && !p.test(changePhone)) {
+      //     this.$message({
+      //       message: '请输入正确的手机号码',
+      //       type: 'error',
+      //     });
+      //     return
+      //   }
+      //   let result = await addmemberphone(localStorage.uid, changePhone);
+      //   if (result.code === 1) {
+      //     this.$message({
+      //       message: result.message,
+      //       type: 'success',
+      //     })
+      //   } else {
+      //     this.$message({
+      //       message: result.message,
+      //       type: 'error',
+      //     })
+      //   }
+      //
+      //   console.log(result);
+      // },
       handleChange(value) {
         this.getOderList()
       },
@@ -173,6 +212,15 @@
         }
       },
       async pay() {
+        // let p = /^1[3-9]\d{9}$/;
+        // if (!this.changePhone && !p.test(this.changePhone)) {
+        //   this.$message({
+        //     message: '请输入正确的手机号码',
+        //     type: 'error',
+        //   });
+        //   return
+        // }
+
         let rebat = this.payResult.real; // 实付金额
         let result = await shopOrderActualList(localStorage.uid, localStorage.preset_time, rebat, this.payResult.used, this.orderData.discountmoney, this.orderData.full_reducemoney, ...JSON.parse(localStorage.arr), this.num1, this.remark);
         if (result.code === 1) {

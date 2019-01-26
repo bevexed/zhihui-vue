@@ -176,7 +176,6 @@ router.beforeEach((to, from, next) => {
   existUid(localStorage.uid).then(
     result => {
       if (result.code === 0) {
-        // UID 不存在时 移除 UID 重载页面
         localStorage.removeItem('uid');
         window.location.reload()
       }
