@@ -57,13 +57,13 @@
         // this.goTo()
       )
     },
-    beforeRouteEnter(to, from, next) {
+    // beforeRouteEnter(to, from, next) {
       // if (from.name === 'pay') {
       //   next()
       // } else {
       //    window.location.assign('https://shop.zhihuimall.com.cn/app/index.php?i=1604&c=entry&do=shop&m=vslai_shop')
       // }
-    }
+    // }
 
   }
 </script>

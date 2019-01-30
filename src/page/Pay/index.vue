@@ -181,7 +181,7 @@
               message: result.message,
               type: 'success'
             });
-            this.$router.push({name: 'paySuccess', params:{order: that.orderData.ordernumber}})
+            that.$router.push({name: 'paySuccess', params:{order: that.orderData.ordernumber}})
           } else {
             this.$message({
               message: result.message,
