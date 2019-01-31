@@ -182,11 +182,15 @@ router.beforeEach((to, from, next) => {
     result => {
       if (result.code === 0) {
         localStorage.removeItem('uid');
+        window.history.go(0)
+        window.location.reload(true)
       }
     }
   ).catch(
     err => {
       localStorage.removeItem('uid');
+      window.history.go(0)
+      window.location.reload(true)
     }
   );
   next()
