@@ -45,6 +45,7 @@ Vue.prototype.$getWxConfig = async function () {
   let url = window.location.href.split('#')[0];
   let result = await wxConfig(url);
   result = JSON.parse(result.data);
+  console.log(result);
   let jssdkconfig = result;
 
   wx.config({

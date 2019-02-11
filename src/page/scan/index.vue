@@ -104,15 +104,16 @@
         let result = await addOrder(localStorage.uid, this.store_id, this.real.realMoney, this.rebatemoney - this.real.left);
         if (result.code === 1) {
           this.$router.push({name: 'pay', params: {order_id: result.data.order_id}})
+          // location.assign(` https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html#/pay/order_id/${result.data.order_id}`)
+
         }
       }
     },
     created() {
       this.getOrderInfo();
-      this.$getWxConfig()
+
     },
     mounted() {
-
     }
 
   }

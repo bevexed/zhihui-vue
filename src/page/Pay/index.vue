@@ -200,7 +200,6 @@
     },
     created() {
       this.getShopOrderPayList();
-      this.$getWxConfig()
     },
     beforeRouteEnter(to, from, next) {
       if (from.name === null) { // 从外部直接进来
