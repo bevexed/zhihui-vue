@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @touchmove="loadingMore()" @wheel="loadingMore()">
     <Back
       :title="'优惠信息'"
     />

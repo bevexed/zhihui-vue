@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @touchmove="loadingMore()" @wheel="loadingMore()">
     <top/>
 
     <BooKList
@@ -103,7 +103,7 @@
         if (this.allLoaded === false) {
           return
         }
-        if ($(window).scrollTop() + $(window).height() + 200 >= $(document).height()) {
+        if ($(window).scrollTop() + $(window).height() + 500 >= $(document).height()) {
           // console.log(1)
           this.allLoaded = false;
           this.loading = true;
