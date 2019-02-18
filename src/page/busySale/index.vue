@@ -62,7 +62,7 @@
         if (this.allLoaded === false) {
           return
         }
-        if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
+        if ($(window).scrollTop() + $(window).height() + 200 >= $(document).height()) {
           // alert(1)
           this.allLoaded = false;
           this.loading = true;

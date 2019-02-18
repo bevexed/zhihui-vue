@@ -89,7 +89,7 @@
         if (this.allLoaded === false) {
           return
         }
-        if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
+        if ($(window).scrollTop() + $(window).height() + 200 >= $(document).height()) {
           this.allLoaded = false;
           this.loading = true;
           this.sortPage++;
