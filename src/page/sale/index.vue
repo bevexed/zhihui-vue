@@ -66,7 +66,6 @@
           return
         }
         if ($(window).scrollTop() + $(window).height() + 200 >= $(document).height()) {
-          // alert(1)
           this.allLoaded = false;
           this.loading = true;
           this.page++;

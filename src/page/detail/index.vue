@@ -1,7 +1,10 @@
 <template>
   <div>
+    <section class="header">
+      <p class="iconfont icon-fanhui back" @click="goBack()"> 返回上一级</p>
+      <p class="iconfont icon-weixin" @click="towx()"> 关注公众号</p>
+    </section>
     <section class="detail_head">
-      <p class="iconfont icon-fanhui back cursor_pointer" @click="goBack()"></p>
       <img v-if="detail.store_images" :src="`${baseImgUrl}${detail.store_images}`" alt="">
     </section>
 
@@ -157,6 +160,9 @@
 
     },
     methods: {
+      towx() {
+        window.location.assign(`https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUyMjYxODQ2OQ==&scene=126&bizpsid=0#wechat_redirect`)
+      },
       goBack() {
         let mid = this.$route.query.mid
         if (mid) {
@@ -310,6 +316,13 @@
 
   ul li {
     list-style: none;
+  }
+
+  .header {
+    background: #F0F0F0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
   }
 
   .detail_head {
