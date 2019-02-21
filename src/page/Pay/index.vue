@@ -47,7 +47,8 @@
       </div>
     </div>
 
-    <div class="payButton" @click="pay">立即支付</div>
+    <el-button type="primary" size="lg" style="position: fixed;bottom: 0;width: 100%" @click="pay">立即支付</el-button>
+    <!--<div class="payButton" @click="pay">立即支付</div>-->
   </div>
 </template>
 
