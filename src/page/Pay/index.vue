@@ -27,7 +27,7 @@
       <div @click="choosePay(3)">
         <p>
           <i class="iconfont icon-money"></i>
-          <span>余额</span>
+          <span>至惠余额</span>
         </p>
         <div class="circle" :class="checked==3 ? 'checked_icon' : ''"></div>
       </div>
@@ -47,8 +47,8 @@
       </div>
     </div>
 
-    <el-button type="primary" size="lg" style="position: fixed;bottom: 0;width: 100%" @click="pay">立即支付</el-button>
-    <!--<div class="payButton" @click="pay">立即支付</div>-->
+    <!--<el-button type="primary" size="lg" style="position: fixed;bottom: 0;width: 100%" @click="pay">立即支付</el-button>-->
+    <div class="payButton" @click="pay">立即支付</div>
   </div>
 </template>
 
