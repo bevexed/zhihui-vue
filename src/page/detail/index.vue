@@ -121,7 +121,7 @@
       return {
         dataSelect: -1,
         baseImgUrl: ImgBaseUrl,
-        show3: 0,
+        show3: -1,
         selected: -1,
         alert: false,
         detail: {},
