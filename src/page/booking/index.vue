@@ -52,11 +52,11 @@
     <section class="real_pay room_style">
       <footer>
         <div>
-          现有至惠购物卷
+          现有至惠购物券
           <span>￥{{payResult.leave}}</span>
         </div>
         <div>
-          使用至惠购物卷
+          使用至惠购物券
           <span>
             <el-switch
               v-model="value2"
@@ -150,10 +150,10 @@
       payResult() {
         let real; // 实际支付金额
         let all = this.orderData.full_reducemoney * 1000; // 总金额(即折后价之后的满减价格)
-        let reduce = this.orderData.rebatemoney * 1000; // 总折扣卷
-        let leave; // 剩余的抵扣卷数量
-        let used; // 用掉的抵扣卷数量
-        if (this.value2 === true) { // 用卷
+        let reduce = this.orderData.rebatemoney * 1000; // 总折扣券
+        let leave; // 剩余的抵扣券数量
+        let used; // 用掉的抵扣券数量
+        if (this.value2 === true) { // 用券
           if (all >= reduce) {
             real = all - reduce;
             leave = 0
@@ -161,7 +161,7 @@
             real = 0;
             leave = reduce - all
           }
-        } else {  // 不用卷
+        } else {  // 不用券
           real = all;
           leave = reduce
         }

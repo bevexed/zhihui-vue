@@ -10,6 +10,11 @@
       {{orderData.total}} 元
     </h4>
 
+    <h1 style="margin-top: .5rem;font-size: .16rem">
+      本次返还购物券: ￥{{orderData.coupon}} <br>
+      该券可供下次支付抵用
+    </h1>
+
     <el-button type="success" size="medium" style="margin-top: 1rem" @click="to">完成</el-button>
     <el-button type="success" size="medium" style="margin-top: 1rem" @click="towx">返回公众号</el-button>
     <!--<p style="padding-top: .2rem" @click="to">{{time}}s或点击后跳转到订单详情页</p>-->

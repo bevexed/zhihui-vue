@@ -284,7 +284,8 @@
         let p = /^1[3-9]\d{9}$/;
         if (!this.form.phone && !p.test(this.form.phone)) {
           this.$message({
-            message: '请输入正确的手机号码',
+            message: '' +
+              '请输入正确的手机号码',
             type: 'error',
           });
           return

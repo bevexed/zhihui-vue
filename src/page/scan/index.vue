@@ -50,7 +50,7 @@
     computed: {
       real() {
         let realMoneny; // 用户实际支付的钱
-        let left; // 用户剩余优惠卷
+        let left; // 用户剩余优惠券
         let all = this.money * 1000; // 用户输入金额
         let coupon = this.rebatemoney * 1000;
 
