@@ -117,7 +117,7 @@
 </template>
 
 <script>
-  import {ImgBaseUrl, orderList, shopOrderActualList,addmemberphone} from "../../api";
+  import {ImgBaseUrl, orderList, shopOrderActualList, addmemberphone} from "../../api";
 
   export default {
     name: "booking",
@@ -130,7 +130,7 @@
         orderData: {},
         num1: 1,
         remark: '',
-        changePhone:''
+        changePhone: ''
       }
     },
     computed: {

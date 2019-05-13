@@ -55,12 +55,17 @@
     <section class="booking_money">
       <ul>
         <li v-for="(v,i) in detail.shop_goods" :key="v.id" @click="showDetail(i)">
-          <img style="height: .6rem;width: .6rem" :src="baseImgUrl+v.meal_images" alt="">
-          <div style="margin-bottom: .05rem">
+          <img style="height: .8rem;width: .8rem" :src="baseImgUrl+v.meal_images" alt="">
+          <div style="margin-bottom: .05rem;width: 2rem">
             <p>{{v.meal_name}} <a class="list_price" v-if="v.discount-0 !== 100 && v.discount-0 !== 0 ">{{v.discount/10}}折</a></p>
             [{{v.rule === ''? '不限时' : v.rule}}]
             <span style="display: flex;align-content: center">
-             <a style="margin-left: .05rem"><cite style="font-size: .12rem;color: #666">原价:</cite>￥{{v.amount_money}}</a>
+             <a style="margin-left: .05rem"><cite style="font-size: .12rem;color: #666">原价:</cite>
+               <span style="text-decoration: line-through;font-size: .1rem;display: inline;color: #666">￥{{v.amount_money}}</span>
+             </a>
+            </span>
+            <span style="display: flex;align-content: center">
+             <a style="margin-left: .05rem"><cite style="font-size: .12rem;color: #666">现价:</cite>￥{{v.discountmoney}}</a>
             </span>
           </div>
           <span class="button"
@@ -164,7 +169,7 @@
         window.location.assign(`https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUyMjYxODQ2OQ==&scene=126&bizpsid=0#wechat_redirect`)
       },
       goBack() {
-        let mid = this.$route.query.mid
+        let mid = this.$route.query.mid;
         if (mid) {
           return window.location.assign('https://shop.zhihuimall.com.cn/zhihuishop/zhihui-master/dist/index.html')
         }
